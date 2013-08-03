@@ -1,0 +1,9 @@
+budget:
+    resource: "@BudgetBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+application:
+    resource: "@ApplicationBundle/Resources/config/routing.yml"
+    prefix:   /
+
