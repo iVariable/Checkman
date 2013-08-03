@@ -2318,6 +2318,7 @@ class UnitOfWork implements PropertyChangedListener
             $this->collectionUpdates =
             $this->extraUpdates =
             $this->readOnlyObjects =
+            $this->visitedCollections =
             $this->orphanRemovals = array();
 
             if ($this->commitOrderCalculator !== null) {
@@ -2708,6 +2709,8 @@ class UnitOfWork implements PropertyChangedListener
                 $persister->loadManyToManyCollection($assoc, $collection->getOwner(), $collection);
                 break;
         }
+
+        $collection->setInitialized(true);
     }
 
     /**
