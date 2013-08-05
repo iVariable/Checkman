@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Project
 {
+
+    const STATUS_DISABLED = 0;
+    const STATUS_ACTIVE = 1;
+    const STATUS_FINISHED = 2;
+
     /**
      * @var integer
      *
@@ -31,7 +36,7 @@ class Project
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 

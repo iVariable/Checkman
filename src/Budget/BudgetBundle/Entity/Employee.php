@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Employee
 {
+
+    const STATUS_DELETED = 0;
+    const STATUS_ACTIVE = 1;
+    const STATUS_ON_VACATION = 2;
+
     /**
      * @var integer
      *
@@ -45,7 +50,7 @@ class Employee
     /**
      * @var string
      *
-     * @ORM\Column(name="notes", type="text")
+     * @ORM\Column(name="notes", type="text", nullable=true)
      */
     private $notes;
 
@@ -61,6 +66,10 @@ class Employee
      */
     private $projects;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Occupation", mappedBy="employees")
+     */
+    private $occupations;
 
     /**
      * Get id
@@ -225,5 +234,38 @@ class Employee
     public function getProjects()
     {
         return $this->projects;
+    }
+
+    /**
+     * Add occupations
+     *
+     * @param \Budget\BudgetBundle\Entity\Occupation $occupations
+     * @return Employee
+     */
+    public function addOccupation(\Budget\BudgetBundle\Entity\Occupation $occupations)
+    {
+        $this->occupations[] = $occupations;
+    
+        return $this;
+    }
+
+    /**
+     * Remove occupations
+     *
+     * @param \Budget\BudgetBundle\Entity\Occupation $occupations
+     */
+    public function removeOccupation(\Budget\BudgetBundle\Entity\Occupation $occupations)
+    {
+        $this->occupations->removeElement($occupations);
+    }
+
+    /**
+     * Get occupations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOccupations()
+    {
+        return $this->occupations;
     }
 }

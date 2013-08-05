@@ -1,0 +1,30 @@
+crud_occupation:
+    pattern:  /
+    defaults: { _controller: "BudgetBundle:Occupation:index" }
+
+crud_occupation_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "BudgetBundle:Occupation:show" }
+
+crud_occupation_new:
+    pattern:  /new
+    defaults: { _controller: "BudgetBundle:Occupation:new" }
+
+crud_occupation_create:
+    pattern:  /create
+    defaults: { _controller: "BudgetBundle:Occupation:create" }
+    requirements: { _method: post }
+
+crud_occupation_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "BudgetBundle:Occupation:edit" }
+
+crud_occupation_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "BudgetBundle:Occupation:update" }
+    requirements: { _method: post|put }
+
+crud_occupation_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "BudgetBundle:Occupation:delete" }
+    requirements: { _method: post|delete }

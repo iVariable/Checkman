@@ -28,6 +28,15 @@ class Occupation
      */
     private $title;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Employee", inversedBy="occupations")
+     * @ORM\JoinTable(name="occupationToEmployee",
+     *      joinColumns={@ORM\JoinColumn(name="occupation_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="employee_id", referencedColumnName="id")}
+     *      )
+     */
+    private $employees;
+
 
     /**
      * Get id
@@ -60,5 +69,45 @@ class Occupation
     public function getTitle()
     {
         return $this->title;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->employees = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add employees
+     *
+     * @param \Budget\BudgetBundle\Entity\Employee $employees
+     * @return Occupation
+     */
+    public function addEmployee(\Budget\BudgetBundle\Entity\Employee $employees)
+    {
+        $this->employees[] = $employees;
+    
+        return $this;
+    }
+
+    /**
+     * Remove employees
+     *
+     * @param \Budget\BudgetBundle\Entity\Employee $employees
+     */
+    public function removeEmployee(\Budget\BudgetBundle\Entity\Employee $employees)
+    {
+        $this->employees->removeElement($employees);
+    }
+
+    /**
+     * Get employees
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEmployees()
+    {
+        return $this->employees;
     }
 }
