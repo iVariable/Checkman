@@ -44,6 +44,7 @@ return array(
     'Doctrine\\Bundle\\FixturesBundle' => array($vendorDir . '/doctrine/doctrine-fixtures-bundle'),
     'Doctrine\\Bundle\\DoctrineBundle' => array($vendorDir . '/doctrine/doctrine-bundle'),
     'CodeMonkeysRu\\RepositoryAliasBundle' => array($vendorDir . '/codemonkeys-ru/repository-alias-bundle'),
+    'Bc\\Bundle\\BootstrapBundle' => array($vendorDir . '/braincrafted/bootstrap-bundle'),
     'Assetic' => array($vendorDir . '/kriswallsmith/assetic/src'),
     '' => array($baseDir . '/src'),
 );
