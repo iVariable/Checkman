@@ -71,3 +71,13 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+
+
+repository_alias:
+    repository_key: "r"
+    repository:
+        occupation: BudgetBundle:Occupation
+        project: BudgetBundle:Project
+        employee: BudgetBundle:Employee
+        project_involvement: BudgetBundle:ProjectInvolvement
+        spendings: BudgetBundle:Spendings

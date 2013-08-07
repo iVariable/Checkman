@@ -74,7 +74,7 @@ class Employee
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -90,14 +90,14 @@ class Employee
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
-    
+
         return $this;
     }
 
     /**
      * Get firstName
      *
-     * @return string 
+     * @return string
      */
     public function getFirstName()
     {
@@ -113,14 +113,14 @@ class Employee
     public function setSecondName($secondName)
     {
         $this->secondName = $secondName;
-    
+
         return $this;
     }
 
     /**
      * Get secondName
      *
-     * @return string 
+     * @return string
      */
     public function getSecondName()
     {
@@ -136,14 +136,14 @@ class Employee
     public function setSalary($salary)
     {
         $this->salary = $salary;
-    
+
         return $this;
     }
 
     /**
      * Get salary
      *
-     * @return float 
+     * @return float
      */
     public function getSalary()
     {
@@ -159,14 +159,14 @@ class Employee
     public function setNotes($notes)
     {
         $this->notes = $notes;
-    
+
         return $this;
     }
 
     /**
      * Get notes
      *
-     * @return string 
+     * @return string
      */
     public function getNotes()
     {
@@ -182,38 +182,73 @@ class Employee
     public function setStatus($status)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 
     /**
      * Get status
      *
-     * @return integer 
+     * @return integer
      */
     public function getStatus()
     {
         return $this->status;
     }
+
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($firstName = false, $secondName = false, $salary = false)
     {
         $this->projects = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->occupations = new \Doctrine\Common\Collections\ArrayCollection();
+        if ($firstName) {
+            $this->setFirstName($firstName);
+        }
+        if ($secondName) {
+            $this->setSecondName($secondName);
+        }
+        if ($salary) {
+            $this->setSalary($salary);
+        }
     }
-    
+
     /**
      * Add projects
      *
      * @param \Budget\BudgetBundle\Entity\ProjectInvolvement $projects
      * @return Employee
      */
-    public function addProject(\Budget\BudgetBundle\Entity\ProjectInvolvement $projects)
+    public function addProjectInvolvement(\Budget\BudgetBundle\Entity\ProjectInvolvement $projects)
     {
+        if ($this->hasProjectInvolvement($projects)) {
+            return $this;
+        }
+
         $this->projects[] = $projects;
-    
+
         return $this;
+    }
+
+    /**
+     * Checks if an existing involvement already exists
+     *
+     * @param ProjectInvolvement $projects
+     */
+    public function hasProjectInvolvement(\Budget\BudgetBundle\Entity\ProjectInvolvement $involvement)
+    {
+        /* @var $existingInvolvement ProjectInvolvement */
+        foreach ($this->getProjectInvolvements() as $existingInvolvement) {
+            if (
+                $existingInvolvement->getEmployee()->getId() == $involvement->getEmployee()->getId()
+                &&
+                $existingInvolvement->getProject()->getId() == $involvement->getProject()->getId()
+            ) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -221,7 +256,7 @@ class Employee
      *
      * @param \Budget\BudgetBundle\Entity\ProjectInvolvement $projects
      */
-    public function removeProject(\Budget\BudgetBundle\Entity\ProjectInvolvement $projects)
+    public function removeProjectInvolvement(\Budget\BudgetBundle\Entity\ProjectInvolvement $projects)
     {
         $this->projects->removeElement($projects);
     }
@@ -229,9 +264,9 @@ class Employee
     /**
      * Get projects
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getProjects()
+    public function getProjectInvolvements()
     {
         return $this->projects;
     }
@@ -242,10 +277,13 @@ class Employee
      * @param \Budget\BudgetBundle\Entity\Occupation $occupations
      * @return Employee
      */
-    public function addOccupation(\Budget\BudgetBundle\Entity\Occupation $occupations)
+    public function addOccupation(\Budget\BudgetBundle\Entity\Occupation $occupations, $bothSides = true)
     {
         $this->occupations[] = $occupations;
-    
+        if ($bothSides) {
+            $occupations->addEmployee($this, false);
+        }
+
         return $this;
     }
 
@@ -262,7 +300,7 @@ class Employee
     /**
      * Get occupations
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getOccupations()
     {

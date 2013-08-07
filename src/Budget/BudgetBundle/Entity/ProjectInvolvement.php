@@ -28,12 +28,20 @@ class ProjectInvolvement
      */
     private $involvement;
 
+    function __construct(Project $project, Employee $employee, $involvement, $notes = "")
+    {
+        $this->setProject($project);
+        $this->setEmployee($employee);
+        $this->setInvolvement($involvement);
+        $this->setNotes($notes);
+    }
+
     /**
      * @var string
      *
-     * @ORM\Column(name="notes", type="text")
+     * @ORM\Column(name="notes", type="text", nullable=true)
      */
-    private $notes;
+    private $notes = "";
 
     /**
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="employees")

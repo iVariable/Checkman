@@ -84,9 +84,10 @@ class Occupation
      * @param \Budget\BudgetBundle\Entity\Employee $employees
      * @return Occupation
      */
-    public function addEmployee(\Budget\BudgetBundle\Entity\Employee $employees)
+    public function addEmployee(\Budget\BudgetBundle\Entity\Employee $employees, $bothSides = true)
     {
         $this->employees[] = $employees;
+        if($bothSides) $employees->addOccupation($this, false);
     
         return $this;
     }
