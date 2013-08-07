@@ -12,4 +12,29 @@ use Doctrine\ORM\EntityRepository;
  */
 class SpendingsRepository extends EntityRepository
 {
+
+    public function hasDaySpendings(\DateTime $date)
+    {
+        $query = $this->createQueryBuilder('spendings')
+            ->select('COUNT(spendings)')
+            ->where('spendings.date =: date')
+
+            ->setParameter('date', $date)
+
+            ->getQuery();
+
+        return $query->getSingleScalarResult();
+
+    }
+
+    public function clearDaySpendings(\DateTime $date)
+    {
+        $result = $this->getEntityManager()
+            ->createQuery("DELETE FROM BudgetBundle:Spendings WHERE date = :date")
+            ->setParameter('date', $date)
+            ->execute();
+
+        return $result;
+    }
+
 }
