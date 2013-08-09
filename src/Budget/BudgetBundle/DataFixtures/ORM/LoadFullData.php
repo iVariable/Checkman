@@ -14,6 +14,7 @@ class LoadUserData extends ContainerAware implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
+        $this->createSalaryType($manager);
 
         $occupations = $this->loadOccupations($manager);
         $projects = $this->loadProjects($manager);
@@ -145,5 +146,21 @@ class LoadUserData extends ContainerAware implements FixtureInterface
         $manager->flush();
 
         return $employees;
+    }
+
+    /**
+     * @param ObjectManager $manager
+     */
+    public function createSalaryType(ObjectManager $manager)
+    {
+        /* @var $salarySpendingsType Entity\SpendingsType */
+        $salarySpendingsType = $this->container->get('r.spendings_type')->newEntity();
+
+        $salarySpendingsType->setTitle("Зарплата")
+            ->setCanBeDeleted(false)
+            ->setDescription("");
+
+        $manager->persist($salarySpendingsType);
+        $manager->flush();
     }
 }

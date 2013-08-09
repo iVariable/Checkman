@@ -306,4 +306,11 @@ class Employee
     {
         return $this->occupations;
     }
+
+    function __toString()
+    {
+        return $this->getFirstName().' '.$this->getSecondName();
+    }
+
+
 }

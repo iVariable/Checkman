@@ -24,6 +24,8 @@ class ProjectInvolvement
     /**
      * @var integer
      *
+     * [0, 100]
+     *
      * @ORM\Column(name="involvement", type="smallint")
      */
     private $involvement;

@@ -19,11 +19,11 @@ class SpendingsRepository extends EntityRepository
             ->select('COUNT(spendings)')
             ->where('spendings.date = :date')
 
-            ->setParameter('date', $date)
+            ->setParameter('date', $date->format('Y-m-d'))
 
             ->getQuery();
 
-        return $query->getSingleScalarResult();
+        return $query->getSingleScalarResult() != 0;
 
     }
 
@@ -31,7 +31,7 @@ class SpendingsRepository extends EntityRepository
     {
         $result = $this->getEntityManager()
             ->createQuery('DELETE FROM Budget\\BudgetBundle\\Entity\\Spendings s WHERE s.date=:date')
-            ->setParameter('date', $date)
+            ->setParameter('date', $date->format('Y-m-d'))
             ->execute();
 
         return $result;

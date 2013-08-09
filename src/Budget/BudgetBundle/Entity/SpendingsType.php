@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TypedSpendingsType
  *
- * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="title_idx", columns={"title"})})
+ * @ORM\Entity(repositoryClass="Budget\BudgetBundle\Entity\SpendingsTypeRepository")
  */
 class SpendingsType
 {
@@ -31,7 +31,7 @@ class SpendingsType
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 

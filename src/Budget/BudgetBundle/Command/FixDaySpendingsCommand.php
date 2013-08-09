@@ -2,6 +2,9 @@
 
 namespace Budget\BudgetBundle\Command;
 
+use Budget\BudgetBundle\Entity\Employee;
+use Budget\BudgetBundle\Entity\ProjectInvolvement;
+use Budget\BudgetBundle\Entity\Spendings;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -16,8 +19,8 @@ class FixDaySpendingsCommand extends ContainerAwareCommand
             ->setName('budget:spendings:day-fix')
             ->setDescription('Fixes day spendings in DB')
             ->addArgument('date', InputArgument::OPTIONAL, 'date in d.m.Y format', date("d.m.Y"))
-            ->addOption("overwrite-day-spendings", "ods", InputOption::VALUE_OPTIONAL)
-            ->addOption("not-verbose", "nv", InputOption::VALUE_OPTIONAL)
+            ->addOption("overwrite-day-spendings", "o", InputOption::VALUE_NONE)
+            ->addOption("not-verbose", "w", InputOption::VALUE_NONE)
             ->setHelp(
                 <<<EOF
                 Help will be later. Or never :)
@@ -33,20 +36,20 @@ EOF
     {
         $this->input = $input;
         $this->output = $output;
-        $this->verbose = !$this->input->hasOption('not-verbose');
+        $this->verbose = !$this->input->getOption('not-verbose');
 
         $dateString = $input->getArgument('date');
         $date = new \DateTime();
         $date->createFromFormat('d.m.Y', $dateString);
 
-        $repo = $this->getContainer()->get('r.spendings');
+        $spendingsRepo = $this->getContainer()->get('r.spendings');
 
         // @TODO: check repo
 
-        $hasDaySpendings = $repo->hasDaySpendings($date);
+        $hasDaySpendings = $spendingsRepo->hasDaySpendings($date);
 
         if ($hasDaySpendings) {
-            if (!$input->hasOption("ods")) {
+            if (!$input->getOption("overwrite-day-spendings")) {
                 $this->log(
                     "<error>This day already has fixed spendings! Use --ods key if you want to overwrite them.<error>",
                     true
@@ -55,18 +58,57 @@ EOF
                 return false;
             } else {
                 $this->log('<info>Existed day spendings cleared</info>');
-                $repo->clearDaySpendings($date);
+                $spendingsRepo->clearDaySpendings($date);
             }
         }
 
+        $salaryType = $this->getContainer()->get('r.spendings_type')->getSalaryType();
+        $employees = $this->getContainer()->get('r.employee')->getActiveEmployees();
 
+        $numberDaysInMonth = date('t');
+        $currentDate = new \DateTime();
+
+        $this->log('<info>Processing employees</info>');
+
+        $em = $this->getContainer()->get('em');
+
+        /* @var $employee Employee */
+        foreach ($employees as $employee) {
+
+            $this->log("<comment>Employee: </comment>" . $employee);
+
+            $projects = $employee->getProjectInvolvements();
+
+            $daySalary = $employee->getSalary() / $numberDaysInMonth;
+
+            /* @var $projectInvolvement ProjectInvolvement */
+            foreach ($projects as $projectInvolvement) {
+
+                /* @var $salarySpending Spendings */
+                $salarySpending = $spendingsRepo->newEntity();
+
+                $salarySpending
+                    ->setProject($projectInvolvement->getProject())
+                    ->setEmployee($employee)
+                    ->setDate($currentDate)
+                    ->setType($salaryType)
+                    ->setValue($daySalary / 100 * $projectInvolvement->getInvolvement());
+
+                $em->persist($salarySpending);
+            }
+
+        }
+
+        $em->flush();
+
+        $this->log('<info>Done.</info>');
 
     }
 
     protected function log($text, $critical = false)
     {
         if ($this->verbose || $critical) {
-            $this->input->writeln($text);
+            $this->output->writeln($text);
         }
     }
 

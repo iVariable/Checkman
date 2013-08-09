@@ -80,4 +80,6 @@ repository_alias:
         project: BudgetBundle:Project
         employee: BudgetBundle:Employee
         project_involvement: BudgetBundle:ProjectInvolvement
+
         spendings: BudgetBundle:Spendings
+        spendings_type: BudgetBundle:SpendingsType
