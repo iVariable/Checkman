@@ -17,7 +17,7 @@ class SpendingsRepository extends EntityRepository
     {
         $query = $this->createQueryBuilder('spendings')
             ->select('COUNT(spendings)')
-            ->where('spendings.date =: date')
+            ->where('spendings.date = :date')
 
             ->setParameter('date', $date)
 
@@ -30,7 +30,7 @@ class SpendingsRepository extends EntityRepository
     public function clearDaySpendings(\DateTime $date)
     {
         $result = $this->getEntityManager()
-            ->createQuery("DELETE FROM BudgetBundle:Spendings WHERE date = :date")
+            ->createQuery('DELETE FROM Budget\\BudgetBundle\\Entity\\Spendings s WHERE s.date=:date')
             ->setParameter('date', $date)
             ->execute();
 

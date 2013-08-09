@@ -20,7 +20,7 @@ class Spendings
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+g
     /**
      * @var float
      *
