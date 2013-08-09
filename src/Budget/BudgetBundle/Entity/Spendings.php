@@ -7,8 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Spendings
  *
- * @ORM\Table()
+ *
  * @ORM\Entity(repositoryClass="Budget\BudgetBundle\Entity\SpendingsRepository")
+ * @ORM\Table()
  */
 class Spendings
 {
@@ -20,7 +21,7 @@ class Spendings
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-g
+
     /**
      * @var float
      *
@@ -35,6 +36,23 @@ g
      */
     private $date;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Project")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     */
+    private $project;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Employee")
+     * @ORM\JoinColumn(name="employee_id", referencedColumnName="id")
+     */
+    private $employee;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="SpendingsType")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     */
+    private $type;
 
     /**
      * Get id
