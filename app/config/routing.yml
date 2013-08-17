@@ -4,6 +4,7 @@ budget:
     prefix:   /
 
 application:
-    resource: "@ApplicationBundle/Resources/config/routing.yml"
+    resource: "@ApplicationBundle/Controller/"
+    type: annotation
     prefix:   /
 

@@ -20,7 +20,6 @@
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
 
-        "braincrafted/bootstrap-bundle": "dev-master",
         "twitter/bootstrap": "2.3.*",
 
         "doctrine/doctrine-fixtures-bundle": "dev-master",
