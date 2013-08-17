@@ -24,8 +24,11 @@
         {% endjavascripts %}
         <![endif]-->
 
+        <script src="frontend/bower_components/jquery/jquery.min.js"></script>
+
         {% block stylesheets %}{% endblock %}
         <!-- Bootstrap -->
+        {% block javascripts_header %}{% endblock %}
     </head>
     <body id="main_container">
 
@@ -35,6 +38,6 @@
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
-        {% block javascripts %}{% endblock %}
+        {% block javascripts_footer %}{% endblock %}
     </body>
 </html>
