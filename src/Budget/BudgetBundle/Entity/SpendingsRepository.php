@@ -37,4 +37,13 @@ class SpendingsRepository extends EntityRepository
         return $result;
     }
 
+    public function projectSpendings(Project $project, \DateTime $startDate = null, \DateTime $endDate = null)
+    {
+        $result = $this->createNativeNamedQuery('spendings')
+            ->setSQL('SELECT speindgs')
+            ->execute();
+
+        return $result;
+    }
+
 }

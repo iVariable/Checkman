@@ -1,3 +1,0 @@
-budget_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: BudgetBundle:Default:index }
