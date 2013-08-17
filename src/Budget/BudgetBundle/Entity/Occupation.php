@@ -3,6 +3,8 @@
 namespace Budget\BudgetBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
+
 
 /**
  * Occupation
@@ -18,6 +20,8 @@ class Occupation
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Serializer\Groups({"Occupation"})
      */
     private $id;
 
@@ -25,6 +29,8 @@ class Occupation
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     *
+     * @Serializer\Groups({"Occupation"})
      */
     private $title;
 
@@ -34,6 +40,8 @@ class Occupation
      *      joinColumns={@ORM\JoinColumn(name="occupation_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="employee_id", referencedColumnName="id")}
      *      )
+     *
+     *
      */
     private $employees;
 

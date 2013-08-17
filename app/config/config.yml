@@ -21,6 +21,19 @@ framework:
     fragments:       ~
     http_method_override: true
 
+fos_rest:
+    param_fetcher_listener: true
+    body_listener: true
+    view:
+        view_response_listener: 'force'
+    format_listener:
+            default_priorities: ['json', html, '*/*']
+            fallback_format: json
+            prefer_extension: true
+sensio_framework_extra:
+    view:    { annotations: false }
+    router:  { annotations: true }
+
 # Twig Configuration
 twig:
     debug:            %kernel.debug%

@@ -4,6 +4,8 @@ namespace Budget\BudgetBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use JMS\Serializer\Annotation as Serializer;
+
 /**
  * Employee
  *
@@ -23,6 +25,10 @@ class Employee
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Serializer\Groups({
+     *      "Employee"
+     * })
      */
     private $id;
 
@@ -30,6 +36,10 @@ class Employee
      * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=255)
+     *
+     * @Serializer\Groups({
+     *      "Employee"
+     * })
      */
     private $firstName;
 
@@ -37,6 +47,10 @@ class Employee
      * @var string
      *
      * @ORM\Column(name="secondName", type="string", length=255)
+     *
+     * @Serializer\Groups({
+     *      "Employee"
+     * })
      */
     private $secondName;
 
@@ -44,6 +58,10 @@ class Employee
      * @var float
      *
      * @ORM\Column(name="salary", type="float")
+     *
+     * @Serializer\Groups({
+     *      "Employee"
+     * })
      */
     private $salary;
 
@@ -51,6 +69,10 @@ class Employee
      * @var string
      *
      * @ORM\Column(name="notes", type="text", nullable=true)
+     *
+     * @Serializer\Groups({
+     *      "Employee"
+     * })
      */
     private $notes;
 
@@ -58,6 +80,10 @@ class Employee
      * @var integer
      *
      * @ORM\Column(name="status", type="smallint")
+     *
+     * @Serializer\Groups({
+     *      "Employee"
+     * })
      */
     private $status;
 

@@ -3,6 +3,7 @@
 namespace Budget\BudgetBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * ProjectInvolvement
@@ -18,6 +19,8 @@ class ProjectInvolvement
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Serializer\Groups({"ProjectInvolvement"})
      */
     private $id;
 
@@ -27,6 +30,8 @@ class ProjectInvolvement
      * [0, 100]
      *
      * @ORM\Column(name="involvement", type="smallint")
+     *
+     * @Serializer\Groups({"ProjectInvolvement"})
      */
     private $involvement;
 
@@ -42,6 +47,8 @@ class ProjectInvolvement
      * @var string
      *
      * @ORM\Column(name="notes", type="text", nullable=true)
+     *
+     * @Serializer\Groups({"ProjectInvolvement"})
      */
     private $notes = "";
 

@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new Budget\ApplicationBundle\ApplicationBundle(),
 
             new Budget\BudgetBundle\BudgetBundle(),
+            new Budget\RESTBudgetBundle\RESTBudgetBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
