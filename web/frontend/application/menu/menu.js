@@ -34,13 +34,18 @@ define(
             view: function (name) {
                 if (_.isUndefined(this.views)) this.views = {};
                 if (_.isUndefined(this.views[name])) {
-                    if (_.isUndefined(this._views[name])){
-                        throw Error('View ['+name+'] not found!');
+                    if (_.isUndefined(this._views[name])) {
+                        throw Error('View [' + name + '] not found!');
                     }
                     this.views[name] = new (this._views[name])({model: this});
                 }
 
                 return this.views[name];
+            },
+
+            menu: function (menu) {
+                if (!_.isUndefined(menu)) this.set('menu', menu);
+                return this.get('menu');
             }
 
         });

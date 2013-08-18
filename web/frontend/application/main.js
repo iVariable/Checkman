@@ -2,12 +2,14 @@ define(
     [
         'marionette',
 
+        './menu',
+
         './menu/menu',
         './layouts/main',
 
         "module"
     ],
-    function (Marionette, Menu, Layouts, module) {
+    function (Marionette, MenuData, Menu, Layouts, module) {
 
         var app = new Marionette.Application();
 
@@ -17,7 +19,7 @@ define(
         };
 
         app.menu = new Menu({app: app});
-
+        app.menu.menu(MenuData);
 
         app.addInitializer(function(){
             app.layouts.main.render();

@@ -1,20 +1,7 @@
 <ul>
-    <li>
-        <a href="/path/to/dashboard"><i class="icon-dashboard"></i> Dashboard</a>
+    <% _(menu).each(function(item, key){%>
+    <li <%if(item.selected){%>class="active"<%};%>>
+        <a class="j-nav" href="<%=item.url%>"><%if(item.icon){%><i class="<%=item.icon%>"></i> <%};%><%=item.title%></a>
     </li>
-
-    <li class="active">
-        <a href="/path/to/active"><i class="icon-list-alt"></i> Forms</a>
-    </li>
-
-    //you can add a dropdown menu here. the theme is built on a multiple of 3 buttons to gain a 3-grid button menu when
-    resized to mobile
-    <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-share-alt"></i>More <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-            <li>
-                <a href="/page/in/dropdown"><i class="icon-warning-sign"></i> Error 404</a>
-            </li>
-        </ul>
-    </li>
+    <%});%>
 </ul>
