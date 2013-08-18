@@ -11,7 +11,7 @@ define(
                 primaryMenu: "#primary",
                 secondaryMenu: "#secondary>.secondary-nav-menu",
                 profile: "#secondary>.profile-menu",
-                crumbs: "#main>.top-nav",
+                breadcrumbs: "#main>.top-nav .breadcrumb",
                 container: "#main>.a-main-container"
             }
         });

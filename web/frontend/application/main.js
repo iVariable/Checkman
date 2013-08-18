@@ -3,7 +3,6 @@ define(
         'marionette',
 
         './menu/menu',
-
         './layouts/main',
 
         "module"
@@ -26,6 +25,7 @@ define(
             app.layouts.main.primaryMenu.draw(app.menu.view('main'));
             app.layouts.main.secondaryMenu.draw(app.menu.view('secondary'));
             app.layouts.main.profile.draw(app.menu.view('profile'));
+            app.layouts.main.breadcrumbs.draw(app.menu.view('breadcrumbs'));
         });
 
 

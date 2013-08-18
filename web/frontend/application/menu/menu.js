@@ -5,9 +5,10 @@ define(
         'underscore',
         'tpl!./main.tpl.html',
         'tpl!./secondary.tpl.html',
+        'tpl!./breadcrumbs.tpl.html',
         'tpl!./profile.tpl.html'
     ],
-    function (Marionette, Backbone, _, Tpl_MainMenu, Tpl_SecondaryMenu, Tpl_Profile) {
+    function (Marionette, Backbone, _, Tpl_MainMenu, Tpl_SecondaryMenu, Tpl_Breadcrumbs, Tpl_Profile) {
 
         var menu = Backbone.Model.extend({
 
@@ -23,6 +24,10 @@ define(
 
                 profile: Marionette.ItemView.extend({
                     template: Tpl_Profile
+                }),
+
+                breadcrumbs: Marionette.ItemView.extend({
+                    template: Tpl_Breadcrumbs
                 })
             },
 
