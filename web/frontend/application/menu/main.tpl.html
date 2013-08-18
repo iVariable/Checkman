@@ -1,5 +1,4 @@
 <ul>
-    <% console.log(model.menu());%>
     <% _(model.menu()).each(function(item, key){%>
     <li <%if(item.selected){%>class="active"<%};%>>
         <a class="j-nav" href="<%=item.url%>"><%if(item.icon){%><i class="<%=item.icon%>"></i> <%};%><%=item.title%></a>

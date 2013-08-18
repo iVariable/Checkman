@@ -1,15 +1,22 @@
 define(
     [
-        'marionette',
+        'marionette', 'backbone',
+
+        './router', './menu/menu', './layouts/main',
 
         './menu',
 
-        './menu/menu',
-        './layouts/main',
-
         "module"
     ],
-    function (Marionette, MenuData, Menu, Layouts, module) {
+    function (
+        Marionette, Backbone,
+
+        Router, Menu, Layouts,
+
+        MenuData,
+
+        module
+    ) {
 
         var app = new Marionette.Application();
 
@@ -18,9 +25,12 @@ define(
         };
 
         app.menu = new Menu(MenuData, {app: app});
-        //app.menu.menu('', MenuData);
 
-        app.addInitializer(function(){
+        app.router = new Router();
+        app.router.app(app);
+
+        app.on("initialize:after", function(options){
+
             app.layouts.main.render();
 
             app.layouts.main.primaryMenu.draw(app.menu.view('main'));
@@ -28,8 +38,11 @@ define(
             app.layouts.main.profile.draw(app.menu.view('profile'));
             app.layouts.main.breadcrumbs.draw(app.menu.view('breadcrumbs'));
 
-        });
+            if (Backbone.history){
+                Backbone.history.start();
+            }
 
+        });
 
         return app;
 

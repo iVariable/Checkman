@@ -12,7 +12,7 @@ define(
                 secondaryMenu: "#secondary>.secondary-nav-menu",
                 profile: "#secondary>.profile-menu",
                 breadcrumbs: "#main>.top-nav .breadcrumb",
-                container: "#main>.a-main-container"
+                content: "#main>.a-main-container"
             }
         });
 
