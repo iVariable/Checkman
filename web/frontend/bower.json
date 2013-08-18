@@ -13,6 +13,7 @@
     "jquery": "1.10.*",
     "requirejs": "2.1.*",
     "requirejs-text": "2.0.*",
+    "requirejs-tpl": "*",
     "backbone.marionette": "1.1.*"
   }
 }

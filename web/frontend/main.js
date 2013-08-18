@@ -3,7 +3,9 @@ require.config({
         backbone: 'bower_components/backbone/backbone-min',
         underscore: 'bower_components/underscore/underscore-min',
         jquery: 'bower_components/jquery/jquery.min',
-        marionette: 'bower_components/backbone.marionette/lib/backbone.marionette'
+        marionette: 'bower_components/backbone.marionette/lib/backbone.marionette',
+        text: 'bower_components/requirejs-text/text',
+        tpl: 'bower_components/requirejs-tpl/tpl'
     },
     shim: {
         jquery: {
@@ -24,7 +26,13 @@ require.config({
 
     packages: [
         "application"
-    ]
+    ],
+
+    config: {
+        "application/main": {
+            container: "body"
+        }
+    }
 });
 
 require(['application'], function(app){
