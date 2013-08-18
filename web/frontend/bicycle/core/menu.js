@@ -56,7 +56,10 @@ define(['./model'], function(model){
             this._breadcrumbs = [];
             this._paths = {};
             this.menu('', args);
+            this._init();
         },
+
+        _init: function(){},
 
         /**
          * menu = {
@@ -69,6 +72,7 @@ define(['./model'], function(model){
         _menu: undefined,
 
         menu: function(name, menu){
+
             if( typeof name != 'string' ) name = '';
             var parts = name.split('/'),
                 parent = this._menu,

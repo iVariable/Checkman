@@ -1,5 +1,8 @@
 define(
-    ['./marionette.region'],
+    [
+        './marionette.region',
+        './marionette.itemview'
+    ],
     function (region) {
         //Just a mixin loader
         return {};
