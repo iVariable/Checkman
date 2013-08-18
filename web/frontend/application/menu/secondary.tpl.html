@@ -1,3 +1,6 @@
-<li class="active">
-    <a href="#"><i class="icon-book"></i> Documentation</a>
+<% _.each(model.menu(model.selectedKeys()[0]).children, function(item, key){%>
+<li <%if(model.selectedKeys()[1] == key){%>class="active"<%};%>>
+<a class="j-nav" href="<%=item.url%>"><%if(item.icon){%><i class="<%=item.icon%>"></i> <%};%><%=item.title%></a>
 </li>
+<%}); %>
+

@@ -5,7 +5,8 @@ require.config({
         jquery: 'bower_components/jquery/jquery.min',
         marionette: 'bower_components/backbone.marionette/lib/backbone.marionette',
         text: 'bower_components/requirejs-text/text',
-        tpl: 'bower_components/requirejs-tpl/tpl'
+        tpl: 'bower_components/requirejs-tpl/tpl',
+        backbone_routefilter: 'bower_components/backbone.routefilter/dist/backbone.routefilter.min'
     },
     shim: {
         jquery: {
@@ -18,8 +19,11 @@ require.config({
             deps: ['jquery', 'underscore'],
             exports: 'Backbone'
         },
+        backbone_routefilter: {
+            deps: ['backbone']
+        },
         marionette: {
-            deps: ['jquery', 'underscore', 'backbone'],
+            deps: ['jquery', 'underscore', 'backbone', 'backbone_routefilter'],
             exports: 'Marionette'
         }
     },

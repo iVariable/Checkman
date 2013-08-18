@@ -1,6 +1,7 @@
 define(
     [
         './core/model',
+        './core/collection',
         './core/router',
         './core/menu',
 
@@ -8,6 +9,7 @@ define(
     ],
     function(
         Model,
+        Collection,
         Router,
         Menu,
 
@@ -16,6 +18,7 @@ define(
         var Bicycle = {
             Core: {
                 Model: Model,
+                Collection: Collection,
                 Router: Router
             },
             Tools: {

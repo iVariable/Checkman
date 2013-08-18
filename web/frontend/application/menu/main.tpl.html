@@ -1,6 +1,6 @@
 <ul>
     <% _(model.menu()).each(function(item, key){%>
-    <li <%if(item.selected){%>class="active"<%};%>>
+    <li <%if(model.selectedKeys()[0] == key){%>class="active"<%};%>>
         <a class="j-nav" href="<%=item.url%>"><%if(item.icon){%><i class="<%=item.icon%>"></i> <%};%><%=item.title%></a>
     </li>
     <%});%>

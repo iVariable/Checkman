@@ -1,0 +1,12 @@
+{
+  "name": "backbone.routefilter",
+  "homepage": "https://github.com/wanderer/backbone.routefilter",
+  "_release": "10ad8ed621",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "10ad8ed621a2cad81b1c3bbfa29dc8f5665712cb"
+  },
+  "_source": "git://github.com/wanderer/backbone.routefilter.git",
+  "_target": "*"
+}

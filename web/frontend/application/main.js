@@ -8,17 +8,35 @@ define(
 
         "module"
     ],
-    function (
-        Marionette, Backbone,
-
-        Router, Menu, Layouts,
-
-        MenuData,
-
-        module
-    ) {
+    function (Marionette, Backbone, Router, Menu, Layouts, MenuData, module) {
 
         var app = new Marionette.Application();
+
+        app.prepareNavigation = function () {
+            $('body').on('click', '.j-nav', function (e) {
+                if ($(this).data('navTo')) {
+                    Backbone.history.navigate($(this).data('navTo'), true);
+                } else if ($(this).attr('href')) {
+                    Backbone.history.navigate($(this).attr('href'), true);
+                }
+                e.cancelBubble = true;
+                e.preventDefault();
+                return false;
+            });
+
+            app.vent.on("router:route:after", function (route, params) {
+                console.log(params);
+                app.menu.selectedUrl(params);
+                app.redrawMenu();
+            });
+        }
+
+        app.redrawMenu = function(){
+            app.menu.view('main').render();
+            app.menu.view('secondary').render();
+            app.menu.view('breadcrumbs').render();
+            app.menu.view('profile').render();
+        }
 
         app.layouts = {
             main: new (Layouts.MainLayout)({el: module.config().container})
@@ -29,7 +47,7 @@ define(
         app.router = new Router();
         app.router.app(app);
 
-        app.on("initialize:after", function(options){
+        app.on("initialize:after", function (options) {
 
             app.layouts.main.render();
 
@@ -38,7 +56,10 @@ define(
             app.layouts.main.profile.draw(app.menu.view('profile'));
             app.layouts.main.breadcrumbs.draw(app.menu.view('breadcrumbs'));
 
-            if (Backbone.history){
+            if (Backbone.history) {
+
+                app.prepareNavigation();
+
                 Backbone.history.start();
             }
 

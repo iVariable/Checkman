@@ -1,18 +1,18 @@
-define(['./model'], function(model){
+define(['./model'], function (model) {
 
-    var merge = function(to, from, depth) {
-        if( typeof to == 'undefined' ) to = {};
-        if (_.isArray(from) || _.isObject(from)){
+    var merge = function (to, from, depth) {
+        if (typeof to == 'undefined') to = {};
+        if (_.isArray(from) || _.isObject(from)) {
             if (!_.isUndefined(depth) && (depth > 0)) {
                 for (var key in from) {
-                    if (_.isArray(from[key]) || _.isObject(from[key])){
-                        to[key] = merge(to[key], from[key], depth-1);
-                    }else{
+                    if (_.isArray(from[key]) || _.isObject(from[key])) {
+                        to[key] = merge(to[key], from[key], depth - 1);
+                    } else {
                         var result = from[key];
                         if (!from[key] || (typeof from[key] !== 'object')) result = from[key]; // by value
                         else if (_.isString(from[key])) result = String.prototype.slice.call(from[key]);
                         else if (_.isDate(from[key])) result = new Date(from[key].valueOf());
-                        else if (_.isFunction(from[key].clone)) result =  from[key].clone();
+                        else if (_.isFunction(from[key].clone)) result = from[key].clone();
 
                         to[key] = result;
                     }
@@ -22,27 +22,43 @@ define(['./model'], function(model){
         return to;
     };
 
-    var setLinks = function(menu, parent){
-        _(menu).each(function(item, key){
+    var setLinks = function (menu, parent) {
+        _(menu).each(function (item, key) {
             item.parent = parent;
             item.key = key;
-            if( !_.isUndefined(item.children) ){
+            if (!_.isUndefined(item.children)) {
                 setLinks(item.children, item);
             }
         });
         return menu;
     }
 
-    var buildPaths = function(menu, prefix){
+    var buildPaths = function (menu, prefix) {
         var result = {};
-        _(menu).each(function(item, key){
-            if( _.isUndefined(prefix) ){
+        _(menu).each(function (item, key) {
+            if (_.isUndefined(prefix)) {
                 result[key] = key;
-            }else{
-                result[key] = prefix+'/'+key;
+            } else {
+                result[key] = prefix + '/' + key;
             }
-            if( !_.isUndefined(item.children) ){
+            if (!_.isUndefined(item.children)) {
                 var childrenPaths = buildPaths(item.children, result[key]);
+                _.extend(result, childrenPaths);
+            }
+        });
+        return result;
+    };
+
+    var buildUrls = function (menu, prefix) {
+        var result = {};
+        _(menu).each(function (item, key) {
+            if (_.isUndefined(prefix)) {
+                result[item.url] = key;
+            } else {
+                result[item.url] = prefix + '/' + key;
+            }
+            if (!_.isUndefined(item.children)) {
+                var childrenPaths = buildUrls(item.children, result[item.url]);
                 _.extend(result, childrenPaths);
             }
         });
@@ -51,47 +67,49 @@ define(['./model'], function(model){
 
     var menu = {
 
-        __init: function(args){
+        __init: function (args) {
             this._menu = {};
             this._breadcrumbs = [];
             this._paths = {};
+            this._urls = {};
             this.menu('', args);
             this._init();
         },
 
-        _init: function(){},
+        _init: function () {
+        },
 
         /**
          * menu = {
-         *      name: '',
-         *      link: '',
+         *      title: '',
+         *      url: '',
          *      type: '', //divider, header
          *      children: {}
          * }
          */
         _menu: undefined,
 
-        menu: function(name, menu){
+        menu: function (name, menu) {
 
-            if( typeof name != 'string' ) name = '';
+            if (typeof name != 'string') name = '';
             var parts = name.split('/'),
                 parent = this._menu,
                 pl, i;
             pl = parts.length;
-            if(name.length > 0){
+            if (name.length > 0) {
                 for (i = 0; i < pl; i++) {
                     if (typeof parent[parts[i]] == 'undefined') {
                         parent[parts[i]] = { name: '', link: '', children: {} };
                     }
-                    if( i != pl-1 ){
+                    if (i != pl - 1) {
                         parent = parent[parts[i]].children;
-                    }else{
+                    } else {
                         parent = parent[parts[i]];
                     }
                 }
             }
-            if(menu){
-                if( typeof menu == 'function'){
+            if (menu) {
+                if (typeof menu == 'function') {
                     menu = menu(
                         parent,
                         this
@@ -101,41 +119,47 @@ define(['./model'], function(model){
 
                 setLinks(this.menu());
                 this._paths = buildPaths(this.menu());
+                this._urls = buildUrls(this.menu());
             }
             return parent;
         },
 
         _selected: '',
-        selected: function(selected){
-            if( typeof selected != 'undefined' ){
+        selected: function (selected) {
+            if (typeof selected != 'undefined') {
                 this._selected = selected
                 //Setting breadcrumbs
                 var path = [];
                 this._breadcrumbs = [];
-                _(this.selectedKeys()).each(function(key){
+                _(this.selectedKeys()).each(function (key) {
                     path.push(key);
                     var item = this.menu(path.join('/'));
-                    if( !item ) return;
+                    if (!item) return;
                     this._breadcrumbs.push(item);
                 }, this);
             };
             return this._selected;
         },
 
-        selectedKeys: function(){
+        selectedKeys: function () {
             return this.selected().split('/');
         },
 
-        selectedKey: function(key){
+        selectedKey: function (key) {
             this.selected(this._paths[key]);
         },
 
+        selectedUrl: function (path) {
+            if(path == '') path = '/';
+            return this.selected(this._urls[path]);
+        },
+
         _breadcrumbs: '',
-        breadcrumbs: function(set){
-            if(!_.isUndefined(set)) this._breadcrumbs = set;
+        breadcrumbs: function (set) {
+            if (!_.isUndefined(set)) this._breadcrumbs = set;
             return this._breadcrumbs;
         },
-        addBreadcrumb: function(crumb){
+        addBreadcrumb: function (crumb) {
             this._breadcrumbs.push(crumb);
             return this;
         }
