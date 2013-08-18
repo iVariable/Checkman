@@ -1,7 +1,18 @@
 {% extends "::plastique.html.twig" %}
 
 {% block javascripts_header %}
-    <script type="text/javascript" data-main="frontend/main.js" src="frontend/bower_components/requirejs/require.js"></script>
+    <script type="text/javascript">
+        var require = {
+            config: {
+                "application/main": {
+                    container: "body"
+                }
+            }
+        };
+    </script>
+
+    <script type="text/javascript" data-main="frontend/main.js"
+            src="frontend/bower_components/requirejs/require.js"></script>
 {% endblock %}
 
 {% block body %}

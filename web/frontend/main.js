@@ -25,17 +25,11 @@ require.config({
     },
 
     packages: [
-        "application", "bicycle"
-    ],
-
-    config: {
-        "application/main": {
-            container: "body"
-        }
-    }
+        "application", "bicycle", "modules/occupation"
+    ]
 });
 
-require(['application', 'mixins/main'], function(app){
+require(['application', 'mixins/main', 'modules/occupation'], function(app){
 
     window.CodeMonkeysBudget = app;
 
