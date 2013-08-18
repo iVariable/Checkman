@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Welcome!!{% endblock %}</title>
+
+    <!-- Le styles -->
+    <link href="/frontend/plastique/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css"/>
+
+    <!--[if lt IE 9]>
+    <script src="/frontend/plastique/javascripts/html5shiv.js" type="text/javascript"></script>
+    <script src="/frontend/plastique/javascripts/excanvas.js" type="text/javascript"></script>
+    <script src="/frontend/plastique/javascripts/iefix.js" type="text/javascript"></script>
+    <link href="/frontend/plastique/stylesheets/iefix.css" media="screen" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+
+    <script src="frontend/bower_components/jquery/jquery.min.js"></script>
+
+    {% block stylesheets %}{% endblock %}
+    <!-- Bootstrap -->
+    {% block javascripts_header %}{% endblock %}
+</head>
+<body id="main_container">
+
+    {% block body %}{% endblock %}
+
+    {% javascripts '@bootstrap_js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% block javascripts_footer %}{% endblock %}
+    <script src="/frontend/plastique/javascripts/prettify.js" type="text/javascript"></script>
+    <link href="/frontend/plastique/stylesheets/prettify.css" media="screen" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript">
+        prettyPrint()
+    </script>
+
+</body>
+</html>

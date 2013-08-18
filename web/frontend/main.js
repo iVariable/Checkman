@@ -35,9 +35,10 @@ require.config({
     }
 });
 
-require(['application'], function(app){
+require(['application', 'mixins/main'], function(app){
 
     window.CodeMonkeysBudget = app;
 
+    app.start();
 
 });
