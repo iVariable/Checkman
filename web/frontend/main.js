@@ -3,6 +3,7 @@ require.config({
         backbone: 'bower_components/backbone/backbone-min',
         underscore: 'bower_components/underscore/underscore-min',
         jquery: 'bower_components/jquery/jquery.min',
+        bicycle: 'bicycle/main',
         marionette: 'bower_components/backbone.marionette/lib/backbone.marionette',
         text: 'bower_components/requirejs-text/text',
         tpl: 'bower_components/requirejs-tpl/tpl'

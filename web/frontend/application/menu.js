@@ -4,7 +4,7 @@ define([],function(){
         dashboard: {
             title: 'Дэшборд',
             icon: 'icon-dashboard',
-            url: '/dashboard/'
+            url: '/'
         },
 
         reports: {

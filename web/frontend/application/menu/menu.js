@@ -15,7 +15,7 @@ define(
             _views: {
                 main: Marionette.ItemView.extend({
                     tagName: 'ul',
-                    template: Tpl_MainMenu
+                    template: Tpl_MainMenugi
                 }),
 
                 secondary: Marionette.ItemView.extend({
