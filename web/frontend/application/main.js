@@ -4,29 +4,17 @@ define(
 
         './menu/menu',
 
-        "tpl!./layouts/main.tpl.html",
+        './layouts/main',
 
         "module"
     ],
-    function (Marionette, Menu, Tpl_MainLayout, module) {
+    function (Marionette, Menu, Layouts, module) {
 
         var app = new Marionette.Application();
 
-        var MainLayout = Marionette.Layout.extend({
-            el: module.config().container,
-
-            template: Tpl_MainLayout,
-
-            regions: {
-                primaryMenu: "#primary",
-                secondaryMenu: "#secondary",
-                crumbs: "#main>.top-nav",
-                container: "#main>.a-main-container"
-            }
-        });
 
         app.layouts = {
-            main: new MainLayout()
+            main: new (Layouts.MainLayout)({el: module.config().container})
         };
 
         app.menu = new Menu({app: app});
@@ -37,7 +25,7 @@ define(
 
             app.layouts.main.primaryMenu.draw(app.menu.view('main'));
             app.layouts.main.secondaryMenu.draw(app.menu.view('secondary'));
-
+            app.layouts.main.profile.draw(app.menu.view('profile'));
         });
 
 

@@ -4,20 +4,25 @@ define(
         'backbone',
         'underscore',
         'tpl!./main.tpl.html',
-        'tpl!./secondary.tpl.html'
+        'tpl!./secondary.tpl.html',
+        'tpl!./profile.tpl.html'
     ],
-    function (Marionette, Backbone, _, Tpl_MainMenuTemplate, Tpl_SecondaryMenuTemplate) {
+    function (Marionette, Backbone, _, Tpl_MainMenu, Tpl_SecondaryMenu, Tpl_Profile) {
 
         var menu = Backbone.Model.extend({
 
             _views: {
                 main: Marionette.ItemView.extend({
                     tagName: 'ul',
-                    template: Tpl_MainMenuTemplate
+                    template: Tpl_MainMenu
                 }),
 
                 secondary: Marionette.ItemView.extend({
-                    template: Tpl_SecondaryMenuTemplate
+                    template: Tpl_SecondaryMenu
+                }),
+
+                profile: Marionette.ItemView.extend({
+                    template: Tpl_Profile
                 })
             },
 
