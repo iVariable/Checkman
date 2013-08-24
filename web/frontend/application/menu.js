@@ -14,10 +14,12 @@ define([],function(){
             children: {
                 year: {
                     title: "Годовой сводный отчет",
+                    icon: "icon-table",
                     url: "reports/year"
                 },
                 deviations: {
                     title: "Отклонения",
+                    icon: "icon-tasks",
                     url: "reports/deviations"
                 }
             }

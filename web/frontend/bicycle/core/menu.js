@@ -141,6 +141,10 @@ define(['./model'], function (model) {
             return this._selected;
         },
 
+        selectedItem: function(){
+            return this.menu(this.selected());
+        },
+
         selectedKeys: function () {
             return this.selected().split('/');
         },

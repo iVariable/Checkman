@@ -1,0 +1,17 @@
+<div class="box">
+    <div class="tab-header">
+        <%=view.options.title%>
+    </div>
+
+    <div>
+        <div class="padded">
+            <div class="big-button-bar">
+
+                <%_(view.options.children).each(function(child){%>
+                    <a class="button large j-nav" href="<%=child.url%>"><%if(child.icon){%><i class="<%=child.icon%>"></i>
+                        <%};%><span><%=child.title%></span></a>
+                <%});%>
+            </div>
+        </div>
+    </div>
+</div>

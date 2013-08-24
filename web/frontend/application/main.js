@@ -24,7 +24,7 @@ define(
                 return false;
             });
 
-            app.vent.on("router:route:after", function (route, params) {
+            app.vent.on("router:route:before", function (route, params) {
                 console.log(params);
                 app.menu.selectedUrl(params);
                 app.redrawMenu();
