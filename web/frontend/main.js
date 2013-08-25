@@ -29,11 +29,11 @@ require.config({
     },
 
     packages: [
-        "application", "bicycle", "modules/occupation"
+        "application", "bicycle", "modules/occupation", "modules/reports"
     ]
 });
 
-require(['application', 'mixins/main', 'modules/occupation'], function(app){
+require(['application', 'mixins/main', 'modules/occupation', 'modules/reports'], function(app){
 
     window.CodeMonkeysBudget = app;
 

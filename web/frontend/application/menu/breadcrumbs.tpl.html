@@ -1,4 +1,6 @@
-<li><a href="#"><i class="icon-home"></i> Some</a></li>
-<li><a href="#">Nice</a></li>
-<li><a href="#">Breadcrumbs</a></li>
-<li class="active"><a href="#">Here</a></li>
+<li><a href="/" class="j-nav"><i class="icon-home"></i> Дэшборд</a></li>
+<%_(model.breadcrumbs()).each(function(item, i){
+if(item.url == "/") return;
+%>
+<li <%if(i == (model.breadcrumbs().length-1)){%>class="active"<%};%>><a class="j-nav" href="<%=item.url%>"><%=item.title%></a></li>
+<%})%>
