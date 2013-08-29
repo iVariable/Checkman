@@ -18,7 +18,7 @@ define(
                 });
 
                 this.registerView('edit', function(){
-                    return new (Helpers.View.Model.Edit)({
+                    var view = new (Helpers.View.Model.Edit)({
                         model:_this,
 
                         exclude: ["id"],
@@ -32,6 +32,11 @@ define(
                             }
                         }
                     });
+
+                    view.on('render', function(){
+                        view.delegateEvents();
+                    })
+                    return view;
                 })
             },
 

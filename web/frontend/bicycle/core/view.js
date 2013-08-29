@@ -1,6 +1,6 @@
 define(
-    ['marionette'],
-    function (Marionette) {
+    ['marionette', 'backbone'],
+    function (Marionette, Backbone) {
         var model = Marionette.ItemView.extend({
 
             collectData: function () {
@@ -25,8 +25,14 @@ define(
                 delete data.id;
 
                 return data;
-            }
+            },
 
+
+            //@TODO: выпилить костыль!111
+            bindUIElements: function(){
+                Marionette.ItemView.prototype.bindUIElements.call(this);
+                this.delegateEvents();
+            }
 
         });
 
