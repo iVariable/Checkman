@@ -1,13 +1,13 @@
 define(
-    ['bicycle', './views/show'],
-    function (Bicycle, View_Show) {
+    ['bicycle', 'helpers'],
+    function (Bicycle, Helpers) {
 
         var model = {
 
             __init: function(){
                 var _this = this;
                 this.registerView('show', function(){
-                    return new View_Show({model:_this});
+                    return new (Helpers.View.Model.Show)({model:_this});
                 })
             },
 

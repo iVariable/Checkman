@@ -13,7 +13,7 @@ define(
                 return new (this.model)(args);
             },
 
-            getLink: function(){ return ''; }
+            linkTo: function(){ return ''; }
 
         });
 

@@ -1,8 +1,6 @@
 define(
     [
-        'bicycle',
-
-        './views/list'
+        'bicycle'
     ],
     function(
         Bicycle,
@@ -27,7 +25,7 @@ define(
             },
 
             route_list : function(){
-                this.show( new View_List({model: this.collection()}) );
+                this.show( this.collection().view('list') );
             },
 
             route_show: function(id){

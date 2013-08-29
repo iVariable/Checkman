@@ -29,7 +29,7 @@ require.config({
     },
 
     packages: [
-        "application", "bicycle", "modules/occupation", "modules/reports"
+        "application", "bicycle", "modules/occupation", "modules/reports", "helpers"
     ]
 });
 

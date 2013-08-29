@@ -1,0 +1,22 @@
+<table class="table table-striped table-bordered box">
+    <thead>
+        <tr>
+            <th colspan="2"><%=model%></th>
+        </tr>
+    </thead>
+    <tbody>
+        <%_(model.attributes).each(function(attr, key){%>
+        <tr>
+            <th><%=key%></th>
+            <td><%=attr%></td>
+        </tr>
+        <%});%>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="2">
+            <a class="button blue j-nav" href="<%=model.linkTo('edit')%>"><i class="icon-pencil"></i> Редактировать</a>
+        </td>
+    </tr>
+    </tfoot>
+</table>
