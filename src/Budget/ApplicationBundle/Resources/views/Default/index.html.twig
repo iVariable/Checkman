@@ -6,6 +6,9 @@
             config: {
                 "application/main": {
                     container: "body"
+                },
+                "modules/occupation/collection": {
+                    url: "{{ path("api_v1_get_occupations") }}"
                 }
             }
         };

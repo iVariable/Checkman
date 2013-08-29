@@ -1,1 +1,30 @@
-список
+<table class="table table-striped table-bordered box">
+    <thead>
+        <tr>
+            <th colspan="2">Специализация</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Название</th>
+            <th width="140">Действия</th>
+        </tr>
+        <%model.each(function(elem){%>
+        <tr>
+            <td><%=elem%></td>
+            <td>
+                <a class="j-nav button" href="<%=elem.linkTo('show')%>"><i class="icon-eye-open"></i></a>
+                <a class="j-nav button blue" href="<%=elem.linkTo('edit')%>"><i class="icon-pencil"></i></a>
+                <button class="j-remove-occupation button red" data-id="<%-elem.id%>"><i class="icon-trash"></i></button>
+            </td>
+        </tr>
+        <%});%>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">
+                <a href="<%=model.getLink('new')%>" class="j-nav j-new-occupation button blue"><i class="icon-plus"></i> Добавить</a>
+            </td>
+        </tr>
+    </tfoot>
+</table>

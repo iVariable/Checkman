@@ -1,6 +1,6 @@
 define(
     [
-        'marionette', 'backbone',
+        'bicycle', 'backbone',
 
         './router', './menu/menu', './layouts/main',
 
@@ -8,9 +8,9 @@ define(
 
         "module"
     ],
-    function (Marionette, Backbone, Router, Menu, Layouts, MenuData, module) {
+    function (Bicycle, Backbone, Router, Menu, Layouts, MenuData, module) {
 
-        var app = new Marionette.Application();
+        var app = new Bicycle.Core.Application();
 
         app.prepareNavigation = function () {
             $('body').on('click', '.j-nav', function (e) {
@@ -26,6 +26,8 @@ define(
 
             app.vent.on("router:route:before", function (route, params) {
                 app.menu.selectedUrl(params);
+            });
+            app.vent.on("router:route:after", function (route, params) {
                 app.redrawMenu();
             });
         }

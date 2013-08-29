@@ -1,13 +1,15 @@
 define(
     [
+        './core/application',
         './core/model',
         './core/collection',
         './core/router',
         './core/menu',
 
-        './plugins/lazy-views'
+        './plugins/lazy-views/lazy-views'
     ],
     function(
+        Application,
         Model,
         Collection,
         Router,
@@ -17,6 +19,7 @@ define(
     ){
         var Bicycle = {
             Core: {
+                Application: Application,
                 Model: Model,
                 Collection: Collection,
                 Router: Router

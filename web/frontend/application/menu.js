@@ -38,6 +38,7 @@ define([],function(){
             children: {
                 occupations: {
                     title: "Специализация",
+                    icon: "icon-user-md",
                     url: "admin/occupations"
                 }
             }

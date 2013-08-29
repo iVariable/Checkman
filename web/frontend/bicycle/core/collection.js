@@ -1,5 +1,5 @@
 define(
-    ['backbone', './../plugins/lazy-views'],
+    ['backbone', './../plugins/lazy-views/lazy-views'],
     function(Backbone, LazyViews){
         var model = Backbone.Collection.extend( {
 
@@ -7,7 +7,13 @@ define(
                 this.__init(args, opts);
             },
 
-            __init: function(args, opts){}
+            __init: function(args, opts){},
+
+            createEntity: function(args){
+                return new (this.model)(args);
+            },
+
+            getLink: function(){ return ''; }
 
         });
 

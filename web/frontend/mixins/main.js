@@ -1,6 +1,7 @@
 define(
     [
         './marionette.region',
+        './marionette.callbacks',
         './marionette.itemview'
     ],
     function (region) {
