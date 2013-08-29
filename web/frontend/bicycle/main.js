@@ -2,6 +2,7 @@ define(
     [
         './core/application',
         './core/model',
+        './core/view',
         './core/collection',
         './core/router',
         './core/menu',
@@ -11,6 +12,7 @@ define(
     function(
         Application,
         Model,
+        View,
         Collection,
         Router,
         Menu,
@@ -21,6 +23,7 @@ define(
             Core: {
                 Application: Application,
                 Model: Model,
+                View: View,
                 Collection: Collection,
                 Router: Router
             },

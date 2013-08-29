@@ -1,12 +1,11 @@
 define(
     [
-        'marionette',
+        'bicycle',
         'tpl!./show.tpl.html'
     ],
-    function (Marionette, TPL_Show) {
+    function (Bicycle, TPL_Show) {
 
-
-        return Marionette.ItemView.extend({
+        return Bicycle.Core.View.extend({
             template: TPL_Show
         });
 

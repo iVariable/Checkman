@@ -38,7 +38,7 @@ define(
                 var model = this.collection().get(id);
                 this.app().menu.addBreadcrumb({ title: model.toString(), url: model.linkTo('show') });
                 this.app().menu.addBreadcrumb({ title: "Редактирование" });
-                this.show(model.view("show"));
+                this.show(model.view("edit"));
 
             },
 

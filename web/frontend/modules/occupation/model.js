@@ -1,13 +1,37 @@
 define(
-    ['bicycle', 'helpers'],
-    function (Bicycle, Helpers) {
+    ['bicycle', 'helpers', 'application'],
+    function (Bicycle, Helpers, App) {
 
         var model = {
 
             __init: function(){
                 var _this = this;
                 this.registerView('show', function(){
-                    return new (Helpers.View.Model.Show)({model:_this});
+                    return new (Helpers.View.Model.Show)({
+                        model:_this,
+
+                        exclude: ["id"],
+                        translations: {
+                            title: "Название"
+                        }
+                    });
+                });
+
+                this.registerView('edit', function(){
+                    return new (Helpers.View.Model.Edit)({
+                        model:_this,
+
+                        exclude: ["id"],
+                        translations: {
+                            title: "Название"
+                        },
+
+                        callbacks: {
+                            saved: function(){
+                                App.router.navigate(_this.linkTo('show'),true);
+                            }
+                        }
+                    });
                 })
             },
 
