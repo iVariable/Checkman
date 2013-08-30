@@ -14,13 +14,22 @@ define(
             __init: function(){
                 var _this = this;
                 this.registerView('list', function(){
-                    return new (Helpers.View.Collection.List)({model:_this});
+                    return new (Helpers.View.Collection.List)({
+                        model:_this,
+
+                        callbacks: {
+                            removed: function(){
+                                _this.render();
+                            }
+                        }
+                    });
                 })
             },
 
             linkTo: function(type){
                 var links = {
-                    'new': 'admin/occupations/new'
+                    'new': 'admin/occupations/new',
+                    'list': 'admin/occupations'
                 }
                 return links[type];
             }

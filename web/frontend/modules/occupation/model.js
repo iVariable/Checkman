@@ -4,6 +4,10 @@ define(
 
         var model = {
 
+            defaults: {
+                title: "Новая специализация"
+            },
+
             __init: function(){
                 var _this = this;
                 this.registerView('show', function(){
@@ -38,6 +42,28 @@ define(
                     })
                     return view;
                 })
+
+                this.registerView('new', function(){
+                    var view = new (Helpers.View.Model.New)({
+                        model:_this,
+
+                        exclude: ["id"],
+                        translations: {
+                            title: "Название"
+                        },
+
+                        callbacks: {
+                            saved: function(){
+                                App.router.navigate(_this.linkTo('show'),true);
+                            }
+                        }
+                    });
+
+                    view.on('render', function(){
+                        view.delegateEvents();
+                    })
+                    return view;
+                })
             },
 
             toString: function(){
@@ -46,6 +72,7 @@ define(
 
             linkTo: function(type){
                 var links = {
+                    "new": 'admin/occupations/new',
                     "show": 'admin/occupations/'+this.id,
                     "edit": 'admin/occupations/'+this.id+'/edit'
                 }

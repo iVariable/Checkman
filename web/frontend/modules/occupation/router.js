@@ -43,8 +43,28 @@ define(
             },
 
             route_new: function(){
-                //spawn model and check "new" view existance
-                //this.collection().mol
+                var model = this.collection().createEntity();
+
+                if( !model.hasView('new') ){
+                    this.collection().add(model);
+                    var saving = $.Deferred(),
+                        _this = this;
+                    this.app().loader( 'Сохраняем', saving.promise() );
+                    saving.done(function(){
+                        _this.app().router().navigate(model.linkTo('edit'), true);
+                    });
+                    model.save(undefined, {
+                        success: function(){ saving.resolve() },
+                        error: function(m, xhr){ saving.reject(xhr) },
+                        wait:true
+                    });
+                    return '';
+                }
+
+                model.view("new").save2collection = this.collection();
+
+                this.app().menu.addBreadcrumb({ title: model.toString() });
+                this.show(model.view("new"));
             }
 
         });

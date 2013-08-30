@@ -2,12 +2,14 @@ define(
     [
         './views/model.show/show',
         './views/model.edit/edit',
+        './views/model.new/new',
 
         './views/collection.list/list'
     ],
     function(
         View_Model_Show,
         View_Model_Edit,
+        View_Model_New,
 
         View_Collection_List
     ){
@@ -15,7 +17,8 @@ define(
             View: {
                 Model: {
                     Show: View_Model_Show,
-                    Edit: View_Model_Edit
+                    Edit: View_Model_Edit,
+                    New: View_Model_New
                 },
                 Collection: {
                     List: View_Collection_List

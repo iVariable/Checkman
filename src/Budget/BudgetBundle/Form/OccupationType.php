@@ -15,6 +15,13 @@ class OccupationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add(
+                'id',
+                'hidden',
+                array(
+                    'mapped' => false,
+                )
+            )
             ->add('title');
     }
 
@@ -23,9 +30,13 @@ class OccupationType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Budget\BudgetBundle\Entity\Occupation'
-        ));
+        $resolver->setDefaults(
+            array(
+
+                'data_class' => 'Budget\BudgetBundle\Entity\Occupation',
+                'csrf_protection' => false,
+            )
+        );
     }
 
     /**
@@ -33,6 +44,6 @@ class OccupationType extends AbstractType
      */
     public function getName()
     {
-        return 'budget_budgetbundle_occupationtype';
+        return '';
     }
 }

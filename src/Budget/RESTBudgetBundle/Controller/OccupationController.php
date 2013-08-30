@@ -30,4 +30,78 @@ class OccupationController extends \Budget\RESTBudgetBundle\Controller\Helper\RE
     {
         return $this->get('r.occupation')->findOneById($id);
     }
+
+    /**
+     * @View(serializerGroups={"Occupation"})
+     *
+     * @return mixed
+     */
+    public function postOccupationsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $this->get('r.occupation')->newEntity();
+
+        $editForm = $this->createForm(new \Budget\BudgetBundle\Form\OccupationType(), $entity, array('method' => "POST"));
+        $editForm->handleRequest($this->getRequest());
+
+        if ($editForm->isValid()) {
+            $em->persist($entity);
+            $em->flush();
+        } else {
+            return $editForm->getErrorsAsString();
+        }
+
+        return $entity;
+    }
+
+    /**
+     * @View(serializerGroups={"Occupation"})
+     *
+     * @return mixed
+     */
+    public function putOccupationAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $this->get('r.occupation')->findOneById($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Occupation entity.');
+        }
+
+        $editForm = $this->createForm(new \Budget\BudgetBundle\Form\OccupationType(), $entity, array('method' => "PUT"));
+        $editForm->handleRequest($this->getRequest());
+
+        if ($editForm->isValid()) {
+            $em->persist($entity);
+            $em->flush();
+        } else {
+            return $editForm->getErrorsAsString();
+        }
+
+        return $entity;
+    }
+
+    /**
+     * @View(serializerGroups={"Occupation"})
+     *
+     * @return mixed
+     */
+    public function deleteOccupationAction($id)
+    {
+        $entity = $this->get('r.occupation')->findOneById($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Occupation entity.');
+        }
+
+        $em = $this->get('em');
+
+        $em->remove($entity);
+        $em->flush();
+
+        return $entity;
+    }
+
 }

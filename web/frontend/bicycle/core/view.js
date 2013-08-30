@@ -27,7 +27,6 @@ define(
                 return data;
             },
 
-
             //@TODO: выпилить костыль!111
             bindUIElements: function(){
                 Marionette.ItemView.prototype.bindUIElements.call(this);

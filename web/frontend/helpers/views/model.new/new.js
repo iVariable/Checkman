@@ -1,7 +1,7 @@
 define(
     [
         'bicycle',
-        'tpl!./edit.tpl.html'
+        'tpl!./new.tpl.html'
     ],
     function (Bicycle, TPL_Show) {
 
@@ -25,6 +25,8 @@ define(
                 }
 
                 this.model.set(this.collectData());
+
+                this.save2collection.add(this.model);
 
                 this.model.save(undefined, {
                     success: function () {
