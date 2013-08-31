@@ -6,6 +6,7 @@ define(
             secondName: "Фамилия",
             firstName: "Имя",
             status: "Статус",
+            occupations: "Специализация",
             salary: "Зарплата",
             notes: "Заметки"
         }
@@ -23,6 +24,11 @@ define(
             },
             notes: {
                 type: "text"
+            },
+            occupations: {
+                type: "entity_multi",
+                entityType: "occupations",
+                getter: "occupations"
             }
         };
 
@@ -33,10 +39,13 @@ define(
                 firstName: "",
                 status: 1,
                 salary: 0,
-                notes: ""
+                notes: "",
+                occupations: null
             },
 
             statuses: statuses,
+            fields: fields,
+            translations: translations,
 
             __init: function(){
                 var _this = this;
@@ -98,6 +107,14 @@ define(
 
             toString: function(){
                 return this.get('secondName')+' '+this.get('firstName');
+            },
+
+            occupations: function()
+            {
+                var elems = _(_(this.get('occupations')).pluck('id'));
+                return App.collection('occupations').filter(function(item){
+                    return elems.indexOf(item.id) !== -1;
+                })
             },
 
             linkTo: function(type){

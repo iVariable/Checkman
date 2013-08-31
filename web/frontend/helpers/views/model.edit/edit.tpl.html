@@ -17,6 +17,9 @@ fields.push(key);
                 <th><%if(view.options.translations && view.options.translations[key]){%><%=view.options.translations[key]%><%}else{%><%=key%><%}%></th>
                 <td>
                     <%if(view.options.fields && view.options.fields[key]){%>
+                        <%if(view.options.fields[key].getter){
+                        attr = model[view.options.fields[key].getter]();
+                        };%>
                         <%switch(view.options.fields[key].type){
                             case "enum":%>
                                 <select name="<%=key%>" data-data-attr="<%=key%>" class="j-data">
@@ -27,6 +30,9 @@ fields.push(key);
                             <%break;
                             case "text":%>
                                 <textarea name="<%=key%>" class="j-data" data-data-attr="<%=key%>" rows="3" cols="60"><%=attr%></textarea>
+                            <%break;
+                            default:%>
+                                <input type="text" name="<%=key%>" class="j-data" data-data-attr="<%=key%>" value="<%=attr%>"/>
                             <%break;
                         }%>
                     <%}else{%>

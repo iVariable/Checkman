@@ -18,20 +18,9 @@ define(
                         model:_this,
 
                         exclude: ["id"],
-                        translations: {
-                            secondName: "Фамилия",
-                            firstName: "Имя",
-                            status: "Статус",
-                            salary: "Зарплата",
-                            notes: "Заметки"
-                        },
+                        translations: _this.model.prototype.translations,
 
-                        fields: {
-                            status: {
-                                type: "enum",
-                                values: _this.model.prototype.statuses
-                            }
-                        },
+                        fields: _this.model.prototype.fields,
 
                         title: "Сотрудники",
                         callbacks: {

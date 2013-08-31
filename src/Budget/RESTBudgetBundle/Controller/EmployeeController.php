@@ -12,7 +12,7 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
 {
 
     /**
-     * @View(serializerGroups={"Employee"})
+     * @View(serializerGroups={"Employee", "Occupation"})
      *
      * @return mixed
      */

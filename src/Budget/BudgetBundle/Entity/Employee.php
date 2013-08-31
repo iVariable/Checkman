@@ -95,6 +95,9 @@ class Employee
 
     /**
      * @ORM\ManyToMany(targetEntity="Occupation", mappedBy="employees")
+     * @Serializer\Groups({
+     *      "Employee"
+     * })
      */
     private $occupations;
 

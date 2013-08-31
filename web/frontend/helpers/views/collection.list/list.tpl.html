@@ -25,9 +25,15 @@
                 <%var attr = elem.get(key);%>
                 <td>
                     <%if(view.options.fields && view.options.fields[key]){%>
+                        <%if(view.options.fields[key].getter){
+                            attr = elem[view.options.fields[key].getter]();
+                        };%>
                         <%switch(view.options.fields[key].type){
                             case "enum":%>
                                 <%=view.options.fields[key].values[attr]%>
+                            <%break;
+                            default:%>
+                                <%=attr%>
                             <%break;
                         }%>
                     <%}else{%>
