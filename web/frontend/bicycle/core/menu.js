@@ -155,6 +155,14 @@ define(['./model'], function (model) {
 
         selectedUrl: function (path) {
             if(path == '') path = '/';
+            var j = 0;
+            while(_.isUndefined(this._urls[path]) && path != '' && path != '/'){
+                path = path.split('/');
+                path.pop();
+                path = path.join('/');
+                if(j++ > 20)break;
+            }
+
             return this.selected(this._urls[path]);
         },
 
