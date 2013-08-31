@@ -19,10 +19,11 @@ define(
 
                         exclude: ["id"],
                         translations: {
-                            title: "Название"
+                            title: "Название",
+                            status: "Статус"
                         },
 
-                        title: "Специализации",
+                        title: "Проекты",
                         callbacks: {
                             removed: function(){
                                 _this.render();
@@ -34,8 +35,8 @@ define(
 
             linkTo: function(type){
                 var links = {
-                    'new': 'admin/occupations/new',
-                    'list': 'admin/occupations'
+                    'new': 'admin/projects/new',
+                    'list': 'admin/projects'
                 }
                 return links[type];
             }

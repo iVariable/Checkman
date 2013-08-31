@@ -1,3 +1,6 @@
+/**
+ * Added draw method, allowing to render data in current "region", not "view" element
+ */
 define(
     ['marionette'],
     function (Marionette) {

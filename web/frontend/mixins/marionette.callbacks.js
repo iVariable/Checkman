@@ -1,3 +1,7 @@
+/**
+ * Added deferred functionality.
+ * Now callbacks acting like deferred
+ */
 define(
     ['marionette'],
     function(Marionette){

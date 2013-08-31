@@ -40,6 +40,11 @@ define([],function(){
                     title: "Специализация",
                     icon: "icon-user-md",
                     url: "admin/occupations"
+                },
+                projects: {
+                    title: "Проекты",
+                    icon: "icon-briefcase",
+                    url: "admin/projects"
                 }
             }
         }

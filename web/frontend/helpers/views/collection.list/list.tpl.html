@@ -1,17 +1,28 @@
+<%var countFields = 1;%>
+<%_(model.createEntity().attributes).each(function(attr, key){%>
+    <%if(view.options.exclude && _(view.options.exclude).contains(key)) return;
+    countFields++;%>
+<%});%>
 <table class="table table-striped table-bordered box">
     <thead>
         <tr>
-            <th colspan="2">Специализация</th>
+            <th colspan="<%=countFields%>"><%=view.options.title%></th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <th>Название</th>
+            <%_(model.createEntity().attributes).each(function(attr, key){%>
+                <%if(view.options.exclude && _(view.options.exclude).contains(key)) return;%>
+                <th><%if(view.options.translations && view.options.translations[key]){%><%=view.options.translations[key]%><%}else{%><%=key%><%}%></th>
+            <%});%>
             <th width="140">Действия</th>
         </tr>
         <%model.each(function(elem){%>
         <tr>
-            <td><%=elem%></td>
+            <%_(elem.attributes).each(function(attr, key){%>
+                <%if(view.options.exclude && _(view.options.exclude).contains(key)) return;%>
+                <td><%=attr%></td>
+            <%});%>
             <td>
                 <a class="j-nav button" href="<%=elem.linkTo('show')%>"><i class="icon-eye-open"></i></a>
                 <a class="j-nav button blue" href="<%=elem.linkTo('edit')%>"><i class="icon-pencil"></i></a>
@@ -22,7 +33,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="2">
+            <td colspan="<%=countFields%>">
                 <a href="<%=model.linkTo('new')%>" class="j-nav j-new-occupation button blue"><i class="icon-plus"></i> Добавить</a>
             </td>
         </tr>

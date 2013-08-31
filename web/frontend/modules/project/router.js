@@ -8,7 +8,7 @@ define(
         var router = Bicycle.Core.Router.extend({
 
             collection: function(){
-                return this.app().collection('occupations');
+                return this.app().collection('projects');
             },
 
             show: function(view){
@@ -16,10 +16,10 @@ define(
             },
 
             routes : {
-                "admin/occupations" : "route_list"
-                ,"admin/occupations/new": 'route_new'
-                ,"admin/occupations/:id/edit": 'route_edit'
-                ,"admin/occupations/:id": 'route_show'
+                "admin/projects" : "route_list"
+                ,"admin/projects/new": 'route_new'
+                ,"admin/projects/:id/edit": 'route_edit'
+                ,"admin/projects/:id": 'route_show'
             },
 
             route_list : function(){

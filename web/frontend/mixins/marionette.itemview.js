@@ -1,3 +1,6 @@
+/**
+ * Changed default serializeData to send actual objects to template
+ */
 define(
     ['marionette'],
     function(Marionette){
