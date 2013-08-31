@@ -15,6 +15,7 @@ class EmployeeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id', null, array("mapped" => false))
             ->add('firstName')
             ->add('secondName')
             ->add('salary')
@@ -29,7 +30,8 @@ class EmployeeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Budget\BudgetBundle\Entity\Employee'
+            'data_class' => 'Budget\BudgetBundle\Entity\Employee',
+             'csrf_protection' => false
         ));
     }
 
@@ -38,6 +40,6 @@ class EmployeeType extends AbstractType
      */
     public function getName()
     {
-        return 'budget_budgetbundle_employeetype';
+        return '';
     }
 }

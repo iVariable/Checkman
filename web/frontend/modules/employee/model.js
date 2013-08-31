@@ -10,6 +10,22 @@ define(
             notes: "Заметки"
         }
 
+        var statuses = {
+            "0": "Удален",
+            "1": "Активен",
+            "2": "В отпуске/временно неактивен"
+        };
+
+        var fields = {
+            status: {
+                type: "enum",
+                values: statuses
+            },
+            notes: {
+                type: "text"
+            }
+        };
+
         var model = {
 
             defaults: {
@@ -20,11 +36,7 @@ define(
                 notes: ""
             },
 
-            statuses: {
-                "0": "Удален",
-                "1": "Активен",
-                "2": "Завершен"
-            },
+            statuses: statuses,
 
             __init: function(){
                 var _this = this;
@@ -35,12 +47,7 @@ define(
                         exclude: ["id"],
                         translations: translations,
 
-                        fields: {
-                            status: {
-                                type: "enum",
-                                values: _this.statuses
-                            }
-                        }
+                        fields: fields
                     });
                 });
 
@@ -51,15 +58,7 @@ define(
                         exclude: ["id"],
                         translations: translations,
 
-                        fields: {
-                            status: {
-                                type: "enum",
-                                values: _this.statuses
-                            },
-                            description: {
-                                type: "text"
-                            }
-                        },
+                        fields: fields,
 
                         callbacks: {
                             saved: function(){
@@ -81,15 +80,7 @@ define(
                         exclude: ["id"],
                         translations: translations,
 
-                        fields: {
-                            status: {
-                                type: "enum",
-                                values: _this.statuses
-                            },
-                            description: {
-                                type: "text"
-                            }
-                        },
+                        fields: fields,
 
                         callbacks: {
                             saved: function(){
@@ -106,7 +97,7 @@ define(
             },
 
             toString: function(){
-                return this.get('title');
+                return this.get('secondName')+' '+this.get('firstName');
             },
 
             linkTo: function(type){

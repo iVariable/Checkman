@@ -119,4 +119,9 @@ class Occupation
     {
         return $this->employees;
     }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }

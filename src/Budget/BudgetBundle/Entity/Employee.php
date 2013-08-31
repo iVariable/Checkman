@@ -42,7 +42,7 @@ class Employee
      *      "Employee"
      * })
      */
-    private $firstName;
+    private $firstName = "";
 
     /**
      * @var string
@@ -53,7 +53,7 @@ class Employee
      *      "Employee"
      * })
      */
-    private $secondName;
+    private $secondName = "";
 
     /**
      * @var float
@@ -64,7 +64,7 @@ class Employee
      *      "Employee"
      * })
      */
-    private $salary;
+    private $salary = 0;
 
     /**
      * @var string
@@ -75,7 +75,7 @@ class Employee
      *      "Employee"
      * })
      */
-    private $notes;
+    private $notes = '';
 
     /**
      * @var integer
@@ -86,7 +86,7 @@ class Employee
      *      "Employee"
      * })
      */
-    private $status;
+    private $status = 0;
 
     /**
      * @ORM\OneToMany(targetEntity="ProjectInvolvement",mappedBy="employee")

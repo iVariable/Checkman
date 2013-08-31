@@ -21,6 +21,9 @@
                             case "enum":%>
                             <%=view.options.fields[key].values[attr]%>
                             <%break;
+                            default:%>
+                            <%=attr%>
+                            <%break;
                          }%>
                     <%}else{%>
                         <%=attr%>
