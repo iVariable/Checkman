@@ -15,6 +15,7 @@ class ProjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id', null, array("mapped" => false))
             ->add('title')
             ->add('description')
             ->add('status');
@@ -26,7 +27,8 @@ class ProjectType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Budget\BudgetBundle\Entity\Project'
+            'data_class' => 'Budget\BudgetBundle\Entity\Project',
+            'csrf_protection' => false,
         ));
     }
 
@@ -35,6 +37,6 @@ class ProjectType extends AbstractType
      */
     public function getName()
     {
-        return 'budget_budgetbundle_projecttype';
+        return '';
     }
 }

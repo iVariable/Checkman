@@ -9,7 +9,24 @@
     <%if(view.options.exclude && _(view.options.exclude).contains(key)) return;%>
     <tr>
         <th><%if(view.options.translations && view.options.translations[key]){%><%=view.options.translations[key]%><%}else{%><%=key%><%}%></th>
-        <td><input type="text" name="<%=key%>" class="j-data" data-data-attr="<%=key%>" value="<%=attr%>"/></td>
+        <td>
+            <%if(view.options.fields && view.options.fields[key]){%>
+                <%switch(view.options.fields[key].type){
+                    case "enum":%>
+                    <select name="<%=key%>" data-data-attr="<%=key%>" class="j-data">
+                        <%_(view.options.fields[key].values).each(function(text, value){%>
+                        <option value="<%=value%>" <%if(value == attr){%>selected="selected"<%};%>><%=text%></option>
+                        <%});%>
+                    </select>
+                    <%break;
+                    case "text":%>
+                    <textarea name="<%=key%>" class="j-data" data-data-attr="<%=key%>" rows="3" cols="60"><%=attr%></textarea>
+                    <%break;
+                }%>
+            <%}else{%>
+                <input type="text" name="<%=key%>" class="j-data" data-data-attr="<%=key%>" value="<%=attr%>"/>
+            <%}%>
+        </td>
     </tr>
     <%});%>
     </tbody>

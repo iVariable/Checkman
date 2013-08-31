@@ -45,7 +45,7 @@ class Project
      *
      * @Serializer\Groups({"Project"})
      */
-    private $description;
+    private $description = "";
 
     /**
      * @var integer

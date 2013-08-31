@@ -20,7 +20,15 @@ define(
                         exclude: ["id"],
                         translations: {
                             title: "Название",
-                            status: "Статус"
+                            status: "Статус",
+                            description: "Описание"
+                        },
+
+                        fields: {
+                            status: {
+                                type: "enum",
+                                values: _this.model.prototype.statuses
+                            }
                         },
 
                         title: "Проекты",

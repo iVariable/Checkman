@@ -23,7 +23,6 @@ define(
                 if(this.options.callbacks && this.options.callbacks.saved){
                     saving.done(this.options.callbacks.saved);
                 }
-
                 this.model.set(this.collectData());
 
                 this.model.save(undefined, {

@@ -30,4 +30,78 @@ class ProjectController extends \Budget\RESTBudgetBundle\Controller\Helper\RESTC
     {
         return $this->get('r.project')->findOneById($id);
     }
+
+    /**
+     * @View(serializerGroups={"Project"})
+     *
+     * @return mixed
+     */
+    public function postProjectsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $this->get('r.project')->newEntity();
+
+        $editForm = $this->createForm(new \Budget\BudgetBundle\Form\ProjectType(), $entity, array('method' => "POST"));
+        $editForm->handleRequest($this->getRequest());
+
+        if ($editForm->isValid()) {
+            $em->persist($entity);
+            $em->flush();
+        } else {
+            return $editForm->getErrorsAsString();
+        }
+
+        return $entity;
+    }
+
+    /**
+     * @View(serializerGroups={"Project"})
+     *
+     * @return mixed
+     */
+    public function putProjectAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $this->get('r.project')->findOneById($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Project entity.');
+        }
+
+        $editForm = $this->createForm(new \Budget\BudgetBundle\Form\ProjectType(), $entity, array('method' => "PUT"));
+        $editForm->handleRequest($this->getRequest());
+
+        if ($editForm->isValid()) {
+            $em->persist($entity);
+            $em->flush();
+        } else {
+            return $editForm->getErrorsAsString();
+        }
+
+        return $entity;
+    }
+
+    /**
+     * @View(serializerGroups={"Project"})
+     *
+     * @return mixed
+     */
+    public function deleteProjectAction($id)
+    {
+        $entity = $this->get('r.project')->findOneById($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Project entity.');
+        }
+
+        $em = $this->get('em');
+
+        $em->remove($entity);
+        $em->flush();
+
+        return $entity;
+    }
+
 }

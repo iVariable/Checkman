@@ -6,7 +6,14 @@ define(
 
             defaults: {
                 title: "Новый проект",
-                status: 1
+                status: 1,
+                description: ""
+            },
+
+            statuses: {
+                "0": "Удален",
+                "1": "Активен",
+                "2": "Завершен"
             },
 
             __init: function(){
@@ -18,7 +25,15 @@ define(
                         exclude: ["id"],
                         translations: {
                             title: "Название",
-                            status: "Статус"
+                            status: "Статус",
+                            description: "Описание"
+                        },
+
+                        fields: {
+                            status: {
+                                type: "enum",
+                                values: _this.statuses
+                            }
                         }
                     });
                 });
@@ -29,7 +44,19 @@ define(
 
                         exclude: ["id"],
                         translations: {
-                            title: "Название"
+                            title: "Название",
+                            status: "Статус",
+                            description: "Описание"
+                        },
+
+                        fields: {
+                            status: {
+                                type: "enum",
+                                values: _this.statuses
+                            },
+                            description: {
+                                type: "text"
+                            }
                         },
 
                         callbacks: {
@@ -51,7 +78,19 @@ define(
 
                         exclude: ["id"],
                         translations: {
-                            title: "Название"
+                            title: "Название",
+                            status: "Статус",
+                            description: "Описание"
+                        },
+
+                        fields: {
+                            status: {
+                                type: "enum",
+                                values: _this.statuses
+                            },
+                            description: {
+                                type: "text"
+                            }
                         },
 
                         callbacks: {
