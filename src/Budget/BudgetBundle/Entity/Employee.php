@@ -37,6 +37,7 @@ class Employee
      *
      * @ORM\Column(name="firstName", type="string", length=255)
      *
+     * @Serializer\SerializedName("firstName")
      * @Serializer\Groups({
      *      "Employee"
      * })
@@ -47,7 +48,7 @@ class Employee
      * @var string
      *
      * @ORM\Column(name="secondName", type="string", length=255)
-     *
+     * @Serializer\SerializedName("secondName")
      * @Serializer\Groups({
      *      "Employee"
      * })
@@ -225,7 +226,7 @@ class Employee
     /**
      * Constructor
      */
-    public function __construct($firstName = false, $secondName = false, $salary = false)
+    public function __construct($secondName = false, $firstName = false,  $salary = false)
     {
         $this->projects = new \Doctrine\Common\Collections\ArrayCollection();
         $this->occupations = new \Doctrine\Common\Collections\ArrayCollection();

@@ -45,6 +45,11 @@ define([],function(){
                     title: "Проекты",
                     icon: "icon-briefcase",
                     url: "admin/projects"
+                },
+                employees: {
+                    title: "Сотрудники",
+                    icon: "icon-user",
+                    url: "admin/employees"
                 }
             }
         }
