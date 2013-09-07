@@ -35,12 +35,7 @@ class Occupation
     private $title;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Employee", inversedBy="occupations")
-     * @ORM\JoinTable(name="occupationToEmployee",
-     *      joinColumns={@ORM\JoinColumn(name="occupation_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="employee_id", referencedColumnName="id")}
-     *      )
-     *
+     * @ORM\ManyToMany(targetEntity="Employee", mappedBy="occupations")
      *
      */
     private $employees;

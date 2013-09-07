@@ -32,7 +32,7 @@ define(
             });
         }
 
-        app.redrawMenu = function(){
+        app.redrawMenu = function () {
             app.menu.view('main').render();
             app.menu.view('secondary').render();
             app.menu.view('breadcrumbs').render();

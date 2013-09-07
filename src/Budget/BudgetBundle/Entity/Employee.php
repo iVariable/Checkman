@@ -94,7 +94,13 @@ class Employee
     private $projects;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Occupation", mappedBy="employees")
+     * @ORM\ManyToMany(targetEntity="Occupation", inversedBy="employees", cascade={"persist"})
+     * @ORM\JoinTable(name="occupationToEmployee",
+     *      joinColumns={@ORM\JoinColumn(name="employee_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="occupation_id", referencedColumnName="id")}
+     *      )
+     *
+     *
      * @Serializer\Groups({
      *      "Employee"
      * })
@@ -337,10 +343,9 @@ class Employee
         return $this->occupations;
     }
 
-    function __toString()
+    public function __toString()
     {
         return $this->getFirstName().' '.$this->getSecondName();
     }
-
 
 }

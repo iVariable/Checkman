@@ -24,7 +24,7 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
     }
 
     /**
-     * @View(serializerGroups={"Employee"})
+     * @View(serializerGroups={"Employee", "Occupation"})
      *
      * @return mixed
      */
@@ -34,7 +34,7 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
     }
 
     /**
-     * @View(serializerGroups={"Employee"})
+     * @View(serializerGroups={"Employee", "Occupation"})
      *
      * @return mixed
      */
@@ -58,7 +58,7 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
     }
 
     /**
-     * @View(serializerGroups={"Employee"})
+     * @View(serializerGroups={"Employee", "Occupation"})
      *
      * @return mixed
      */
@@ -66,6 +66,7 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
     {
         $em = $this->getDoctrine()->getManager();
 
+        /* @var $entity \Budget\BudgetBundle\Entity\Employee */
         $entity = $this->get('r.employee')->findOneById($id);
 
         if (!$entity) {
@@ -86,7 +87,7 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
     }
 
     /**
-     * @View(serializerGroups={"Employee"})
+     * @View(serializerGroups={"Employee", "Occupation"})
      *
      * @return mixed
      */

@@ -22,11 +22,23 @@ fields.push(key);
                         };%>
                         <%switch(view.options.fields[key].type){
                             case "enum":%>
-                                <select name="<%=key%>" data-data-attr="<%=key%>" class="j-data">
+                                <select style="width:400px" name="<%=key%>" data-data-attr="<%=key%>" class="j-data">
                                     <%_(view.options.fields[key].values).each(function(text, value){%>
                                         <option value="<%=value%>" <%if(value == attr){%>selected="selected"<%};%>><%=text%></option>
                                     <%});%>
                                 </select>
+                            <%break;
+                            case "entity_multi":
+                                if(view.options.fields[key].getter){
+                                    attr = model[view.options.fields[key].getter]();
+                                };
+                                var collection = app.collection(view.options.fields[key].entityType);
+                            %>
+                            <select multiple="multiple" style="width:100%" name="<%=key%>" data-data-attr="<%=key%>" class="j-data">
+                                <%collection.each(function(entity){%>
+                                <option value="<%=entity.id%>" <%if( attr.indexOf(entity) != -1){%>selected="selected"<%};%>><%=entity%></option>
+                                <%});%>
+                            </select>
                             <%break;
                             case "text":%>
                                 <textarea name="<%=key%>" class="j-data" data-data-attr="<%=key%>" rows="3" cols="60"><%=attr%></textarea>

@@ -8,6 +8,10 @@ define(
         return Bicycle.Core.View.extend({
             template: TPL_Show,
 
+            onRender: function(){
+                this.$('select').select2();
+            },
+
             events: {
                 'click .j-save': 'event_save'
             },

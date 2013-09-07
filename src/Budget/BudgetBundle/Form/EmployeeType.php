@@ -31,7 +31,7 @@ class EmployeeType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Budget\BudgetBundle\Entity\Employee',
-             'csrf_protection' => false
+            'csrf_protection' => false
         ));
     }
 
