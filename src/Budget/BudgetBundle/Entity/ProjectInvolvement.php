@@ -63,6 +63,13 @@ class ProjectInvolvement
      */
     private $employee;
 
+    /**
+     * @ORM\Column(name="employee_id", type="integer")
+     *
+     * @Serializer\Groups({"ProjectInvolvement"})
+     */
+    private $employee_id;
+
     function __construct(Project $project, Employee $employee, $involvement, $notes = "")
     {
         $this->setProject($project);

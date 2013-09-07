@@ -54,11 +54,11 @@ define(
             fields: fields,
             translations: translations,
 
-            __init: function(){
+            __init: function () {
                 var _this = this;
-                this.registerView('show', function(){
+                this.registerView('show', function () {
                     return new (Helpers.View.Model.Show)({
-                        model:_this,
+                        model: _this,
 
                         exclude: ["id"],
                         translations: translations,
@@ -67,9 +67,9 @@ define(
                     });
                 });
 
-                this.registerView('edit', function(){
+                this.registerView('edit', function () {
                     var view = new (Helpers.View.Model.Edit)({
-                        model:_this,
+                        model: _this,
 
                         exclude: ["id", "projects"],
                         translations: translations,
@@ -77,21 +77,21 @@ define(
                         fields: fields,
 
                         callbacks: {
-                            saved: function(){
-                                App.router.navigate(_this.linkTo('show'),true);
+                            saved: function () {
+                                App.router.navigate(_this.linkTo('show'), true);
                             }
                         }
                     });
 
-                    view.on('render', function(){
+                    view.on('render', function () {
                         view.delegateEvents();
                     })
                     return view;
                 })
 
-                this.registerView('new', function(){
+                this.registerView('new', function () {
                     var view = new (Helpers.View.Model.New)({
-                        model:_this,
+                        model: _this,
 
                         exclude: ["id", "projects"],
                         translations: translations,
@@ -99,51 +99,66 @@ define(
                         fields: fields,
 
                         callbacks: {
-                            saved: function(){
-                                App.router.navigate(_this.linkTo('show'),true);
+                            saved: function () {
+                                App.router.navigate(_this.linkTo('show'), true);
                             }
                         }
                     });
 
-                    view.on('render', function(){
+                    view.on('render', function () {
                         view.delegateEvents();
                     })
                     return view;
                 })
             },
 
-            toString: function(){
-                return this.get('secondName')+' '+this.get('firstName');
+            toString: function () {
+                return this.get('secondName') + ' ' + this.get('firstName');
             },
 
-            occupations: function()
-            {
+            occupations: function () {
                 var elems = _(_(this.get('occupations')).pluck('id'));
-                return App.collection('occupations').filter(function(item){
+                return App.collection('occupations').filter(function (item) {
                     return elems.indexOf(item.id) !== -1;
                 })
             },
 
-            projects: function()
-            {
+            projects: function () {
                 var elems = _(_(this.get('projects')).pluck('project_id'));
-                return App.collection('projects').filter(function(item){
+                return App.collection('projects').filter(function (item) {
                     return elems.indexOf(item.id) !== -1;
                 })
             },
 
-            involvement: function(project){
-                var involvement = _(this.get('projects')).find(function(projectInvolvement){
+            involvements: function () {
+                var involvements = _(this.get('projects')).map(function(data){
+                    return new (App.module('projectInvolvement').Model)(data);
+                });
+                return involvements;
+            },
+
+            involvement: function (project) {
+                var involvement = _(this.get('projects')).find(function (projectInvolvement) {
                     return projectInvolvement.project_id == project.id;
                 });
-                return involvement?involvement.involvement:false;
+                return involvement ? involvement.involvement : false;
             },
 
-            linkTo: function(type){
+            freetime: function() {
+                return 100 - (
+                    _(this.involvements())
+                        .reduceRight(
+                            function(val, inv){ return val+parseInt(inv.get('involvement')); },
+                            0
+                        )
+                );
+            },
+
+            linkTo: function (type) {
                 var links = {
                     "new": 'admin/employees/new',
-                    "show": 'admin/employees/'+this.id,
-                    "edit": 'admin/employees/'+this.id+'/edit'
+                    "show": 'admin/employees/' + this.id,
+                    "edit": 'admin/employees/' + this.id + '/edit'
                 }
                 return links[type];
             }

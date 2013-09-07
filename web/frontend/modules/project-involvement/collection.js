@@ -17,12 +17,21 @@ define(
                     return new (Helpers.View.Collection.List)({
                         model:_this,
 
-                        exclude: ["id", "notes"],
-                        translations: _this.model.prototype.translations,
+                        exclude: ["id"],
+                        translations: {
+                            title: "Название",
+                            status: "Статус",
+                            description: "Описание"
+                        },
 
-                        fields: _this.model.prototype.fields,
+                        fields: {
+                            status: {
+                                type: "enum",
+                                values: _this.model.prototype.statuses
+                            }
+                        },
 
-                        title: "Сотрудники",
+                        title: "Проекты",
                         callbacks: {
                             removed: function(){
                                 _this.render();
@@ -34,8 +43,8 @@ define(
 
             linkTo: function(type){
                 var links = {
-                    'new': 'admin/employees/new',
-                    'list': 'admin/employees'
+                    'new': 'admin/projects/new',
+                    'list': 'admin/projects'
                 }
                 return links[type];
             }

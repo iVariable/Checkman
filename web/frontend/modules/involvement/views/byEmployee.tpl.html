@@ -1,0 +1,42 @@
+<%
+var projects = app.collection('projects');
+var employees = app.collection('employees');
+var occupations = app.collection('occupations');
+%>
+
+<table class="table table-bordered table-striped box">
+    <thead>
+        <tr>
+            <th colspan="3">Занятость персонала по сотрудникам</th>
+        </tr>
+        <tr>
+            <td>ФИО</td>
+            <td>Свободное время</td>
+            <td>Проектная загрузка</td>
+        </tr>
+    </thead>
+    <tbody>
+        <%employees.each(function(employee){%>
+            <%
+            var involvements = employee.involvements();
+            %>
+            <tr>
+                <td><a class="j-nav" href="<%=employee.linkTo("show")%>"><%=employee%></a></td>
+                <td><%=employee.freetime()%></td>
+                <td>
+                    <%if(involvements.length != 0){%>
+                        <table>
+                            <%_(involvements).each(function(involvement){%>
+                            <tr>
+                                <td><%=involvement.project()%> | <%=involvement.get('involvement')%>%</td>
+                            </tr>
+                            <%});%>
+                        </table>
+                    <%}else{%>
+                        &nbsp;
+                    <%};%>
+                </td>
+            </tr>
+        <%});%>
+    </tbody>
+</table>

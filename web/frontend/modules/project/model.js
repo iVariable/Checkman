@@ -107,6 +107,13 @@ define(
                 })
             },
 
+            employees: function(){
+                var _this = this;
+                return App.collection('employees').filter(function(employee){
+                    return employee.involvement(_this);
+                });
+            },
+
             toString: function(){
                 return this.get('title');
             },

@@ -1,0 +1,44 @@
+<%
+var projects = app.collection('projects');
+var employees = app.collection('employees');
+var occupations = app.collection('occupations');
+%>
+
+<table class="table table-striped table-bordered box">
+    <thead>
+        <tr>
+            <th colspan="2">Занятость персонала по проектам</th>
+        </tr>
+    </thead>
+    <tbody>
+        <%projects.each(function(project){%>
+        <tr>
+            <th><a class="j-nav" href="<%=project.linkTo("show")%>"><%=project%></a></th>
+            <td>
+                <%
+                var _projectEmployees = _(project.employees());
+                %>
+                <%occupations.each(function(occupation){%>
+                    <%
+                        var employeesWithOccupation = _projectEmployees.filter(function(employee){
+                            return employee.occupations().indexOf(occupation) != -1;
+                        });
+                        if( employeesWithOccupation.length == 0 ) return;
+                    %>
+                    <table class="pull-left">
+                        <tr>
+                            <th colspan="2"><%=occupation%></th>
+                        </tr>
+                        <%_(employeesWithOccupation).each(function(employee){%>
+                        <tr>
+                            <td><%=employee%></td>
+                            <td><%=employee.involvement(project)%></td>
+                        </tr>
+                        <%});%>
+                    </table>
+                <%});%>
+            </td>
+        </tr>
+        <%});%>
+    </tbody>
+</table>

@@ -1,7 +1,7 @@
 define(
     [
         'bicycle',
-        'tpl!./list.tpl.html'
+        'tpl!./byEmployee.tpl.html'
     ],
     function (Bicycle, TPL_List) {
 

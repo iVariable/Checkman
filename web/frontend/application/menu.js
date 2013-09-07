@@ -10,7 +10,19 @@ define([],function(){
         involvement: {
             title: "Занятость персонала",
             icon: "icon-list-alt",
-            url: "involvement"
+            url: "involvement",
+            children: {
+                project: {
+                    title: "По проектам",
+                    icon: "icon-list-alt",
+                    url: "involvement/by-project"
+                },
+                employee: {
+                    title: "По сотрудникам",
+                    icon: "icon-list-alt",
+                    url: "involvement/by-employee"
+                }
+            }
         },
 
         reports: {

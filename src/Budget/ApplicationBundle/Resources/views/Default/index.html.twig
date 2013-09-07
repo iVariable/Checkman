@@ -26,11 +26,13 @@
     <link rel="stylesheet" href="frontend/bower_components/select2/select2.css"/>
 
     <style type="text/css">
-        .employee-involvement-table {
-
+        .employee-involvement-table thead th:first-child {
+            width: 220px;
         }
 
         .employee-involvement-table .project-title {
+            font-size:13px;
+            font-weight:normal;
             text-align:left;
             vertical-align:bottom;
         }
@@ -39,8 +41,39 @@
             vertical-align:top;
         }
 
-        .employee-involvement-table TD, .employee-involvement-table TH {
+        .employee-involvement-table TH {
             padding: 8px 0;
+            text-align:left;
+        }
+        .employee-involvement-table TD {
+            padding: 8px 2px;
+            text-align:left;
+        }
+        .employee-involvement-table tr:first-child td {
+
+        }
+        .employee-involvement-table TD:first-child {
+            padding-left:16px;
+        }
+        .employee-involvement-table .b-cell_content_role {
+            padding-top:16px;
+            padding-left:0px;
+        }
+
+        .employee-involvement-table tbody tr:hover {
+            background: #318ec5;
+        }
+
+        .employee-involvement-table tbody td:hover {
+            background: red;
+        }
+
+        .employee-involvement-table tbody tr:hover .b-cell_content_employee {
+            font-weight: bold;
+        }
+
+        .employee-involvement-table tbody tr.b-row_content_role:hover {
+            background: none;
         }
 
         .m-rotate-270 {
@@ -54,7 +87,8 @@
             display:inline-block;
             overflow:hidden;
             width:36px;
-            line-height:36px;
+            /*line-height:36px;*/
+            line-height:1;
         }
         .b-table-cell__in-2 {
             display:inline-block;

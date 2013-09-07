@@ -1,20 +1,24 @@
 define(
     [
-        'bicycle',
-
-        './views/list'
+        'bicycle'
+        ,'./views/byProject'
+        ,'./views/byEmployee'
     ],
     function(
         Bicycle,
-
-        View_List
+        View_Project,
+        View_Employee
     ){
         var router = Bicycle.Core.Router.extend({
             routes : {
-                "involvement" : "route_involvement"
+                "involvement/by-project" : "route_involvement_by_project"
+                ,"involvement/by-employee" : "route_involvement_by_employee"
             },
-            route_involvement : function(){
-                this.app().layouts.main.content.show( new View_List() );
+            route_involvement_by_project : function(){
+                this.app().layouts.main.content.show( new View_Project() );
+            },
+            route_involvement_by_employee : function(){
+                this.app().layouts.main.content.show( new View_Employee() );
             }
 
         });

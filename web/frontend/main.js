@@ -30,8 +30,10 @@ require.config({
     },
 
     packages: [
-        "application", "bicycle", "modules/occupation", "modules/reports", "helpers", "modules/project", "modules/employee"
+        "application", "bicycle"
+        ,"modules/occupation", "modules/reports", "helpers", "modules/project", "modules/employee"
         , "modules/involvement"
+        , "modules/project-involvement"
     ]
 });
 
@@ -42,7 +44,7 @@ require(
     //reports
     'modules/reports',
     //admin
-    'modules/occupation', "modules/project", "modules/employee",
+    'modules/occupation', "modules/project", "modules/employee", 'modules/project-involvement',
     //involvements
     "modules/involvement"
 ],
