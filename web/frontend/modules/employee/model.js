@@ -8,7 +8,8 @@ define(
             status: "Статус",
             occupations: "Специализация",
             salary: "Зарплата",
-            notes: "Заметки"
+            notes: "Заметки",
+            projects: "Проекты"
         }
 
         var statuses = {
@@ -29,6 +30,11 @@ define(
                 type: "entity_multi",
                 entityType: "occupations",
                 getter: "occupations"
+            },
+            projects: {
+                type: "involvement",
+                entityType: "project",
+                getter: "projects"
             }
         };
 
@@ -38,9 +44,10 @@ define(
                 secondName: "",
                 firstName: "",
                 status: 1,
-                salary: 0,
                 notes: "",
-                occupations: null
+                occupations: null,
+                projects: null,
+                salary: 0
             },
 
             statuses: statuses,
@@ -64,7 +71,7 @@ define(
                     var view = new (Helpers.View.Model.Edit)({
                         model:_this,
 
-                        exclude: ["id"],
+                        exclude: ["id", "projects"],
                         translations: translations,
 
                         fields: fields,
@@ -86,7 +93,7 @@ define(
                     var view = new (Helpers.View.Model.New)({
                         model:_this,
 
-                        exclude: ["id"],
+                        exclude: ["id", "projects"],
                         translations: translations,
 
                         fields: fields,
@@ -115,6 +122,21 @@ define(
                 return App.collection('occupations').filter(function(item){
                     return elems.indexOf(item.id) !== -1;
                 })
+            },
+
+            projects: function()
+            {
+                var elems = _(_(this.get('projects')).pluck('project_id'));
+                return App.collection('projects').filter(function(item){
+                    return elems.indexOf(item.id) !== -1;
+                })
+            },
+
+            involvement: function(project){
+                var involvement = _(this.get('projects')).find(function(projectInvolvement){
+                    return projectInvolvement.project_id == project.id;
+                });
+                return involvement?involvement.involvement:false;
             },
 
             linkTo: function(type){

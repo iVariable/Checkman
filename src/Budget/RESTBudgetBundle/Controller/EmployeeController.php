@@ -12,7 +12,7 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
 {
 
     /**
-     * @View(serializerGroups={"Employee", "Occupation"})
+     * @View(serializerGroups={"Employee", "Occupation", "ProjectInvolvement"})
      *
      * @return mixed
      */
@@ -24,7 +24,7 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
     }
 
     /**
-     * @View(serializerGroups={"Employee", "Occupation"})
+     * @View(serializerGroups={"Employee", "Occupation", "ProjectInvolvement"})
      *
      * @return mixed
      */
@@ -34,7 +34,7 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
     }
 
     /**
-     * @View(serializerGroups={"Employee", "Occupation"})
+     * @View(serializerGroups={"Employee", "Occupation", "ProjectInvolvement"})
      *
      * @return mixed
      */
@@ -58,7 +58,7 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
     }
 
     /**
-     * @View(serializerGroups={"Employee", "Occupation"})
+     * @View(serializerGroups={"Employee", "Occupation", "ProjectInvolvement"})
      *
      * @return mixed
      */
@@ -87,7 +87,7 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
     }
 
     /**
-     * @View(serializerGroups={"Employee", "Occupation"})
+     * @View(serializerGroups={"Employee", "Occupation", "ProjectInvolvement"})
      *
      * @return mixed
      */

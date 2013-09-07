@@ -31,6 +31,7 @@ require.config({
 
     packages: [
         "application", "bicycle", "modules/occupation", "modules/reports", "helpers", "modules/project", "modules/employee"
+        , "modules/involvement"
     ]
 });
 
@@ -38,7 +39,12 @@ require(
 [
     'application',
     'mixins/main',
-    'modules/occupation', 'modules/reports', "modules/project", "modules/employee"
+    //reports
+    'modules/reports',
+    //admin
+    'modules/occupation', "modules/project", "modules/employee",
+    //involvements
+    "modules/involvement"
 ],
 function(app){
 

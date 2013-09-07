@@ -7,6 +7,12 @@ define([],function(){
             url: '/'
         },
 
+        involvement: {
+            title: "Занятость персонала",
+            icon: "icon-list-alt",
+            url: "involvement"
+        },
+
         reports: {
             title: "Финансовые отчеты",
             icon: 'icon-money',
@@ -23,12 +29,6 @@ define([],function(){
                     url: "reports/deviations"
                 }
             }
-        },
-
-        involvement: {
-            title: "Занятость персонала",
-            icon: "icon-list-alt",
-            url: "involvement"
         },
 
         admin: {

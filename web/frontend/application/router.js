@@ -11,10 +11,11 @@ define(
                 "": "route_dashboard"
                 ,"reports": "route_list"
                 ,"admin": "route_list"
-                ,"involvement": "route_list"
             },
             route_dashboard: function () {
-                this.app().layouts.main.content.show(new View_Dashboard());
+                //this.app().layouts.main.content.show(new View_Dashboard());
+                var item = this.app().menu.selectedItem();
+                this.app().layouts.main.content.show(new View_ListRoutes(item));
             },
 
             route_list: function () {

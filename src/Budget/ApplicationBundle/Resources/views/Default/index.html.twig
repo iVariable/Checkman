@@ -25,6 +25,60 @@
 
     <link rel="stylesheet" href="frontend/bower_components/select2/select2.css"/>
 
+    <style type="text/css">
+        .employee-involvement-table {
+
+        }
+
+        .employee-involvement-table .project-title {
+            text-align:left;
+            vertical-align:bottom;
+        }
+        .employee-involvement-table .project-data {
+            text-align:left;
+            vertical-align:top;
+        }
+
+        .employee-involvement-table TD, .employee-involvement-table TH {
+            padding: 8px 0;
+        }
+
+        .m-rotate-270 {
+            -webkit-transform: rotate(-90deg);
+            -moz-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            -o-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+        }
+        .b-table-cell__in {
+            display:inline-block;
+            overflow:hidden;
+            width:36px;
+            line-height:36px;
+        }
+        .b-table-cell__in-2 {
+            display:inline-block;
+            white-space:nowrap;
+
+            -webkit-transform:translate(0,100%) rotate(-90deg);
+            transform:translate(0,100%) rotate(-90deg);
+            -webkit-transform-origin:0 0 0;
+            transform-origin:0 0 0;
+
+
+        }
+        .b-table-cell__in-2:after {
+            content:'';
+            float:left;
+            margin-top:100%;
+        }
+        .b-table-cell__in-2:before {
+            content:'';
+            float:left;
+            margin-top:100%;
+        }
+    </style>
+
 {% endblock %}
 
 {% block body %}

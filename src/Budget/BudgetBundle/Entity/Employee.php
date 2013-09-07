@@ -90,6 +90,9 @@ class Employee
 
     /**
      * @ORM\OneToMany(targetEntity="ProjectInvolvement",mappedBy="employee")
+     * @Serializer\Groups({
+     *      "Employee"
+     * })
      */
     private $projects;
 

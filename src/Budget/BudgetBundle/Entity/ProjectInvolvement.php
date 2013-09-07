@@ -35,14 +35,6 @@ class ProjectInvolvement
      */
     private $involvement;
 
-    function __construct(Project $project, Employee $employee, $involvement, $notes = "")
-    {
-        $this->setProject($project);
-        $this->setEmployee($employee);
-        $this->setInvolvement($involvement);
-        $this->setNotes($notes);
-    }
-
     /**
      * @var string
      *
@@ -59,10 +51,25 @@ class ProjectInvolvement
     private $project;
 
     /**
+     * @ORM\Column(name="project_id", type="integer")
+     *
+     * @Serializer\Groups({"ProjectInvolvement"})
+     */
+    private $project_id;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Employee", inversedBy="projects")
      * @ORM\JoinColumn(name="employee_id", referencedColumnName="id")
      */
     private $employee;
+
+    function __construct(Project $project, Employee $employee, $involvement, $notes = "")
+    {
+        $this->setProject($project);
+        $this->setEmployee($employee);
+        $this->setInvolvement($involvement);
+        $this->setNotes($notes);
+    }
 
     /**
      * Get id
