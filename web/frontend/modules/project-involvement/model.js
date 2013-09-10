@@ -97,7 +97,7 @@ define(
             },
 
             toString: function(){
-                return this.get('title');
+                return this.get('involvement');
             },
 
             linkTo: function(type){

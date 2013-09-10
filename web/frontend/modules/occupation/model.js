@@ -70,6 +70,39 @@ define(
                 return this.get('title');
             },
 
+            shortTitle: function(){
+                var titles = {
+                    "Разработчик. PHP": "PHP"
+                    ,"Аналитик": "А"
+                    ,"Верстальщик": "HTML"
+                    ,"Тестировщик": "QA"
+                    ,"Дизайнер": "PSD"
+                    ,"Разработчик. JS": "JS"
+                    ,"Разработчик. .NET": ".NET"
+                    ,"Разработчик. JAVA": "JAVA"
+                    ,"Менеджер проектов": "PM"
+                    ,"Системный администратор": "ADMIN"
+                    ,"Администратор офиса": "OFFICE"
+                    ,"Руководитель": "BOSS"
+                };
+
+                return titles[this.get('title')]?titles[this.get('title')]:this.get('title');
+            },
+
+            abbr: function(){
+                var titles = {
+                    "Разработчик. PHP": "php"
+                    ,"Аналитик": "analytics"
+                    ,"Верстальщик": "html"
+                    ,"Тестировщик": "qa"
+                    ,"Дизайнер": "psd"
+                    ,"Разработчик. JS": "js"
+                    ,"Разработчик. .NET": "dotnet"
+                };
+
+                return titles[this.get('title')]?titles[this.get('title')]:'free';
+            },
+
             linkTo: function(type){
                 var links = {
                     "new": 'admin/occupations/new',

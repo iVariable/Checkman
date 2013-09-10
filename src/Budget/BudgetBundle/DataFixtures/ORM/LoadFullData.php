@@ -66,37 +66,30 @@ class LoadUserData extends ContainerAware implements FixtureInterface
     public function loadProjects(ObjectManager $manager)
     {
         $projectTitles = [
-            "*.softline.ru",
-            "edu.softline.ru",
-            "Якутск (портал)",
+            "ВТБ24",
+            "*.softline",
+            "edu.softline",
+            "store.softline",
+            "ЕТП",
             "Axoft",
-            "alsoft.ru",
-            "gazprom",
-            "gazprom",
-            "gazasddfprom",
-            "gazprsom",
-            "gazprdsfom",
-            "gsdfazprom",
-            "store.softline.ru",
-            "ef.softline.ru",
-            "stdfsafasfore.softline.ru",
-            "store.sofadsfsavtline.ru",
-            "store.softlixzczne.ru",
-            "store.softliew23ne.ru",
-            "store.softlvcxvine.ru",
-            "store.softlincxvxe.ru",
-            "ssdftore.softline.ru",
-            "stordfdsge.softline.ru",
-            "store.softlinexz.ru",
-            "store.sofcvxzvtline.ru",
-            "store.softlixczvne.ru",
-            "stzxcvore.softline.ru",
-            "store.asdassoftline.ru",
-            "store.cvxsoftline.ru",
-            "store.sofcxzcvtline.ru",
-            "store.softlincvve.ru",
-            "store.softlisdfgdsfgne.ru",
-            "store.softlinexvc.ru",
+            "Якутск (портал)",
+            "Газпром",
+            "Альфастрахование",
+            "Дезигно-интеро (РОСПАН)",
+            "КГУ",
+            "Русэнерго",
+            "sl-matlab",
+            "softcloud.ru",
+            "ITMan",
+            "МТА внутренний",
+            "МТА Внешний",
+            "ДГК",
+            "Нанословарь",
+            "FAST на касперском",
+            "Мобильный Якутск",
+            "Япошка",
+            "Россельхоз",
+            "BI-Холдинг",
         ];
 
         $projects = [];
@@ -124,16 +117,59 @@ class LoadUserData extends ContainerAware implements FixtureInterface
      */
     public function loadEmployees(ObjectManager $manager, $occupations, $projects)
     {
-        $employeeData = [
-            ["Савенков", "Владимир", 50000],
-            ["Клименков", "Александр", 50000],
-            ["Петренко", "Якипупко", 20400],
-            ["Тратата", "Зергут", 15000],
-            ["Осман", "Федько", 32000],
-            ["Зюльбаган", "Шерхан", 37000],
-            ["Зарган", "Зюган", 17000],
-            ["Обложихин", "михаил", 27000],
-            ["Хипхап", "Маста", 17040],
+        $fio = [
+            "Абдуллаев Руслан Романович",
+            "Агишева  Эльвина Марселевна",
+            "Акимова Анна Валерьевна",
+            "Булычев Сергей Викторович",
+            "Гарварт Лилия Игоревна",
+            "Гороховская Екатерина Олеговна",
+            "Гребенников Дмитрий Николаевич",
+            "Дударев Михаил Михайлович",
+            "Зюбанов Ярослав Юрьевич",
+            "Ибрагимов Тимур Исмаилович",
+            "Иванов Алексей Александрович",
+            "Икрянников Андрей Викторович",
+            "Калдузов Алексей Сергеевич",
+            "Каляда Евгений Александрович",
+            "Карпочев Павел Игоревич",
+            "Кириллов Максим Викторович",
+            "Комиссарова Анастасия Валерьяновна",
+            "Красноярцев Никата Олегович",
+            "Кузьмин Сергей Александрович",
+            "Мадар Екатерина Михайловна",
+            "Мельков Сергей Николаевич",
+            "Минимулин Артур Ринатович",
+            "Молчанов Виталий Вячеславович",
+            "Молчанова Екатерина Ивановна",
+            "Ненашев Виталий Владленович",
+            "Никулин Вячеслав Николаевич",
+            "Обложихина Елена Александровна",
+            "Олизарко Роман Владимирович",
+            "Паршута Арсений Александрович",
+            "Плохих Сергей Михайлович",
+            "Поддубный Евгений Геннадьевич",
+            "Пономарев Алексей Борисович",
+            "Решетов Антон Анатольевич",
+            "Рябин Андрей Юрьевич",
+            "Савенков Владимир Владимирович",
+            "Садовникова Надежда Михайловна",
+            "Седова Дарья Александровна",
+            "Селезнев Дмитрий Сергеевич",
+            "Серединов Алексей Николаевич",
+            "Тимонин Игорь Владимирович",
+            "Удовик Александр Викторович",
+            "Филатова Ольга Владимировна",
+            "Филимошин Олег Владимирович",
+            "Фомин Эдуард Михайлович",
+            "Фурса Сергей Олегович",
+            "Чернов Артур Владимирович",
+            "Чернов Василий Вадимович",
+            "Шабакаева Лия Рашидовна",
+            "Шабанов Сергей Александрович",
+            "Шатов Максим Сергеевич",
+            "Шкатов Дмитрий Михайлович",
+            "Щелков Алексей Иванович"
         ];
 
         $employees = [];
@@ -141,16 +177,21 @@ class LoadUserData extends ContainerAware implements FixtureInterface
         $repo = $this->container->get('r.employee');
         $involvementRepo = $this->container->get('r.project_involvement');
 
-        foreach ($employeeData as $data) {
+        foreach ($fio as $fioString) {
+            $fioData = explode(' ', $fioString);
+            $data = [
+                $fioData[0],
+                $fioData[1],
+                mt_rand(10000, 50000)
+            ];
             /* @var $employee  \Budget\BudgetBundle\Entity\Employee*/
             $employee = call_user_func_array([$repo, "newEntity"], $data);
             $employee->setStatus($employee::STATUS_ACTIVE);
 
-            for ($i = 0, $count = mt_rand(1,3); $i < $count; $i++) {
-                $occupation = $occupations[array_rand($occupations)];
-                $employee->addOccupation($occupation);
-            }
+            $employee->addOccupation($occupations[array_rand($occupations)]);
+
             for ($i =0, $count = mt_rand(1,4); $i < $count; $i++) {
+                if(mt_rand(0,2) == 1) continue;
                 $project = $projects[array_rand($projects)];
                 /* @var $involvement Entity\ProjectInvolvement*/
                 $involvement = $involvementRepo->newEntity(

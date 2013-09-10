@@ -35,6 +35,11 @@ define([],function(){
                     icon: "icon-table",
                     url: "reports/year"
                 },
+                project: {
+                    title: "По проекту",
+                    icon: "icon-folder-close",
+                    url: "reports/projects"
+                },
                 deviations: {
                     title: "Отклонения",
                     icon: "icon-tasks",

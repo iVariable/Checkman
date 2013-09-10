@@ -4,41 +4,102 @@ var employees = app.collection('employees');
 var occupations = app.collection('occupations');
 %>
 
-<table class="table table-striped table-bordered box">
-    <thead>
-        <tr>
-            <th colspan="2">Занятость персонала по проектам</th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="box">
+
+    <div class="tab-header">Занятость персонала по проектам</div>
+
+    <div class="b-projects b-projects_viewtype_list b-projects_theme_tech-color" style="background-color:#fff">
+
+        <div class="b-project">
+            <div class="b-project__title">
+                <div class="b-project__title-text">Свободные сотрудники</div>
+            </div>
+            <div class="b-project__details">
+                <ul class="b-roles b-list b-list_content_roles">
+                    <%occupations.each(function(occupation){%>
+                        <%
+                        var freeEmployeesWithOccupation = employees.filter(function(employee){
+                            return ( employee.occupations().indexOf(occupation) != -1 ) && (employee.freetime() != false);
+                        });
+                        if( freeEmployeesWithOccupation.length == 0 ) return;
+                        %>
+
+                        <li class="b-list__item">
+                            <%_(freeEmployeesWithOccupation).each(function(employee){%>
+                            <div class="b-role">
+                                <div class="b-role__icon b-role__icon_content_<%=occupation.abbr()%> b-role__icon_progress_<%=employee.freetime()%>"><%=occupation.shortTitle()%></div>
+                                <div class="b-role__details">
+                                    <a class="b-role__name b-link b-link_viewtype_default j-nav" href="<%=employee.linkTo("show")%>" title=""><span class="b-link__text"><%=employee%></span></a>
+                                    <div class="b-role__meta">
+                                        <div class="b-role__other-projects">
+                                            <%_(employee.involvements()).each(function(involvement){%>
+                                            <%=involvement%>% &mdash;
+
+                                            <span class="b-link b-link_type_pseudo b-link_viewtype_context"><%=involvement.project()%></span>
+                                            <br class="b-line-break" />
+                                            <%});%>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <%});%>
+                        </li>
+                    <%});%>
+                </ul>
+            </div>
+        </div>
+
+
+
         <%projects.each(function(project){%>
-        <tr>
-            <th><a class="j-nav" href="<%=project.linkTo("show")%>"><%=project%></a></th>
-            <td>
-                <%
-                var _projectEmployees = _(project.employees());
-                %>
-                <%occupations.each(function(occupation){%>
+
+        <div class="b-project">
+            <div class="b-project__title">
+                <div class="b-project__title-text"><a class="j-nav" href="<%=project.linkTo("show")%>"><%=project%></a></div>
+            </div>
+            <div class="b-project__details">
+                <ul class="b-roles b-list b-list_content_roles">
+
                     <%
+                    var _projectEmployees = _(project.employees());
+                    %>
+                    <%occupations.each(function(occupation){%>
+                        <%
                         var employeesWithOccupation = _projectEmployees.filter(function(employee){
-                            return employee.occupations().indexOf(occupation) != -1;
+                        return employee.occupations().indexOf(occupation) != -1;
                         });
                         if( employeesWithOccupation.length == 0 ) return;
-                    %>
-                    <table class="pull-left">
-                        <tr>
-                            <th colspan="2"><%=occupation%></th>
-                        </tr>
-                        <%_(employeesWithOccupation).each(function(employee){%>
-                        <tr>
-                            <td><%=employee%></td>
-                            <td><%=employee.involvement(project)%></td>
-                        </tr>
-                        <%});%>
-                    </table>
-                <%});%>
-            </td>
-        </tr>
+                        %>
+
+                        <li class="b-list__item">
+                            <%_(employeesWithOccupation).each(function(employee){%>
+                            <div class="b-role">
+                                <div class="b-role__icon b-role__icon_content_<%=occupation.abbr()%> b-role__icon_progress_<%=employee.involvement(project)%>"><%=occupation.shortTitle()%></div>
+                                <div class="b-role__details">
+                                    <a class="b-role__name b-link b-link_viewtype_default j-nav" href="<%=employee.linkTo("show")%>" title=""><span class="b-link__text"><%=employee%></span></a>
+                                    <div class="b-role__meta">
+                                        <div class="b-role__other-projects">
+                                        <%_(employee.involvements()).each(function(involvement){%>
+                                            <%if(involvement.project() == project) return;%>
+                                            <%=involvement%>% &mdash;
+
+                                            <span class="b-link b-link_type_pseudo b-link_viewtype_context"><%=involvement.project()%></span>
+                                            <br class="b-line-break" />
+                                        <%});%>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <%});%>
+                        </li>
+                    <%});%>
+
+
+                </ul>
+            </div>
+        </div>
         <%});%>
-    </tbody>
-</table>
+    </div>
+</div>

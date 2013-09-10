@@ -1,0 +1,306 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+.b-projects_viewtype_list .b-project {
+  border-top: 4px solid #fff;
+  border-bottom: 4px solid #fff;
+  min-height: 32px;
+}
+.b-project {
+  clear: both;
+  background: linear-gradient(180deg, transparent 0, transparent 16px, rgba(0, 0, 0, 0.05) 16px, rgba(0, 0, 0, 0.05) 17px, transparent 17px, transparent 100%) no-repeat 0 0;
+}
+.b-project__title {
+  font: bold 12px/16px Arial, sans-serif;
+  float: left;
+  padding: 8px 16px;
+  width: 160px;
+}
+.b-project__title-text {
+  background: #fff;
+  display: inline-block;
+  display: inline;
+  padding: 4px;
+}
+.b-project:hover {
+  background: none;
+}
+.b-project:hover .b-project__details {
+  padding: 0 0 16px 0;
+}
+.b-list_content_roles {
+  font: 0/0 a;
+  list-style-type: none;
+}
+.b-list_content_roles .b-list__item {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0;
+}
+.b-roles {
+  margin: 0;
+  padding: 0;
+}
+.b-role {
+  font: 0/0 a;
+  white-space: nowrap;
+  margin: 0 0 0 8px;
+  margin: 0 8px 0 0;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+.b-role:first-child {
+  margin-left: 0;
+}
+.b-role_state_disabled .b-role__icon {
+  border-color: rgba(102, 102, 102, 0.25);
+}
+.b-role_state_disabled .b-role__icon:before {
+  opacity: 0.25;
+}
+.b-role_state_lease .b-role__icon {
+  border-style: dashed;
+}
+.b-role__free {
+  position: absolute;
+  z-index: 2;
+  font: 7px/10px Arial, sans-serif;
+  text-shadow: none;
+  top: 30px;
+  top: 20px;
+  right: -2px;
+  background: #2ada00;
+  color: #fff;
+  padding: 0 2px;
+  border-radius: 0 0 2px 0;
+}
+.b-role__icon {
+  display: inline-block;
+  vertical-align: top;
+  white-space: normal;
+  margin: 0 0 0 0;
+  padding: 2px 0;
+  font: bold 10px/14px Arial, sans-serif;
+  color: #fff;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px 2px #000000;
+  border-radius: 4px;
+  border: 2px solid #ccc;
+  border: 2px solid #666;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  line-height: 32px;
+}
+.b-role__icon:before,
+.b-role__icon:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  background: #eee;
+  background: #aaa;
+  background: #666;
+  z-index: -1;
+}
+.b-role__icon:after {
+  background: #fff;
+  z-index: -2;
+}
+.b-role__icon_progress_0:before {
+  width: 0%;
+}
+.b-role__icon_progress_25:before {
+  width: 25%;
+}
+.b-role__icon_progress_33:before {
+    width: 50%;
+}
+.b-role__icon_progress_50:before {
+  width: 50%;
+}
+.b-role__icon_progress_75:before {
+  width: 75%;
+}
+.b-role__badge {
+  position: absolute;
+  z-index: 1;
+}
+.b-role__badge_position_tl {
+  top: 0;
+  left: 0;
+}
+.b-role__badge_position_br {
+  bottom: -2px;
+  right: -6px;
+}
+.b-role__badge_content_vacation {
+  width: 12px;
+  height: 12px;
+  background: url('https://cdn1.iconfinder.com/data/icons/windows8_icons_iconpharm/26/palm_tree.png') no-repeat;
+  background-size: 100% 100%;
+}
+.b-role__badge_content_king {
+  width: 12px;
+  height: 8px;
+  background: url('https://cdn1.iconfinder.com/data/icons/3_Minicons-Free-_Pack/43/Crown.png') no-repeat;
+  background-size: 100% 100%;
+  top: -6px;
+  margin-left: -6px;
+  transform: rotate(-25deg);
+}
+.b-role__details {
+  display: inline-block;
+  vertical-align: top;
+  white-space: normal;
+  opacity: 0;
+  height: 0;
+  max-width: 0px;
+  transition: opacity 0.5s, max-width 0.5s;
+  margin: 5px 0 -5px;
+  font: 12px/16px Arial, sans-serif;
+}
+.b-project:hover .b-role__details {
+  opacity: 1;
+  height: auto;
+  max-width: 1000px;
+  transition: opacity 1s, max-width 1s;
+}
+.b-role__meta {
+  margin: -1px 0;
+}
+.b-role__other-projects {
+  color: #888;
+  font: 10px/14px Arial, sans-serif;
+}
+.b-projects_theme_tech-color .b-role__icon_content_php {
+  border-color: #a541ff;
+}
+.b-projects_theme_tech-color .b-role__icon_content_php:before {
+  background-color: #a541ff;
+}
+.b-projects_theme_tech-color .b-role__icon_content_html {
+  border-color: orange;
+  border-color: #ff7518;
+}
+.b-projects_theme_tech-color .b-role__icon_content_html:before {
+  background-color: #E34C26;
+  background-color: orange;
+  background-color: #ff7518;
+}
+.b-projects_theme_tech-color .b-role__icon_content_psd {
+  border-color: #ff0033;
+}
+.b-projects_theme_tech-color .b-role__icon_content_psd:before {
+  background-color: #ff0033;
+}
+.b-projects_theme_tech-color .b-role__icon_content_qa {
+  border-color: #34e500;
+}
+.b-projects_theme_tech-color .b-role__icon_content_qa:before {
+  background-color: #34e500;
+}
+.b-projects_theme_tech-color .b-role__icon_content_analytics {
+  border-color: #ffff00;
+}
+.b-projects_theme_tech-color .b-role__icon_content_analytics:before {
+  background-color: #ffff00;
+}
+.b-projects_theme_tech-color .b-role__icon_content_js {
+  border-color: #442d25;
+  border-color: #a25f2a;
+}
+.b-projects_theme_tech-color .b-role__icon_content_js:before {
+  background-color: #442d25;
+  background-color: #a25f2a;
+}
+.b-projects_theme_tech-color .b-role__icon_content_dotnet {
+  border-color: dodgerblue;
+}
+.b-projects_theme_tech-color .b-role__icon_content_dotnet:before {
+  background-color: dodgerblue;
+}
+.b-projects_theme_tech-color .b-role__free {
+  background-color: #000;
+}
+.b-project:hover .b-role {
+  display: block;
+  margin-top: 2px;
+}
+.b-project:hover .b-role:first-child {
+  margin-top: 0;
+}
+.b-project:hover .b-role:first-child .b-role__icon {
+  visibility: visible;
+}
+.b-project:hover .b-role__details {
+  padding: 4px 8px 0;
+}
+.b-resource-bar {
+  font: 0/0 a;
+  display: none;
+}
+.b-resource-bar__tech {
+  display: inline-block;
+  vertical-align: top;
+  height: 32px;
+  padding-right: 8px;
+}
+.b-resource-bar__tech_content_php {
+  background-color: #a541ff;
+}
+.b-resource-bar__tech_content_html {
+  background-color: #F06529;
+}
+.b-resource-bar__tech_content_psd {
+  background-color: #d9002d;
+}
+.b-resource-bar__item {
+  display: inline-block;
+  vertical-align: top;
+  height: 32px;
+  width: 32px;
+  border-left: 8px solid transparent;
+}
+.b-resource-bar__item:first-child {
+  border-left: 0 none;
+}
+.b-link {
+  cursor: pointer;
+}
+.b-link_viewtype_context {
+  color: inherit;
+}
+.b-link_viewtype_context:hover {
+  color: #af052c;
+}
+.b-link_type_pseudo:hover {
+  border-bottom: 1px dotted;
+}
+.b-link_viewtype_default {
+  color: #000;
+  text-decoration: none;
+}
+.b-link_viewtype_default:hover {
+  color: #af052c;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(175, 5, 44, 0.25);
+}
+.b-chain_content_vasya .b-chain__section {
+  background: #aaa;
+  background: #666;
+  opacity: .25;
+  position: absolute;
+  top: 76px;
+  left: 300px;
+  height: 1px;
+  width: 16px;
+  transform: rotate(45deg);
+  display: none;
+}
