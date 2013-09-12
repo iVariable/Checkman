@@ -8,9 +8,9 @@ var occupations = app.collection('occupations');
 
     <div class="tab-header">Занятость персонала по проектам</div>
 
-    <div class="b-projects b-projects_viewtype_list b-projects_theme_tech-color" style="background-color:#fff">
+    <div class="b-projects b-projects_viewtype_list b-projects_theme_tech-color pull-left" style="background-color:#fff">
 
-        <div class="b-project">
+        <div class="b-project j-toggle-project-details" style="margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid #ccc">
             <div class="b-project__title">
                 <div class="b-project__title-text">Свободные сотрудники</div>
             </div>
@@ -32,7 +32,7 @@ var occupations = app.collection('occupations');
                                     <a class="b-role__name b-link b-link_viewtype_default j-nav" href="<%=employee.linkTo("show")%>" title=""><span class="b-link__text"><%=employee%></span></a>
                                     <div class="b-role__meta">
                                         <div class="b-role__other-projects">
-                                            <%_(employee.involvements()).each(function(involvement){%>
+                                            <%employee.involvements().each(function(involvement){%>
                                             <%=involvement%>% &mdash;
 
                                             <span class="b-link b-link_type_pseudo b-link_viewtype_context"><%=involvement.project()%></span>
@@ -50,11 +50,8 @@ var occupations = app.collection('occupations');
             </div>
         </div>
 
-
-
         <%projects.each(function(project){%>
-
-        <div class="b-project">
+        <div class="b-project j-toggle-project-details" data-title="<%=project%>">
             <div class="b-project__title">
                 <div class="b-project__title-text"><a class="j-nav" href="<%=project.linkTo("show")%>"><%=project%></a></div>
             </div>
@@ -74,17 +71,29 @@ var occupations = app.collection('occupations');
 
                         <li class="b-list__item">
                             <%_(employeesWithOccupation).each(function(employee){%>
-                            <div class="b-role">
-                                <div class="b-role__icon b-role__icon_content_<%=occupation.abbr()%> b-role__icon_progress_<%=employee.involvement(project)%>"><%=occupation.shortTitle()%></div>
+                            <div class="b-role <%if(employee.freetime()){%>b-role_state_free<%};%>">
+                                <div data-project-involvement-id="<%=employee.involvementByProject(project).id%>" data-employee-id="<%=employee.id%>" class="j-edit-project-involvement b-role__icon b-role__icon_content_<%=occupation.abbr()%> b-role__icon_progress_<%=employee.involvement(project)%>">
+                                    <%=occupation.shortTitle()%>
+                                    <%if(employee.freetime()){%>
+                                    <div class="b-role__free"><%=employee.freetime()%>%</div>
+                                    <%};%>
+                                </div>
                                 <div class="b-role__details">
                                     <a class="b-role__name b-link b-link_viewtype_default j-nav" href="<%=employee.linkTo("show")%>" title=""><span class="b-link__text"><%=employee%></span></a>
                                     <div class="b-role__meta">
                                         <div class="b-role__other-projects">
-                                        <%_(employee.involvements()).each(function(involvement){%>
-                                            <%if(involvement.project() == project) return;%>
+                                        <%employee.involvements().each(function(involvement){%>
+                                            <%if(involvement.project() == project){%>
+                                                <b style="color:black">
+                                            <%};%>
                                             <%=involvement%>% &mdash;
 
                                             <span class="b-link b-link_type_pseudo b-link_viewtype_context"><%=involvement.project()%></span>
+
+                                            <%if(involvement.project() == project){%>
+                                                </b>
+                                            <%};%>
+
                                             <br class="b-line-break" />
                                         <%});%>
                                         </div>
@@ -96,10 +105,15 @@ var occupations = app.collection('occupations');
                         </li>
                     <%});%>
 
-
                 </ul>
             </div>
         </div>
         <%});%>
     </div>
+
+    <div class="pull-right">
+        Filter: <input class="j-filter-projects" type="text" />
+    </div>
+
+    <br class="clear" style="clear:both;"/>
 </div>

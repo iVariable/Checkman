@@ -2,6 +2,11 @@ body {
   padding: 0;
   margin: 0;
 }
+
+.b-projects_viewtype_list {
+    width: 800px;
+}
+
 .b-projects_viewtype_list .b-project {
   border-top: 4px solid #fff;
   border-bottom: 4px solid #fff;
@@ -23,10 +28,10 @@ body {
   display: inline;
   padding: 4px;
 }
-.b-project:hover {
+.b-project__state_full {
   background: none;
 }
-.b-project:hover .b-project__details {
+.b-project__state_full .b-project__details {
   padding: 0 0 16px 0;
 }
 .b-list_content_roles {
@@ -66,10 +71,9 @@ body {
 .b-role__free {
   position: absolute;
   z-index: 2;
-  font: 7px/10px Arial, sans-serif;
+  font: 10px/12px Arial, sans-serif;
   text-shadow: none;
-  top: 30px;
-  top: 20px;
+  top: 26px;
   right: -2px;
   background: #2ada00;
   color: #fff;
@@ -119,8 +123,13 @@ body {
 .b-role__icon_progress_25:before {
   width: 25%;
 }
-.b-role__icon_progress_33:before {
-    width: 50%;
+.b-role__icon_progress_33:before,
+.b-role__icon_progress_34:before {
+    width: 33%;
+}
+.b-role__icon_progress_66:before,
+.b-role__icon_progress_67:before {
+    width: 66%;
 }
 .b-role__icon_progress_50:before {
   width: 50%;
@@ -166,7 +175,7 @@ body {
   margin: 5px 0 -5px;
   font: 12px/16px Arial, sans-serif;
 }
-.b-project:hover .b-role__details {
+.b-project__state_full .b-role__details {
   opacity: 1;
   height: auto;
   max-width: 1000px;
@@ -229,17 +238,17 @@ body {
 .b-projects_theme_tech-color .b-role__free {
   background-color: #000;
 }
-.b-project:hover .b-role {
+.b-project__state_full .b-role {
   display: block;
   margin-top: 2px;
 }
-.b-project:hover .b-role:first-child {
+.b-project__state_full .b-role:first-child {
   margin-top: 0;
 }
-.b-project:hover .b-role:first-child .b-role__icon {
+.b-project__state_full .b-role:first-child .b-role__icon {
   visibility: visible;
 }
-.b-project:hover .b-role__details {
+.b-project__state_full .b-role__details {
   padding: 4px 8px 0;
 }
 .b-resource-bar {

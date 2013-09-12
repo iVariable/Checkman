@@ -10,6 +10,9 @@ define(
 
             onRender: function(){
                 this.$('select').select2();
+                if(this.options.drawAsWindow){
+                    this.$("#modal").modal();
+                }
             },
 
             events: {

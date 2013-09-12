@@ -3,12 +3,23 @@
 <%if(view.options.exclude && _(view.options.exclude).contains(key)) return;
 fields.push(key);
 });%>
+
+<%if(view.options.drawAsWindow){%>
+<div id="modal" class="black-box modal hide fade">
+    <div class="modal-header tab-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <span><%=model%></span>
+    </div>
+    <div class="modal-body separator">
+<%};%>
 <table class="table table-striped table-bordered box">
+    <%if(!view.options.drawAsWindow){%>
     <thead>
         <tr>
             <th colspan="2"><%=model%></th>
         </tr>
     </thead>
+    <%};%>
     <tbody>
         <%_(fields).each(function(key){%>
             <%if(view.options.exclude && _(view.options.exclude).contains(key)) return;%>
@@ -54,12 +65,24 @@ fields.push(key);
             </tr>
             <%});%>
     </tbody>
-    <tfoot>
-    <tr>
-        <td colspan="2">
-            <a class="button j-cancel j-nav" href="<%=model.linkTo('show')%>"><i class="icon-remove"></i> Отменить</a>
-            <button class="button j-save green"><i class="icon-ok"></i> Сохранить</button>
-        </td>
-    </tr>
-    </tfoot>
+    <%if(!view.options.drawAsWindow){%>
+        <tfoot>
+        <tr>
+            <td colspan="2">
+                <a class="button j-cancel j-nav" href="<%=model.linkTo('show')%>"><i class="icon-remove"></i> Отменить</a>
+                <button class="button j-save green"><i class="icon-ok"></i> Сохранить</button>
+            </td>
+        </tr>
+        </tfoot>
+    <%};%>
 </table>
+<%if(view.options.drawAsWindow){%>
+    </div>
+    <div class="modal-footer">
+        <div class="inner-well">
+            <a class="button mini rounded light-gray" data-dismiss="modal">Отменить</a>
+            <button class="button j-save mini rounded blue"><i class="icon-ok"></i> Сохранить</button>
+        </div>
+    </div>
+</div>
+<%};%>

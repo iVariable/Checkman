@@ -53,6 +53,8 @@ define(
 
                         fields: fields,
 
+                        drawAsWindow: true,
+
                         callbacks: {
                             saved: function(){
                                 App.router.navigate(_this.linkTo('show'),true);

@@ -134,7 +134,15 @@ define(
                 var involvements = _(this.get('projects')).map(function(data){
                     return new (App.module('projectInvolvement').Model)(data);
                 });
+
+                var involvements = new (App.module('projectInvolvement').Collection)(this.get('projects'));
                 return involvements;
+            },
+
+            involvementByProject: function(project){
+                return this.involvements().find(function (projectInvolvement) {
+                    return projectInvolvement.get('project_id') == project.id;
+                });
             },
 
             involvement: function (project) {
@@ -145,13 +153,16 @@ define(
             },
 
             freetime: function() {
-                return 100 - (
-                    _(this.involvements())
-                        .reduceRight(
-                            function(val, inv){ return val+parseInt(inv.get('involvement')); },
-                            0
-                        )
+                var free = 100 - (
+                    this.involvements()
+                    .reduceRight(
+                        function(val, inv){ return val+parseInt(inv.get('involvement')); },
+                        0
+                    )
                 );
+
+                if (free < 5) free = false;
+                return free;
             },
 
             linkTo: function (type) {

@@ -2,7 +2,7 @@ require.config({
     paths: {
         backbone: 'bower_components/backbone/backbone-min',
         underscore: 'bower_components/underscore/underscore-min',
-        jquery: 'bower_components/jquery/jquery.min',
+        //jquery: 'bower_components/jquery/jquery.min',
         select2: 'bower_components/select2/select2.min',
         marionette: 'bower_components/backbone.marionette/lib/backbone.marionette',
         text: 'bower_components/requirejs-text/text',
