@@ -59,6 +59,7 @@ class ProjectInvolvement
      * @ORM\Column(name="project_id", type="integer")
      *
      * @Serializer\Groups({"ProjectInvolvement"})
+     * @Serializer\SerializedName("project")
      */
     private $project_id;
 
@@ -72,6 +73,7 @@ class ProjectInvolvement
      * @ORM\Column(name="employee_id", type="integer")
      *
      * @Serializer\Groups({"ProjectInvolvement"})
+     * @Serializer\SerializedName("employee")
      */
     private $employee_id;
 

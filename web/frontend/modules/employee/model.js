@@ -124,7 +124,7 @@ define(
             },
 
             projects: function () {
-                var elems = _(_(this.get('projects')).pluck('project_id'));
+                var elems = _(_(this.get('projects')).pluck('project'));
                 return App.collection('projects').filter(function (item) {
                     return elems.indexOf(item.id) !== -1;
                 })
@@ -141,13 +141,13 @@ define(
 
             involvementByProject: function(project){
                 return this.involvements().find(function (projectInvolvement) {
-                    return projectInvolvement.get('project_id') == project.id;
+                    return projectInvolvement.get('project') == project.id;
                 });
             },
 
             involvement: function (project) {
                 var involvement = _(this.get('projects')).find(function (projectInvolvement) {
-                    return projectInvolvement.project_id == project.id;
+                    return projectInvolvement.project == project.id;
                 });
                 return involvement ? involvement.involvement : false;
             },

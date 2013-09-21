@@ -12,3 +12,8 @@ project:
     type:         rest
     resource:     Budget\RESTBudgetBundle\Controller\ProjectController
     name_prefix:  api_v1_
+
+involvement:
+    type:         rest
+    resource:     Budget\RESTBudgetBundle\Controller\ProjectInvolvementController
+    name_prefix:  api_v1_

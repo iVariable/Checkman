@@ -180,4 +180,9 @@ class Project
     {
         return $this->employees;
     }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }

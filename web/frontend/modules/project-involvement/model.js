@@ -3,12 +3,12 @@ define(
     function (Bicycle, Helpers, App) {
 
         var fields = {
-            project_id: {
+            project: {
                 type: "entity",
                 entityType: "projects",
                 getter: "project"
             },
-            employee_id: {
+            employee: {
                 type: "entity",
                 entityType: "employees",
                 getter: "employee"
@@ -18,15 +18,15 @@ define(
         var translations = {
             notes: "Примечания",
             involvement: "Занятость (в процентах)",
-            project_id: "Проект",
-            employee_id: "Сотрудник"
+            project: "Проект",
+            employee: "Сотрудник"
         };
 
         var model = {
 
             defaults: {
-                project_id: 1,
-                employee_id: "",
+                project: 1,
+                employee: "",
                 notes: "",
                 involvement: 10
             },
@@ -91,11 +91,11 @@ define(
             },
 
             employee: function(){
-                return App.collection('employees').get(this.get('employee_id'));
+                return App.collection('employees').get(this.get('employee'));
             },
 
             project: function(){
-                return App.collection('projects').get(this.get('project_id'));
+                return App.collection('projects').get(this.get('project'));
             },
 
             toString: function(){
