@@ -2,12 +2,12 @@ define(
     [
         'bicycle',
 
-        './views/list'
+        './views/year'
     ],
     function(
         Bicycle,
 
-        View_List
+        View_Year
     ){
         var router = Bicycle.Core.Router.extend({
             routes : {
@@ -15,7 +15,7 @@ define(
                 ,"reports/deviations" : "route_year"
             },
             route_year : function(){
-                this.app().layouts.main.content.show( new View_List() );
+                this.app().layouts.main.content.show( new View_Year() );
             }
 
         });

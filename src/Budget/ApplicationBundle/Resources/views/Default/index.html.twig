@@ -20,6 +20,9 @@
                 },
                 "modules/employee/collection": {
                     url: "{{ path("api_v1_get_employees") }}"
+                },
+                "modules/reports/projects-collection": {
+                    url: "{{ path("api_v1_reports_projects", {"year": ":year"}) }}"
                 }
             }
         };

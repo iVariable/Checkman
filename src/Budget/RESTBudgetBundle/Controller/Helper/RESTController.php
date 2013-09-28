@@ -16,7 +16,7 @@ class RESTController extends Controller
      */
     protected function getView($data, $groups = null, $code = 200)
     {
-        $view = \FOS\RestBundle\View::create()
+        $view = \FOS\RestBundle\View\View::create()
             ->setStatusCode($code)
             ->setData($data)
             ->setObjectsGroups($groups);

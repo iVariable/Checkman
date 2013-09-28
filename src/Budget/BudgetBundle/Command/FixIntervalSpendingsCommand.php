@@ -59,7 +59,7 @@ EOF
             $input = new \Symfony\Component\Console\Input\ArrayInput($arguments);
             $command->run($input, $output);
 
-            $output->writeln('Processing: '.$date->format('d.m.Y'));
+            $output->writeln('Done processing: '.$date->format('d.m.Y'));
         }
 
     }

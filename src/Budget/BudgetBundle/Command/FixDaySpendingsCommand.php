@@ -65,7 +65,6 @@ EOF
         $employees = $this->getContainer()->get('r.employee')->getActiveEmployees();
 
         $numberDaysInMonth = date('t');
-        $currentDate = new \DateTime();
 
         $this->log('<info>Processing employees</info>');
 
@@ -89,7 +88,7 @@ EOF
                 $salarySpending
                     ->setProject($projectInvolvement->getProject())
                     ->setEmployee($employee)
-                    ->setDate($currentDate)
+                    ->setDate($date)
                     ->setType($salaryType)
                     ->setValue($daySalary / 100 * $projectInvolvement->getInvolvement());
 

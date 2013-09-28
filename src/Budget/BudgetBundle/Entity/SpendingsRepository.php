@@ -13,6 +13,20 @@ use Doctrine\ORM\EntityRepository;
 class SpendingsRepository extends EntityRepository
 {
 
+    public function report_projectsSummary($year) {
+        //SELECT project_id, MONTH(date)as month, SUM(value) as total FROM Spendings WHERE YEAR(date)=:date GROUP BY project_id,MONTH(date)
+
+        $result = $this->getEntityManager()->getConnection()
+            ->prepare('SELECT project_id, MONTH(date)as month, SUM(value) as total FROM Spendings WHERE YEAR(date)="'.(int)$year.'" GROUP BY project_id,MONTH(date)')
+        ;
+        $result->execute();
+
+        return $result->fetchAll();
+
+        $data = [];
+        return $data;
+    }
+
     public function hasDaySpendings(\DateTime $date)
     {
         $query = $this->createQueryBuilder('spendings')
@@ -32,15 +46,6 @@ class SpendingsRepository extends EntityRepository
         $result = $this->getEntityManager()
             ->createQuery('DELETE FROM Budget\\BudgetBundle\\Entity\\Spendings s WHERE s.date=:date')
             ->setParameter('date', $date->format('Y-m-d'))
-            ->execute();
-
-        return $result;
-    }
-
-    public function projectSpendings(Project $project, \DateTime $startDate = null, \DateTime $endDate = null)
-    {
-        $result = $this->createNativeNamedQuery('spendings')
-            ->setSQL('SELECT speindgs')
             ->execute();
 
         return $result;
