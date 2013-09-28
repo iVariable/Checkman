@@ -39,8 +39,7 @@ EOF
         $this->verbose = !$this->input->getOption('not-verbose');
 
         $dateString = $input->getArgument('date');
-        $date = new \DateTime();
-        $date->createFromFormat('d.m.Y', $dateString);
+        $date = \DateTime::createFromFormat('d.m.Y', $dateString);
 
         $spendingsRepo = $this->getContainer()->get('r.spendings');
 
@@ -51,7 +50,7 @@ EOF
         if ($hasDaySpendings) {
             if (!$input->getOption("overwrite-day-spendings")) {
                 $this->log(
-                    "<error>This day already has fixed spendings! Use --ods key if you want to overwrite them.<error>",
+                    "<error>This day already has fixed spendings! Use --overwrite-day-spendings key if you want to overwrite them.<error>",
                     true
                 );
 
