@@ -57,7 +57,7 @@ var occupations = app.collection('occupations');
                     <%projects.each(function(project){%>
                     <div class="b-project j-toggle-project-details" data-title="<%=project%>">
                         <div class="b-project__title">
-                            <div class="b-project__title-text"><a class="j-nav" href="<%=project.linkTo("show")%>"><%=project%></a></div>
+                            <div class="b-project__title-text"><a class="j-nav" href="<%=project.linkTo("show")%>"><i class="icon-folder-close"></i></a> <%=project%></div>
                         </div>
                         <div class="b-project__details">
                             <ul class="b-roles b-list b-list_content_roles">
