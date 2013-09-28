@@ -12,10 +12,11 @@ class ProjectInvolvementType extends AbstractType
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface /
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder
             ->add('id', null, array('mapped' => false))
-            ->add('involvementcd')
+            ->add('involvement')
             ->add('notes')
             ->add('project')
             ->add('employee');

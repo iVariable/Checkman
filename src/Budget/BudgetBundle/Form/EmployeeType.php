@@ -21,6 +21,8 @@ class EmployeeType extends AbstractType
             ->add('salary')
             ->add('notes')
             ->add('status')
+            ->add('involvementsDiff', null, array('mapped' => false, 'read_only' => true))
+            ->add('projects', null, array('mapped' => false, 'read_only' => true))
             ->add('occupations', null, array("required" => false));
     }
 

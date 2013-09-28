@@ -4,39 +4,58 @@ var employees = app.collection('employees');
 var occupations = app.collection('occupations');
 %>
 
-<table class="table table-bordered table-striped box">
-    <thead>
-        <tr>
-            <th colspan="3">Занятость персонала по сотрудникам</th>
-        </tr>
-        <tr>
-            <td>ФИО</td>
-            <td>Свободное время</td>
-            <td>Проектная загрузка</td>
-        </tr>
-    </thead>
-    <tbody>
-        <%employees.each(function(employee){%>
-            <%
-            var involvements = employee.involvements();
-            %>
-            <tr>
-                <td><a class="j-nav" href="<%=employee.linkTo("show")%>"><%=employee%></a></td>
-                <td><%=employee.freetime()%></td>
-                <td>
-                    <%if(involvements.length != 0){%>
-                        <table>
-                            <%involvements.each(function(involvement){%>
-                            <tr>
-                                <td><%=involvement.project()%> | <%=involvement.get('involvement')%>%</td>
-                            </tr>
-                            <%});%>
-                        </table>
-                    <%}else{%>
-                        &nbsp;
-                    <%};%>
-                </td>
-            </tr>
+
+<div class="tabbable black-box" style="margin-bottom: 18px;">
+
+    <div class="tab-header">
+        Персонал
+    </div>
+
+    <ul class="nav nav-tabs">
+        <%occupations.each(function(occupation, i){%>
+        <li class="<%if(i == 0){%>active<%};%>"><a href="#occupation-<%=occupation.id%>" data-toggle="tab"><%=occupation%></a></li>
         <%});%>
-    </tbody>
-</table>
+    </ul>
+
+    <div class="tab-content">
+    <%occupations.each(function(occupation, i){%>
+        <div class="padded tab-pane <%if(i == 0){%>active<%};%>" id="occupation-<%=occupation.id%>">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="200">ФИО</th>
+                    <th width="100">Свободное время</th>
+                    <th>Проекты</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <%employees.chain().filter(function(employee){
+                    return employee.hasOccupation(occupation);
+                    }).each(function(employee){%>
+                    <%
+                    var involvements = employee.involvements();
+                    %>
+                    <tr>
+                        <td><%=employee%> <a class="j-nav" href="<%=employee.linkTo("show")%>"><i class="icon-user"></i></a></td>
+                        <td><%=employee.freetime()%></td>
+                        <td>
+                            <button class="pull-right button rounded mini j-edit-involvement" data-employee-id="<%=employee.id%>"><i class="icon-pencil"></i> Занятость</button>
+                            <%if(involvements.length != 0){%>
+                                <%involvements.each(function(involvement){%>
+                                <div>
+                                    <%=involvement.project()%> | <%=involvement.get('involvement')%>%
+                                </div>
+                                <%});%>
+                            <%}else{%>
+                            &nbsp;
+                            <%};%>
+                        </td>
+                    </tr>
+                    <%});%>
+                </tbody>
+            </table>
+        </div>
+    <%});%>
+    </div>
+
+</div>

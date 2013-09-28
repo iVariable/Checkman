@@ -14,6 +14,12 @@ define(
             module.Model = Model;
             module.Collection = Collection;
 
+            app.collection('projectInvolvements', new Collection());
+
+            app.addInitializer(function(){
+                return app.loader('Загрузка занятости', app.collection('projectInvolvements').fetch());
+            })
+
         });
 
         return Module;

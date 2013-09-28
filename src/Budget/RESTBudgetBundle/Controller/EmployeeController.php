@@ -2,6 +2,7 @@
 
 namespace Budget\RESTBudgetBundle\Controller;
 
+use Budget\BudgetBundle\Entity\Employee;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -48,6 +49,7 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
         $editForm->handleRequest($this->getRequest());
 
         if ($editForm->isValid()) {
+            $this->processInvolvements($entity, $this->getRequest()->get('involvementsDiff'));
             $em->persist($entity);
             $em->flush();
         } else {
@@ -77,6 +79,7 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
         $editForm->handleRequest($this->getRequest());
 
         if ($editForm->isValid()) {
+            $this->processInvolvements($entity, $this->getRequest()->get('involvementsDiff'));
             $em->persist($entity);
             $em->flush();
         } else {
@@ -105,6 +108,74 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
         $em->flush();
 
         return $entity;
+    }
+
+    /**
+     * @param Employee $employee
+     * @param null $involvementsRaw
+     * @return Employee
+     */
+    protected function processInvolvements(Employee $employee, $involvementsRaw = null)
+    {
+        $em = $this->get('em');
+        $currentInvolvements = $employee->getProjectInvolvements();
+
+        if ($involvementsRaw) {
+            foreach ($currentInvolvements as $involvement) {
+                $delete = true;
+                foreach ($involvementsRaw as $involvementRaw) {
+                    if (!$involvementRaw['id']) {
+                        continue;
+                    }
+                    if ($involvementRaw['id'] == $involvement->getId()) {
+                        $delete = false;
+                        break;
+                    }
+                }
+                if ($delete) {
+                    $em->remove($involvement);
+                }
+            }
+
+            foreach ($involvementsRaw as $involvementRaw) {
+                /* @var $involvement \Budget\BudgetBundle\Entity\ProjectInvolvement */
+                $involvement = null;
+                if (isset($involvementRaw['id']) && $involvementRaw['id']) {
+                    foreach ($currentInvolvements as $currentInvolvement) {
+                        if($currentInvolvement->getId() == $involvementRaw['id']){
+                            $involvement = $currentInvolvement;
+                            break;
+                        }
+                    }
+                } else {
+                    $involvement = $this->get('r.project_involvement')->newEntity();
+
+                    $project = $this->get('r.project')->findOneById($involvementRaw['project']);
+                    $involvement->setProject($project);
+
+                }
+
+                if ($involvement === null) {
+                    throw new \Exception('Project involvement not found!');
+                }
+
+                $involvement->setEmployee($employee);
+                $involvement->setInvolvement($involvementRaw['involvement']);
+                $involvement->setNotes($involvementRaw['notes']);
+
+                $employee->addProjectInvolvement($involvement);
+
+                $em->persist($involvement);
+            }
+
+        } else {
+            foreach ($currentInvolvements as $involvement) {
+                $em->remove($involvement);
+            }
+        }
+
+        //persist must be called in the outer/caller method
+        return $employee;
     }
 
 }

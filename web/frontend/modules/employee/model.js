@@ -1,6 +1,6 @@
 define(
-    ['bicycle', 'helpers', 'application'],
-    function (Bicycle, Helpers, App) {
+    ['bicycle', 'helpers', 'application', './views/involvement/edit'],
+    function (Bicycle, Helpers, App, View_InvolvementEdit) {
 
         var translations = {
             secondName: "Фамилия",
@@ -67,6 +67,10 @@ define(
                     });
                 });
 
+                this.registerView('involvement', function(){
+                    return new View_InvolvementEdit({model: _this});
+                });
+
                 this.registerView('edit', function () {
                     var view = new (Helpers.View.Model.Edit)({
                         model: _this,
@@ -112,30 +116,38 @@ define(
                 })
             },
 
+            status: function(){
+                return statuses[this.get('status')];
+            },
+
             toString: function () {
                 return this.get('secondName') + ' ' + this.get('firstName');
             },
 
+            hasOccupation: function(occupation){
+                return this.get('occupations').indexOf(occupation.id) != -1;
+            },
+
             occupations: function () {
-                var elems = _(_(this.get('occupations')).pluck('id'));
+                var elems = _(this.get('occupations'));
                 return App.collection('occupations').filter(function (item) {
                     return elems.indexOf(item.id) !== -1;
                 })
             },
 
             projects: function () {
-                var elems = _(_(this.get('projects')).pluck('project'));
-                return App.collection('projects').filter(function (item) {
-                    return elems.indexOf(item.id) !== -1;
-                })
+                return this.involvements().map(function(involvement){ return involvement.project(); });
             },
 
             involvements: function () {
-                var involvements = _(this.get('projects')).map(function(data){
-                    return new (App.module('projectInvolvement').Model)(data);
-                });
 
-                var involvements = new (App.module('projectInvolvement').Collection)(this.get('projects'));
+                var elems = _(this.get('projects'));
+
+                var involvementsRaw = App.collection('projectInvolvements').filter(function (item) {
+                    return elems.indexOf(item.id) !== -1;
+                })
+
+                var involvements = new (App.module('projectInvolvement').Collection)(_(involvementsRaw).pluck('attributes'));
                 return involvements;
             },
 
@@ -146,10 +158,8 @@ define(
             },
 
             involvement: function (project) {
-                var involvement = _(this.get('projects')).find(function (projectInvolvement) {
-                    return projectInvolvement.project == project.id;
-                });
-                return involvement ? involvement.involvement : false;
+                var involvement = this.involvementByProject(project);
+                return involvement ? involvement.get('involvement') : false;
             },
 
             freetime: function() {
@@ -161,7 +171,7 @@ define(
                     )
                 );
 
-                if (free < 5) free = false;
+                if (free < 5) free = 0;
                 return free;
             },
 

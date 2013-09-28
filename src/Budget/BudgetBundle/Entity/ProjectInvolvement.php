@@ -77,7 +77,7 @@ class ProjectInvolvement
      */
     private $employee_id;
 
-    function __construct(Project $project, Employee $employee, $involvement, $notes = "")
+    function __construct(Project $project = null, Employee $employee = null, $involvement = 0, $notes = "")
     {
         $this->setProject($project);
         $this->setEmployee($employee);
@@ -185,5 +185,9 @@ class ProjectInvolvement
     public function getEmployee()
     {
         return $this->employee;
+    }
+
+    public function __toString() {
+        return $this->getProject()->__toString().": ".$this->getInvolvement().'%';
     }
 }

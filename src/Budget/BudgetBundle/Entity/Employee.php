@@ -93,6 +93,9 @@ class Employee
      * @Serializer\Groups({
      *      "Employee"
      * })
+     *
+     *  @Serializer\Accessor(getter="getProjectsIds")
+     *
      */
     private $projects;
 
@@ -107,6 +110,8 @@ class Employee
      * @Serializer\Groups({
      *      "Employee"
      * })
+     *
+     * @Serializer\Accessor(getter="getOccupationsIds")
      */
     private $occupations;
 
@@ -344,6 +349,24 @@ class Employee
     public function getOccupations()
     {
         return $this->occupations;
+    }
+
+    /**
+     * Get occupations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProjects()
+    {
+        return $this->projects;
+    }
+
+    public function getOccupationsIds (){
+        return $this->getOccupations()->map(function($occupation){ return $occupation->getId(); });
+    }
+
+    public function getProjectsIds (){
+        return $this->getProjects()->map(function($project){ return $project->getId(); });
     }
 
     public function __toString()

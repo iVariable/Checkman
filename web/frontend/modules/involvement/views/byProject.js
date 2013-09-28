@@ -37,8 +37,7 @@ define(
                     //@TODO - ОШИБКА БЛЕ
                     return false;
                 }
-                var involvement = employee.involvements().get(involvementId);
-                App.layouts.main.modalWindowContainer.show(involvement.view('edit'));
+                App.layouts.main.modalWindowContainer.show(employee.view('involvement'));
                 //e.cancelBubble();
                 return false;
             }
