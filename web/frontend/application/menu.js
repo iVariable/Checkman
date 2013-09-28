@@ -18,7 +18,7 @@ define([],function(){
                     url: "involvement/by-project"
                 },
                 employee: {
-                    title: "По сотрудникам",
+                    title: "По специальности",
                     icon: "icon-list-alt",
                     url: "involvement/by-employee"
                 }

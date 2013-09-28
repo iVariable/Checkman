@@ -76,6 +76,10 @@ define(
                                 //Parasha sranaia
                                 App.layouts.main.modalWindowContainer.reset();
                                 App.reload();
+                            },
+
+                            saving: function(xhr){
+                                App.loader('Сохраняем занятость сотрудника', xhr);
                             }
                         }
                     });

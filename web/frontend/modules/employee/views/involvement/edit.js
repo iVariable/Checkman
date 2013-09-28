@@ -83,7 +83,7 @@ define(
                 ;
 
                 if (this.options.callbacks && this.options.callbacks.saving) {
-                    this.options.callbacks.saving.apply(this, saving);
+                    this.options.callbacks.saving.call(_this, saving);
                 }
 
                 if (this.options.callbacks && this.options.callbacks.saved) {
