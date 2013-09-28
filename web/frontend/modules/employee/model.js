@@ -68,7 +68,17 @@ define(
                 });
 
                 this.registerView('involvement', function(){
-                    return new View_InvolvementEdit({model: _this});
+                    return new View_InvolvementEdit({
+                        model: _this,
+
+                        callbacks: {
+                            saved: function(){
+                                //Parasha sranaia
+                                App.layouts.main.modalWindowContainer.reset();
+                                App.reload();
+                            }
+                        }
+                    });
                 });
 
                 this.registerView('edit', function () {

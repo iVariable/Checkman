@@ -39,9 +39,56 @@ define(
             app.menu.view('profile').render();
         }
 
-        app.layouts = {
-            main: new (Layouts.MainLayout)({el: module.config().container})
-        };
+        app.loader = function (text, xhr) {
+            var loaded = $.Deferred(),
+                notification = Notifications.push({
+                    text: text
+                });
+
+            loaded.done(function () {
+                notification.notification.dismiss();
+            });
+
+            loaded.fail(function () {
+                notification.notification.dismiss();
+                //@TODO: Картинку с ошибкой
+                Notifications.push({
+                    text: "ОШИБКА: <br />"+text
+                });
+            })
+
+            xhr
+                .done(function () {
+                    loaded.resolve(xhr);
+                })
+                .fail(function () {
+                    loaded.reject(xhr);
+                })
+            ;
+
+            return loaded.promise();
+        }
+
+        app.reload = function () {
+            var _this = this;
+            var loaders = _(this.collections()).map(function (collection) {
+                if (_.isFunction(collection.reloadCollection)) {
+                    return collection.reloadCollection();
+                } else {
+                    return true;
+                }
+            });
+            $.when.apply($, loaders).always(function () {
+                //refresh views
+                _this.layouts.main.regionManager.each(function (region) {
+                    if (region.currentView)region.currentView.render();
+                })
+            });
+        },
+
+            app.layouts = {
+                main: new (Layouts.MainLayout)({el: module.config().container})
+            };
 
         app.menu = new Menu(MenuData, {app: app});
 
@@ -49,7 +96,7 @@ define(
         app.router.app(app);
 
         app.on("initialize:after", function (options) {
-
+            Notifications.instance = null;
             app.layouts.main.render();
 
             app.layouts.main.primaryMenu.draw(app.menu.view('main'));

@@ -1,19 +1,45 @@
-<div class="box">
-    <div class="tab-header">
-        Box title
-      <span class="pull-right">
-          <span class="options">
-            <div class="btn-group">
-                <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i></a>
-                <ul class="dropdown-menu black-box-dropdown dropdown-left">
-                    ...
-                </ul>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="box">
+            <div class="tab-header">
+                Приветы
             </div>
-          </span>
-      </span>
-    </div>
 
-    <div>
-        <div class="padded"> your awesome content here</div>
+            <div>
+                <div class="padded">Привет %username%! Сто лет не виделись!</div>
+            </div>
+        </div>        
+    </div>
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="black-box">
+                <div class="tab-header">Алярм! Простой ресурсов!</div>
+                <div>
+                    <table class="table">
+                        <tr>
+                            <th>ФИО</th>
+                            <th>Специализация</th>
+                            <th>Свободное время</th>
+                        </tr>
+                        <%app.collection('employees').each(function(employee){%>
+                            <%if(!employee.freetime()) return;%>
+                        <tr>
+                            <td><%=employee%></td>
+                            <td><%=employee.occupations()%></td>
+                            <td><%=employee.freetime()%></td>
+                        </tr>
+                        <%});%>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="black-box">
+                <div class="tab-header">Превышения</div>
+                <div class="padded">
+                    Тут можно отображать проекты которые скоро закончатся, либо проекты идущее с превышением бюджета
+                </div>
+            </div>
+        </div>
     </div>
 </div>

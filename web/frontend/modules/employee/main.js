@@ -14,9 +14,12 @@ define(
             module.router.app(app);
 
             app.collection('employees', new Collection());
+            app.collection('employees').reloadCollection = function(){
+                return app.loader('Загрузка сотрудников', this.fetch());
+            };
 
             app.addInitializer(function(){
-                return app.loader('Загрузка сотрудников', app.collection('employees').fetch());
+                return app.collection('employees').reloadCollection();
             })
 
         });

@@ -9,9 +9,16 @@ define(
             template: TPL_Show,
 
             onRender: function () {
-                //this.$('select').select2();
-                this.$("#modal").modal();
+                this.modal().modal();
                 window.v = this;
+            },
+
+            onClose: function() {
+                this.modal().modal('hide');
+            },
+
+            modal: function() {
+                return this.$("#modal");
             },
 
             events: {
@@ -67,12 +74,20 @@ define(
                 var saving = $.Deferred(),
                     _this = this;
 
+                this.$('.modal-footer .inner-well')
+                    .find('.buttons')
+                        .toggle()
+                        .end()
+                    .find('.saving')
+                        .toggle()
+                ;
+
                 if (this.options.callbacks && this.options.callbacks.saving) {
                     this.options.callbacks.saving.apply(this, saving);
                 }
 
                 if (this.options.callbacks && this.options.callbacks.saved) {
-                    saving.done(this.options.callbacks.saved);
+                    saving.done(_.bind(this.options.callbacks.saved, _this));
                 }
 
                 this.model.set('involvementsDiff', this.collectInvolvements());

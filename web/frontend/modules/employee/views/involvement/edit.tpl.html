@@ -1,4 +1,4 @@
-<div id="modal" class="black-box modal hide fade">
+<div id="modal" class="black-box modal hide">
     <div class="modal-header tab-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <span>Проектная занятость: <%=model%></span>
@@ -8,7 +8,7 @@
         <h4><%=model%></h4>
         <h5><%=model.occupations()%></h5>
         <table class="table j-involvements">
-        <%model.involvements().each(function(involvement){%>
+            <%model.involvements().each(function(involvement){%>
             <tr class="j-involvement">
                 <td><%=involvement.project()%>
                     <input class="j-involvement-id" name="" type="hidden" value="<%=involvement.id%>"/>
@@ -16,19 +16,24 @@
                 </td>
                 <td>
                     <div class="append-transparent">
-                        <input style="width:80px;" class="j-involvement-involvement input-transparent" size="3" type="text" name="value" value="<%=involvement.get('involvement')%>"/>
+                        <input style="width:80px;" class="j-involvement-involvement input-transparent" size="3"
+                               type="text" name="value" value="<%=involvement.get('involvement')%>"/>
                         <span class="add-on button">%</span>
                     </div>
                 </td>
                 <td>
-                    <a class="j-add-comment b-link_type_pseudo"><%if(involvement.get('notes') == ""){%>Добавить комментарий<%}else{%><%=involvement.get('notes')%><%};%></a>
-                    <div class="input hidden j-comment"><textarea class="j-involvement-notes" placeholder="Ваш комментарий" rows="3"><%=involvement.get('notes')%></textarea></div>
+                    <a class="j-add-comment b-link_type_pseudo"><%if(involvement.get('notes') == ""){%>Добавить
+                        комментарий<%}else{%><%=involvement.get('notes')%><%};%></a>
+
+                    <div class="input hidden j-comment"><textarea class="j-involvement-notes"
+                                                                  placeholder="Ваш комментарий" rows="3"><%=involvement.get('notes')%></textarea>
+                    </div>
                 </td>
                 <td>
-                    <button class="button rounded mini j-remove red"> <i class="icon-trash"></i> </button>
+                    <button class="button rounded mini j-remove red"><i class="icon-trash"></i></button>
                 </td>
             </tr>
-        <%});%>
+            <%});%>
             <tr class="j-involvement-new hidden">
                 <td>
                     <select name="" class="j-no-select2 j-involvement-project" style="width:150px">
@@ -39,26 +44,35 @@
                 </td>
                 <td>
                     <div class="append-transparent">
-                        <input style="width:80px;" class="j-involvement-involvement input-transparent" size="3" type="text" name="value" value="0"/>
+                        <input style="width:80px;" class="j-involvement-involvement input-transparent" size="3"
+                               type="text" name="value" value="0"/>
                         <span class="add-on button">%</span>
                     </div>
                 </td>
                 <td>
                     <a class="j-add-comment b-link_type_pseudo">Добавить комментарий</a>
-                    <div class="input hidden j-comment"><textarea class="j-involvement-notes" placeholder="Ваш комментарий" rows="3"></textarea></div>
+
+                    <div class="input hidden j-comment"><textarea class="j-involvement-notes"
+                                                                  placeholder="Ваш комментарий" rows="3"></textarea>
+                    </div>
                 </td>
                 <td>
-                    <button class="button rounded mini j-remove red"> <i class="icon-trash"></i> </button>
+                    <button class="button rounded mini j-remove red"><i class="icon-trash"></i></button>
                 </td>
             </tr>
         </table>
     </div>
     <div class="modal-footer">
         <div class="inner-well">
-            <button class="j-add button mini rounded green pull-left"><i class="icon-plus-sign"></i> Добавить проект</button>
+            <div class="buttons">
+                <button class="j-add button mini rounded green pull-left"><i class="icon-plus-sign"></i> Добавить проект</button>
 
-            <a class="button mini rounded light-gray" data-dismiss="modal">Отменить</a>
-            <button class="button j-save mini rounded blue"><i class="icon-ok"></i> Сохранить</button>
+                <a class="button mini rounded light-gray" data-dismiss="modal">Отменить</a>
+                <button class="button j-save mini rounded blue"><i class="icon-ok"></i> Сохранить</button>
+            </div>
+            <div class="saving hide" style="text-align: center">
+                Сохраняю...
+            </div>
         </div>
     </div>
 </div>

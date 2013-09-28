@@ -19,6 +19,11 @@ define(
                 return this._collections[name];
             },
 
+            collections: function() {
+                this._collections = this._collections || {};
+                return this._collections;
+            },
+
             loader: function(title, xhr){
                 return xhr;
             },

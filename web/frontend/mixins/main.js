@@ -2,7 +2,9 @@ define(
     [
         './marionette.region',
         './marionette.callbacks',
-        './marionette.itemview'
+        './marionette.itemview',
+
+        './notifications'
     ],
     function (region) {
         //Just a mixin loader

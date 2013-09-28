@@ -14,9 +14,12 @@ define(
             module.router.app(app);
 
             app.collection('projects', new Collection());
+            app.collection('projects').reloadCollection = function(){
+                return app.loader('Загрузка проектов', this.fetch());
+            };
 
             app.addInitializer(function(){
-                return app.loader('Загрузка проектов', app.collection('projects').fetch());
+                return app.collection('projects').reloadCollection();
             })
 
         });

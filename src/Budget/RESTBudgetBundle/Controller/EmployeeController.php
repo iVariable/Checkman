@@ -124,7 +124,7 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
             foreach ($currentInvolvements as $involvement) {
                 $delete = true;
                 foreach ($involvementsRaw as $involvementRaw) {
-                    if (!$involvementRaw['id']) {
+                    if (!isset($involvementRaw['id']) || !$involvementRaw['id']) {
                         continue;
                     }
                     if ($involvementRaw['id'] == $involvement->getId()) {

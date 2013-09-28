@@ -14,9 +14,7 @@ define(
                 ,"involvement": "route_list"
             },
             route_dashboard: function () {
-                //this.app().layouts.main.content.show(new View_Dashboard());
-                var item = this.app().menu.selectedItem();
-                this.app().layouts.main.content.show(new View_ListRoutes(item));
+                this.app().layouts.main.content.show(new View_Dashboard());
             },
 
             route_list: function () {

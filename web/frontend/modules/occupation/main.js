@@ -14,9 +14,12 @@ define(
             module.router.app(app);
 
             app.collection('occupations', new Collection());
+            app.collection('occupations').reloadCollection = function(){
+                return app.loader('Загрузка специализаций', this.fetch());
+            };
 
             app.addInitializer(function(){
-                return app.loader('Загрузка специализаций', app.collection('occupations').fetch());
+                return app.collection('occupations').reloadCollection();
             })
 
         });
