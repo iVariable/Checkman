@@ -23,6 +23,9 @@
                 },
                 "modules/reports/projects-collection": {
                     url: "{{ path("api_v1_reports_projects", {"year": ":year"}) }}"
+                },
+                "modules/reports/project-summary-collection": {
+                    url: "{{ path("api_v1_reports_project", {"projectId": ":id", "year": ":year"}) }}"
                 }
             }
         };

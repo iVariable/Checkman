@@ -1,0 +1,25 @@
+<%
+var types = _(view.getSpendingTypes());
+%>
+<table class="table">
+    <thead>
+    <tr>
+        <th>&nbsp;</th>
+        <%types.each(function(type){%>
+        <th><%=type%></th>
+        <%});%>
+        <th>Итого</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%_(view.getMonths()).each(function(month,i){%>
+    <tr>
+        <th><%=month%></th>
+        <%types.each(function(type){%>
+        <td><%=view.report.getTotalByTypeAndMonth(type, i+1)%></td>
+        <%});%>
+        <td><%=view.report.getTotalByMonth(i+1)%></td>
+    </tr>
+    <%});%>
+    </tbody>
+</table>

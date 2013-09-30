@@ -1,0 +1,42 @@
+<div class="box">
+    <div class="tab-header">
+        Сводный финансовый отчет по проекту
+    </div>
+
+    <%if(view.options.projectId){%>
+    <div>
+        <div class="row-fluid">
+            <div class="span9">
+                <div class="padded">
+                    <div id="graph_placeholder" style="width:100%; height: 400px;"></div>
+                </div>
+                <div class="padded j-report-by-type">
+
+                </div>
+            </div>
+            <div class="span3">
+                <div class="padded">
+                    <ul>
+                        <%app.collection('projects').each(function(project){%>
+                        <li>
+                            <%if(project.id == view.options.projectId){%><b><%}%>
+                            <a class="j-nav" href="<%=project.linkTo("finance_report_by_year", view.options.year)%>"><%=project%></a>
+                            <%if(project.id == view.options.projectId){%></b><%}%>
+                        </li>
+                        <%});%>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%}else{%>
+    <div class="padded">
+        <h4>Выберите проект</h4>
+        <ul>
+            <%app.collection('projects').each(function(project){%>
+            <li><a class="j-nav" href="<%=project.linkTo("finance_report_by_year", (new Date()).getFullYear())%>"><%=project%></a></li>
+            <%});%>
+        </ul>
+    </div>
+    <%};%>
+</div>

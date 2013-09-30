@@ -20,7 +20,6 @@ class ReportsController extends FOSRestController
 {
     /**
      * @Route("/projects/{year}.{_format}", defaults={"year": null, "_format": "json"}, name="api_v1_reports_projects")
-     *
      */
     public function projectsSummaryAction($year = null, $format = 'json')
     {
@@ -28,6 +27,22 @@ class ReportsController extends FOSRestController
             $year = date('Y');
         }
         $data = $this->get('r.spendings')->report_projectsSummary($year);
+
+        $view = $this->view($data, 200)
+            ->setFormat($format);
+
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Route("/project/{projectId}/{year}.{_format}", defaults={"year": null, "_format": "json"}, name="api_v1_reports_project")
+     */
+    public function projectSummaryAction($projectId, $year = null, $format = 'json')
+    {
+        if ($year === null) {
+            $year = date('Y');
+        }
+        $data = $this->get('r.spendings')->report_projectSummary($projectId, $year);
 
         $view = $this->view($data, 200)
             ->setFormat($format);

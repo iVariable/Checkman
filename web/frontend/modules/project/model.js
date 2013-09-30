@@ -118,11 +118,12 @@ define(
                 return this.get('title');
             },
 
-            linkTo: function(type){
+            linkTo: function(type, arg1){
                 var links = {
                     "new": 'admin/projects/new',
                     "show": 'admin/projects/'+this.id,
-                    "edit": 'admin/projects/'+this.id+'/edit'
+                    "edit": 'admin/projects/'+this.id+'/edit',
+                    "finance_report_by_year": "reports/projects/"+this.id+'/'+arg1
                 }
                 return links[type];
             }

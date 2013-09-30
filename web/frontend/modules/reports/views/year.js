@@ -14,7 +14,10 @@ define(
 
             onRender: function () {
                 var _this = this;
-                this.report.setYear("2013");
+                if (_(this.options.year).isUndefined()) {
+                    this.options.year = (new Date()).getFullYear();
+                }
+                this.report.setYear(this.options.year);
                 App.loader('Загрузка годового отчета...', this.report.fetch()).done(function(){
                     _this.renderReport();
                 });
