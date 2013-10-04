@@ -31,7 +31,7 @@ define(
 
                 _(projects).each(function(project){
                     data += '<tr>' +
-                        '<th>'+project+'</th>'+
+                        '<th><a href="'+project.linkTo('finance_report_by_year', _this.options.year)+'" class="j-nav">'+project+'</a></th>'+
                         '<td>'+_this.report.getProjectTotalByMonth(project, 1)+'</td>'+
                         '<td>'+_this.report.getProjectTotalByMonth(project, 2)+'</td>'+
                         '<td>'+_this.report.getProjectTotalByMonth(project, 3)+'</td>'+
