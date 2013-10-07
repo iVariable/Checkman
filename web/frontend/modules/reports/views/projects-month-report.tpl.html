@@ -14,7 +14,7 @@ var types = _(view.getSpendingTypes());
     <tbody>
     <%_(view.getMonths()).each(function(month,i){%>
     <tr>
-        <th><%=month%></th>
+        <th><a href="<%=view.options.project.linkTo('finance_report_by_year_month', view.options.year, i)%>" class="j-nav"><%=month%></a></th>
         <%types.each(function(type){%>
         <td><%=view.report.getTotalByTypeAndMonth(type, i+1)%></td>
         <%});%>

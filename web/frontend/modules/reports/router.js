@@ -39,6 +39,7 @@ define(
                 this.app().menu.addBreadcrumb({ title: project+" ["+year+"]" });
 
                 this.app().layouts.main.content.show( new View_Projects({
+                    project: project,
                     projectId: project_id,
                     year: year
                 }) );

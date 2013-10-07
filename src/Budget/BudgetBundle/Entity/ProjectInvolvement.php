@@ -45,11 +45,6 @@ class ProjectInvolvement
     private $notes = "";
 
     /**
-     * @var
-     */
-    private $occupation;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="employees")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
      */

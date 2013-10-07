@@ -50,4 +50,23 @@ class ReportsController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     * @Route("/project/{projectId}/{year}/{month}.{_format}", defaults={"year": null, "month": null, "_format": "json"}, name="api_v1_reports_project_month_detail")
+     */
+    public function projectMonthDetailsAction($projectId, $year = null, $month = null, $format = 'json')
+    {
+        if ($year === null) {
+            $year = date('Y');
+        }
+        if ($month === null) {
+            $month = date('m');
+        }
+        $data = $this->get('r.spendings')->report_projectMonthDetails($projectId, $year, $month);
+
+        $view = $this->view($data, 200)
+            ->setFormat($format);
+
+        return $this->handleView($view);
+    }
+
 }

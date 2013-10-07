@@ -29,6 +29,9 @@
                 },
                 "modules/reports/project-summary-collection": {
                     url: "{{ path("api_v1_reports_project", {"projectId": ":id", "year": ":year"}) }}"
+                },
+                "modules/reports/project-month-details-collection": {
+                    url: "{{ path("api_v1_reports_project_month_detail", {"projectId": ":id", "year": ":year", "month": ":month"}) }}"
                 }
             }
         };

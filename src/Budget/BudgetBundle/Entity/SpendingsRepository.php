@@ -13,32 +13,39 @@ use Doctrine\ORM\EntityRepository;
 class SpendingsRepository extends EntityRepository
 {
 
-    public function report_projectsSummary($year) {
+    public function report_projectsSummary($year)
+    {
         //SELECT project_id, MONTH(date)as month, SUM(value) as total FROM Spendings WHERE YEAR(date)=:date GROUP BY project_id,MONTH(date)
 
         $result = $this->getEntityManager()->getConnection()
-            ->prepare('SELECT project_id, MONTH(date)as month, SUM(value) as total FROM Spendings WHERE YEAR(date)="'.(int)$year.'" GROUP BY project_id,MONTH(date)')
-        ;
+            ->prepare(
+                'SELECT project_id, MONTH(date)as month, SUM(value) as total FROM Spendings WHERE YEAR(date)="' . (int)$year . '" GROUP BY project_id,MONTH(date)'
+            );
         $result->execute();
 
         return $result->fetchAll();
 
         $data = [];
+
         return $data;
     }
 
-    public function report_projectSummary($projectId, $year) {
+    public function report_projectSummary($projectId, $year)
+    {
         //SELECT project_id, MONTH(date)as month, SUM(value) as total FROM Spendings WHERE YEAR(date)=:date GROUP BY project_id,MONTH(date)
 
         $result = $this->getEntityManager()->getConnection()
-            ->prepare('SELECT s.type_id, st.title as type, MONTH(s.date)as month, SUM(s.value) as total FROM Spendings s LEFT JOIN SpendingsType st ON s.type_id=st.id WHERE YEAR(s.date)="'.(int)$year.'" AND s.project_id="'.(int)$projectId.'" GROUP BY s.type_id,MONTH(s.date)')
-        ;
+            ->prepare(
+                'SELECT s.type_id, st.title as type, MONTH(s.date)as month, SUM(s.value) as total FROM Spendings s LEFT JOIN SpendingsType st ON s.type_id=st.id WHERE YEAR(s.date)="' . (int)$year . '" AND s.project_id="' . (int)$projectId . '" GROUP BY s.type_id,MONTH(s.date)'
+            );
         $result->execute();
 
         return $result->fetchAll();
+    }
 
-        $data = [];
-        return $data;
+    public function report_projectMonthDetails($projectId, $year, $month)
+    {
+        return [];
     }
 
     public function hasDaySpendings(\DateTime $date)
