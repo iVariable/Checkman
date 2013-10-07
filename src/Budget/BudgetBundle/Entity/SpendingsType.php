@@ -19,6 +19,8 @@ class SpendingsType
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Serializer\Groups({"SpendingsType"})
      */
     private $id;
 
@@ -26,6 +28,8 @@ class SpendingsType
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     *
+     * @Serializer\Groups({"SpendingsType"})
      */
     private $title;
 
@@ -33,6 +37,8 @@ class SpendingsType
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     *
+     * @Serializer\Groups({"SpendingsType"})
      */
     private $description;
 

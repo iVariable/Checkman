@@ -9,7 +9,6 @@ define(
 
         var model = Bicycle.Core.Model.extend({
 
-
         });
 
         var collection = {

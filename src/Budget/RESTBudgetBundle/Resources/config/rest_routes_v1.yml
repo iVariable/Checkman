@@ -8,6 +8,11 @@ occupation:
     resource:     Budget\RESTBudgetBundle\Controller\OccupationController
     name_prefix:  api_v1_
 
+spendings_type:
+    type:         rest
+    resource:     Budget\RESTBudgetBundle\Controller\SpendingsTypeController
+    name_prefix:  api_v1_
+
 project:
     type:         rest
     resource:     Budget\RESTBudgetBundle\Controller\ProjectController
