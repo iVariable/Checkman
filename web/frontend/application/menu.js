@@ -53,20 +53,25 @@ define([],function(){
             icon: "icon-cog",
             url: "admin",
             children: {
-                occupations: {
-                    title: "Специализация",
-                    icon: "icon-user-md",
-                    url: "admin/occupations"
+                employees: {
+                    title: "Сотрудники",
+                    icon: "icon-user",
+                    url: "admin/employees"
                 },
                 projects: {
                     title: "Проекты",
                     icon: "icon-briefcase",
                     url: "admin/projects"
                 },
-                employees: {
-                    title: "Сотрудники",
-                    icon: "icon-user",
-                    url: "admin/employees"
+                occupations: {
+                    title: "Специализация",
+                    icon: "icon-user-md",
+                    url: "admin/occupations"
+                },
+                spendingstype: {
+                    title: "Типы затрат",
+                    icon: "icon-money",
+                    url: "admin/spendingstype"
                 }
             }
         }

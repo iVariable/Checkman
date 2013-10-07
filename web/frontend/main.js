@@ -31,7 +31,7 @@ require.config({
 
     packages: [
         "application", "bicycle"
-        ,"modules/occupation", "modules/reports", "helpers", "modules/project", "modules/employee"
+        ,"modules/occupation", "modules/reports", "helpers", "modules/project", "modules/employee", "modules/spendings-type"
         , "modules/involvement"
         , "modules/project-involvement"
     ]
@@ -44,7 +44,7 @@ require(
     //reports
     'modules/reports',
     //admin
-    'modules/occupation', "modules/project", "modules/employee", 'modules/project-involvement',
+    'modules/occupation', "modules/project", "modules/employee", 'modules/project-involvement', "modules/spendings-type",
     //involvements
     "modules/involvement"
 ],
