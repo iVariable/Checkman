@@ -16,7 +16,6 @@ class Version20131007152231 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != "mysql", "Migration can only be executed safely on 'mysql'.");
         
         $this->addSql("ALTER TABLE ProjectInvolvement CHANGE employee_id employee_id INT NOT NULL");
-        $this->addSql("DROP INDEX date ON Spendings");
         $this->addSql("ALTER TABLE Spendings ADD description LONGTEXT DEFAULT NULL");
     }
 
@@ -27,6 +26,6 @@ class Version20131007152231 extends AbstractMigration
         
         $this->addSql("ALTER TABLE ProjectInvolvement CHANGE employee_id employee_id INT DEFAULT NULL");
         $this->addSql("ALTER TABLE Spendings DROP description");
-        $this->addSql("CREATE INDEX date ON Spendings (date)");
+        
     }
 }
