@@ -45,7 +45,36 @@ class SpendingsRepository extends EntityRepository
 
     public function report_projectMonthDetails($projectId, $year, $month)
     {
-        return [];
+        $result = $this->getEntityManager()->getConnection()
+            ->prepare(
+                'SELECT
+                    s.type_id,
+                    st.title AS type,
+                    s.employee_id AS employee_id,
+                    SUM(s.value) AS total,
+                    GROUP_CONCAT(s.description SEPARATOR " -|- ") AS description
+                FROM Spendings s
+                LEFT JOIN SpendingsType st ON s.type_id=st.id
+                WHERE
+                    YEAR(s.date)="' . (int)$year . '"
+                    AND MONTH(s.date)="' . (int)$month . '"
+                    AND s.project_id="' . (int)$projectId . '"
+                GROUP BY
+                    s.type_id, s.employee_id'
+            );
+        $result->execute();
+
+        $data = $result->fetchAll();
+
+        $data = array_map(
+            function ($element) {
+                $element['description'] = explode('-|-', $element['description']);
+                return $element;
+            },
+            $data
+        );
+
+        return $data;
     }
 
     public function hasDaySpendings(\DateTime $date)

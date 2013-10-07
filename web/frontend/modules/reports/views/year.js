@@ -32,19 +32,19 @@ define(
                 _(projects).each(function(project){
                     data += '<tr>' +
                         '<th><a href="'+project.linkTo('finance_report_by_year', _this.options.year)+'" class="j-nav">'+project+'</a></th>'+
-                        '<td>'+_this.report.getProjectTotalByMonth(project, 1)+'</td>'+
-                        '<td>'+_this.report.getProjectTotalByMonth(project, 2)+'</td>'+
-                        '<td>'+_this.report.getProjectTotalByMonth(project, 3)+'</td>'+
-                        '<td>'+_this.report.getProjectTotalByMonth(project, 4)+'</td>'+
-                        '<td>'+_this.report.getProjectTotalByMonth(project, 5)+'</td>'+
-                        '<td>'+_this.report.getProjectTotalByMonth(project, 6)+'</td>'+
-                        '<td>'+_this.report.getProjectTotalByMonth(project, 7)+'</td>'+
-                        '<td>'+_this.report.getProjectTotalByMonth(project, 8)+'</td>'+
-                        '<td>'+_this.report.getProjectTotalByMonth(project, 9)+'</td>'+
-                        '<td>'+_this.report.getProjectTotalByMonth(project, 10)+'</td>'+
-                        '<td>'+_this.report.getProjectTotalByMonth(project, 11)+'</td>'+
-                        '<td>'+_this.report.getProjectTotalByMonth(project, 12)+'</td>'+
-                        '<td>'+_this.report.getProjectTotal(project)+'</td>'+
+                        '<td>'+_.currencyFormat(_this.report.getProjectTotalByMonth(project, 1), false)+'</td>'+
+                        '<td>'+_.currencyFormat(_this.report.getProjectTotalByMonth(project, 2), false)+'</td>'+
+                        '<td>'+_.currencyFormat(_this.report.getProjectTotalByMonth(project, 3), false)+'</td>'+
+                        '<td>'+_.currencyFormat(_this.report.getProjectTotalByMonth(project, 4), false)+'</td>'+
+                        '<td>'+_.currencyFormat(_this.report.getProjectTotalByMonth(project, 5), false)+'</td>'+
+                        '<td>'+_.currencyFormat(_this.report.getProjectTotalByMonth(project, 6), false)+'</td>'+
+                        '<td>'+_.currencyFormat(_this.report.getProjectTotalByMonth(project, 7), false)+'</td>'+
+                        '<td>'+_.currencyFormat(_this.report.getProjectTotalByMonth(project, 8), false)+'</td>'+
+                        '<td>'+_.currencyFormat(_this.report.getProjectTotalByMonth(project, 9), false)+'</td>'+
+                        '<td>'+_.currencyFormat(_this.report.getProjectTotalByMonth(project, 10), false)+'</td>'+
+                        '<td>'+_.currencyFormat(_this.report.getProjectTotalByMonth(project, 11), false)+'</td>'+
+                        '<td>'+_.currencyFormat(_this.report.getProjectTotalByMonth(project, 12), false)+'</td>'+
+                        '<td>'+_.currencyFormat(_this.report.getProjectTotal(project))+'</td>'+
 
                     '</tr>';
                 });

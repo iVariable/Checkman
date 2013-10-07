@@ -3,7 +3,7 @@ define(
         'marionette',
         './../project-month-details-collection',
         'tpl!./project-details.tpl.html',
-        'tpl!./projects-month-report.tpl.html',
+        'tpl!./project-details-report.tpl.html',
         'application'
     ],
     function (Marionette, Collection, TPL_List, TPL_Report, App) {
@@ -26,12 +26,11 @@ define(
                         _this.renderReport();
                     });
                 }
+                window.v = this;
             },
 
             renderReport: function () {
-
-
-
+                this.$('.j-report').html(TPL_Report({view: this}));
             },
 
             getMonths: function(){

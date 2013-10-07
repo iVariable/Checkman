@@ -4,7 +4,9 @@ define(
         './views/model.edit/edit',
         './views/model.new/new',
 
-        './views/collection.list/list'
+        './views/collection.list/list',
+
+        './mixins/formatters'
     ],
     function(
         View_Model_Show,

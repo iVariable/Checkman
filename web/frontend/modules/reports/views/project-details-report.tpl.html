@@ -1,0 +1,25 @@
+<table class="table">
+    <tbody>
+    <%view.report.getTypes().each(function(type){%>
+        <tr>
+            <th colspan="2"><%=type%></th>
+            <th><%=_.currencyFormat(view.report.getTotalByType(type))%></th>
+        </tr>
+        <%if(view.report.getByType(type).size() > 1){%>
+            <%view.report.getByType(type).each(function(employeeReport){%>
+            <tr>
+                <td>&nbsp;</td>
+                <td><%=employeeReport.employee()%></td>
+                <td><%=_.currencyFormat(employeeReport.get('total'))%></td>
+            </tr>
+            <%});%>
+        <%};%>
+    <%});%>
+    </tbody>
+    <tfoot>
+    <tr>
+        <th colspan="2">Итого:</th>
+        <th><%=_.currencyFormat(view.report.getTotal())%></th>
+    </tr>
+    </tfoot>
+</table>
