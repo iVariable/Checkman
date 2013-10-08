@@ -26,6 +26,6 @@ class Version20131007152231 extends AbstractMigration
         
         $this->addSql("ALTER TABLE ProjectInvolvement CHANGE employee_id employee_id INT DEFAULT NULL");
         $this->addSql("ALTER TABLE Spendings DROP description");
-        
+
     }
 }

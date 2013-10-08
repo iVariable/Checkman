@@ -52,6 +52,7 @@ class SpendingsRepository extends EntityRepository
                     st.title AS type,
                     s.employee_id AS employee_id,
                     SUM(s.value) AS total,
+                    COUNT(s.id) AS rows,
                     GROUP_CONCAT(s.description SEPARATOR " -|- ") AS description
                 FROM Spendings s
                 LEFT JOIN SpendingsType st ON s.type_id=st.id

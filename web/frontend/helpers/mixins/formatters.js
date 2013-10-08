@@ -15,15 +15,18 @@ define(
                 var decPart = (arParts.length > 1 ? arParts[1] : '');
                 decPart = (decPart + '00').substr(0,2);
 
-                formattedValue = intPart + DecimalSeparator + decPart;
-                showCurrency = _.isUndefined(showCurrency)?true:showCurrency;
-                if (showCurrency) {
-                    formattedValue += " руб.";
+                if( formattedValue == 0 ){
+                    formattedValue = '-';
+                }else{
+                    formattedValue = intPart + DecimalSeparator + decPart;
+                    showCurrency = _.isUndefined(showCurrency)?true:showCurrency;
+                    if (showCurrency) {
+                        formattedValue += " руб.";
+                    }
                 }
 
                 return formattedValue;
 
-                //return formattedValue;
             }
 
         })

@@ -2,23 +2,24 @@
     <tbody>
     <%view.report.getTypes().each(function(type){%>
         <tr>
-            <th colspan="2"><%=type%></th>
+            <th colspan="4"><%=type%></th>
             <th><%=_.currencyFormat(view.report.getTotalByType(type))%></th>
         </tr>
-        <%if(view.report.getByType(type).size() > 1){%>
-            <%view.report.getByType(type).each(function(employeeReport){%>
-            <tr>
-                <td>&nbsp;</td>
-                <td><%=employeeReport.employee()%></td>
-                <td><%=_.currencyFormat(employeeReport.get('total'))%></td>
-            </tr>
-            <%});%>
-        <%};%>
+        <%view.report.getByType(type).each(function(employeeReport){%>
+        <%if(!employeeReport.employee()){return; };%>
+        <tr>
+            <td>&nbsp;</td>
+            <td><%=employeeReport.employee()%></td>
+            <td><%=employeeReport.employee().occupations()%></td>
+            <td><abbr title="Учтено дней"><%=employeeReport.get('rows')%></abbr></td>
+            <td><%=_.currencyFormat(employeeReport.get('total'))%></td>
+        </tr>
+        <%});%>
     <%});%>
     </tbody>
     <tfoot>
     <tr>
-        <th colspan="2">Итого:</th>
+        <th colspan="4">Итого:</th>
         <th><%=_.currencyFormat(view.report.getTotal())%></th>
     </tr>
     </tfoot>

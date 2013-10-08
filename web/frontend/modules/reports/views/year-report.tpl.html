@@ -1,0 +1,37 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th rowspan="2" style="vertical-align: middle">Проект</th>
+        <th colspan="12" style="text-align: center">Месяцы</th>
+        <th rowspan="2" style="vertical-align: middle">Итого</th>
+    </tr>
+    <tr>
+        <th>Январь</th>
+        <th>Февраль</th>
+        <th>Март</th>
+        <th>Апрель</th>
+        <th>Май</th>
+        <th>Июнь</th>
+        <th>Июль</th>
+        <th>Август</th>
+        <th>Сентябрь</th>
+        <th>Октябрь</th>
+        <th>Ноябрь</th>
+        <th>Декабрь</th>
+    </tr>
+    </thead>
+    <tbody class="">
+    <%_(view.report.getProjects()).each(function(project){%>
+    <tr>
+        <th><a href="<%=project.linkTo('finance_report_by_year', view.options.year)%>" class="j-nav"><%=project%></a></th>
+        <%for(var i=1;i< 13; i++){%>
+            <td>
+                <a href="<%=project.linkTo('finance_report_by_year_month', view.options.year, i)%>" class="j-nav"><%=_.currencyFormat(view.report.getProjectTotalByMonth(project, i), false)%></a>
+            </td>
+        <%};%>
+        <td><%=_.currencyFormat(view.report.getProjectTotal(project))%></td>
+    </tr>
+    <%});%>
+    </tbody>
+</table>
+
