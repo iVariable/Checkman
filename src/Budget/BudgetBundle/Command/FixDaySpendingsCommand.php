@@ -64,7 +64,7 @@ EOF
         $salaryType = $this->getContainer()->get('r.spendings_type')->getSalaryType();
         $employees = $this->getContainer()->get('r.employee')->getActiveEmployees();
 
-        $numberDaysInMonth = date('t');
+        $numberDaysInMonth = date('t', $date->getTimestamp());
 
         $this->log('<info>Processing employees</info>');
 

@@ -10,6 +10,12 @@ define(
         var model = Bicycle.Core.Model.extend({
             employee: function () {
                 return App.collection('employees').get(this.get('employee_id'));
+            },
+
+            description: function(){
+                var description = this.get('description');
+                if(description.length == 1 && description[0] == "") return false;
+                return description;
             }
         });
 

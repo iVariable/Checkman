@@ -6,14 +6,22 @@
             <th><%=_.currencyFormat(view.report.getTotalByType(type))%></th>
         </tr>
         <%view.report.getByType(type).each(function(employeeReport){%>
-        <%if(!employeeReport.employee()){return; };%>
-        <tr>
-            <td>&nbsp;</td>
-            <td><%=employeeReport.employee()%></td>
-            <td><%=employeeReport.employee().occupations()%></td>
-            <td><abbr title="Учтено дней"><%=employeeReport.get('rows')%></abbr></td>
-            <td><%=_.currencyFormat(employeeReport.get('total'))%></td>
-        </tr>
+            <%if(employeeReport.employee()){%>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><%=employeeReport.employee()%></td>
+                    <td><%=employeeReport.employee().occupations()%></td>
+                    <td><abbr title="Учтено дней"><%=employeeReport.get('rows')%></abbr></td>
+                    <td><%=_.currencyFormat(employeeReport.get('total'))%></td>
+                </tr>
+            <%};%>
+            <%if(employeeReport.description()){%>
+            <tr>
+                <td></td>
+                <td colspan="3" style="padding-left: 50px;"><i><%=employeeReport.description().join('<br />')%></i></td>
+                <td></td>
+            </tr>
+            <%};%>
         <%});%>
     <%});%>
     </tbody>
