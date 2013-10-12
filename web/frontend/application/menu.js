@@ -68,6 +68,11 @@ define([],function(){
                     icon: "icon-user-md",
                     url: "admin/occupations"
                 },
+                regions: {
+                    title: "Регионы",
+                    icon: "icon-map-marker",
+                    url: "admin/regions"
+                },
                 spendingstype: {
                     title: "Типы затрат",
                     icon: "icon-money",

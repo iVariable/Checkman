@@ -104,6 +104,7 @@ repository_alias:
     repository_key: "r"
     repository:
         occupation: BudgetBundle:Occupation
+        region: BudgetBundle:Region
         project: BudgetBundle:Project
         employee: BudgetBundle:Employee
         project_involvement: BudgetBundle:ProjectInvolvement
