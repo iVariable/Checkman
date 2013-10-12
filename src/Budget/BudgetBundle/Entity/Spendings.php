@@ -61,7 +61,7 @@ class Spendings
      * @ORM\Column(name="description", type="text", nullable=true)
      *
      */
-    private $description = "";
+    private $description = null;
 
     /**
      * @param string $description

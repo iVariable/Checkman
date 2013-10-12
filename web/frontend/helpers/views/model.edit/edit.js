@@ -23,6 +23,8 @@ define(
                 var saving = $.Deferred(),
                     _this = this;
 
+                this.$('.j-buttons').html('<p style="text-align: center">Сохранение...</p>');
+
                 if(this.options.callbacks && this.options.callbacks.saving){
                     this.options.callbacks.saving.apply(this, saving);
                 }

@@ -2,19 +2,47 @@ define(
     ['bicycle', 'helpers', 'application'],
     function (Bicycle, Helpers, App) {
 
+        var translations = {
+            title: "Название",
+            status: "Статус",
+            region_id: "Регион (общие расходы)",
+            description: "Описание"
+        };
+
+
+        var statuses = {
+            "0": "Удален",
+            "1": "Активен",
+            "2": "Завершен"
+        };
+
+        var fields = {
+            status: {
+                type: "enum",
+                values: statuses
+            },
+            region_id: {
+                type: "entity",
+                entityType: "regions",
+                getter: "region",
+                nullable: true
+            },
+            description: {
+                type: "text"
+            }
+        };
+
+
         var model = {
 
             defaults: {
                 title: "Новый проект",
                 status: 1,
+                region_id: null,
                 description: ""
             },
 
-            statuses: {
-                "0": "Удален",
-                "1": "Активен",
-                "2": "Завершен"
-            },
+            statuses: statuses,
 
             __init: function(){
                 var _this = this;
@@ -23,18 +51,9 @@ define(
                         model:_this,
 
                         exclude: ["id"],
-                        translations: {
-                            title: "Название",
-                            status: "Статус",
-                            description: "Описание"
-                        },
+                        translations: translations,
 
-                        fields: {
-                            status: {
-                                type: "enum",
-                                values: _this.statuses
-                            }
-                        }
+                        fields: fields
                     });
                 });
 
@@ -43,21 +62,9 @@ define(
                         model:_this,
 
                         exclude: ["id"],
-                        translations: {
-                            title: "Название",
-                            status: "Статус",
-                            description: "Описание"
-                        },
+                        translations: translations,
 
-                        fields: {
-                            status: {
-                                type: "enum",
-                                values: _this.statuses
-                            },
-                            description: {
-                                type: "text"
-                            }
-                        },
+                        fields: fields,
 
                         callbacks: {
                             saved: function(){
@@ -77,21 +84,9 @@ define(
                         model:_this,
 
                         exclude: ["id"],
-                        translations: {
-                            title: "Название",
-                            status: "Статус",
-                            description: "Описание"
-                        },
+                        translations: translations,
 
-                        fields: {
-                            status: {
-                                type: "enum",
-                                values: _this.statuses
-                            },
-                            description: {
-                                type: "text"
-                            }
-                        },
+                        fields: fields,
 
                         callbacks: {
                             saved: function(){
@@ -105,6 +100,10 @@ define(
                     })
                     return view;
                 })
+            },
+
+            region: function (){
+                return App.collection('regions').get(this.get('region_id'));
             },
 
             employees: function(){

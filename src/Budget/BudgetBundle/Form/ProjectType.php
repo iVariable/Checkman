@@ -17,6 +17,7 @@ class ProjectType extends AbstractType
         $builder
             ->add('id', null, array("mapped" => false))
             ->add('title')
+            ->add('region_id')
             ->add('description')
             ->add('status');
     }

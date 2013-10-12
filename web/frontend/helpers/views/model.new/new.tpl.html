@@ -34,6 +34,21 @@
                         <%});%>
                     </select>
                     <%break;
+                    case "entity":
+                    if(view.options.fields[key].getter){
+                    attr = model[view.options.fields[key].getter]();
+                    };
+                    var collection = app.collection(view.options.fields[key].entityType);
+                    %>
+                    <select style="width:100%" name="<%=key%>" data-data-attr="<%=key%>" class="j-data">
+                        <%if(view.options.fields[key].nullable){%>
+                        <option value="">---</option>
+                        <%};%>
+                        <%collection.each(function(entity){%>
+                        <option value="<%=entity.id%>" <%if( attr == entity ){%>selected="selected"<%};%>><%=entity%></option>
+                        <%});%>
+                    </select>
+                    <%break;
                     case "text":%>
                     <textarea name="<%=key%>" class="j-data" data-data-attr="<%=key%>" rows="3" cols="60"><%=attr%></textarea>
                     <%break;

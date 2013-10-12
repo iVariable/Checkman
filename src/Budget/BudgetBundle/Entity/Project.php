@@ -61,6 +61,20 @@ class Project
      */
     private $employees;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Region", inversedBy="projects")
+     * @ORM\JoinColumn(name="region_id", referencedColumnName="id")
+     */
+    private $region;
+
+    /**
+     * @ORM\Column(name="region_id", type="integer", nullable=true)
+     * @Serializer\Groups({
+     *      "Project"
+     * })
+     */
+    private $region_id;
+
 
     /**
      * Get id
@@ -184,5 +198,51 @@ class Project
     public function __toString()
     {
         return $this->getTitle();
+    }
+
+    /**
+     * Set region_id
+     *
+     * @param integer $regionId
+     * @return Project
+     */
+    public function setRegionId($regionId)
+    {
+        $this->region_id = $regionId;
+    
+        return $this;
+    }
+
+    /**
+     * Get region_id
+     *
+     * @return integer 
+     */
+    public function getRegionId()
+    {
+        return $this->region_id;
+    }
+
+    /**
+     * Set region
+     *
+     * @param \Budget\BudgetBundle\Entity\Region $region
+     * @return Project
+     */
+    public function setRegion(\Budget\BudgetBundle\Entity\Region $region = null)
+    {
+        $this->region = $region;
+    
+        return $this;
+    }
+
+    /**
+     * Get region
+     *
+     * @return \Budget\BudgetBundle\Entity\Region 
+     */
+    public function getRegion()
+    {
+        return $this->region;
     }
 }
