@@ -9,7 +9,8 @@ define(
             occupations: "Специализация",
             salary: "Зарплата",
             notes: "Заметки",
-            projects: "Проекты"
+            projects: "Проекты",
+            region_id: "Регион"
         }
 
         var statuses = {
@@ -35,6 +36,11 @@ define(
                 type: "involvement",
                 entityType: "project",
                 getter: "projects"
+            },
+            region_id: {
+                type: "entity",
+                entityType: "regions",
+                getter: "region"
             }
         };
 
@@ -47,7 +53,8 @@ define(
                 notes: "",
                 occupations: null,
                 projects: null,
-                salary: 0
+                salary: 0,
+                region_id: null
             },
 
             statuses: statuses,
@@ -151,6 +158,10 @@ define(
 
             projects: function () {
                 return this.involvements().map(function(involvement){ return involvement.project(); });
+            },
+
+            region: function (){
+                return App.collection('regions').get(this.get('region_id'));
             },
 
             involvements: function () {

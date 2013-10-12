@@ -100,6 +100,20 @@ class Employee
     private $projects;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Region", inversedBy="employees")
+     * @ORM\JoinColumn(name="region_id", referencedColumnName="id")
+     */
+    private $region;
+
+    /**
+     * @ORM\Column(name="region_id", type="integer", nullable=true)
+     * @Serializer\Groups({
+     *      "Employee"
+     * })
+     */
+    private $region_id;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Occupation", inversedBy="employees", cascade={"persist"})
      * @ORM\JoinTable(name="occupationToEmployee",
      *      joinColumns={@ORM\JoinColumn(name="employee_id", referencedColumnName="id")},
@@ -374,4 +388,73 @@ class Employee
         return $this->getFirstName().' '.$this->getSecondName();
     }
 
+
+    /**
+     * Set region_id
+     *
+     * @param integer $regionId
+     * @return Employee
+     */
+    public function setRegionId($regionId)
+    {
+        $this->region_id = $regionId;
+    
+        return $this;
+    }
+
+    /**
+     * Get region_id
+     *
+     * @return integer 
+     */
+    public function getRegionId()
+    {
+        return $this->region_id;
+    }
+
+    /**
+     * Add projects
+     *
+     * @param \Budget\BudgetBundle\Entity\ProjectInvolvement $projects
+     * @return Employee
+     */
+    public function addProject(\Budget\BudgetBundle\Entity\ProjectInvolvement $projects)
+    {
+        $this->projects[] = $projects;
+    
+        return $this;
+    }
+
+    /**
+     * Remove projects
+     *
+     * @param \Budget\BudgetBundle\Entity\ProjectInvolvement $projects
+     */
+    public function removeProject(\Budget\BudgetBundle\Entity\ProjectInvolvement $projects)
+    {
+        $this->projects->removeElement($projects);
+    }
+
+    /**
+     * Set region
+     *
+     * @param \Budget\BudgetBundle\Entity\Region $region
+     * @return Employee
+     */
+    public function setRegion(\Budget\BudgetBundle\Entity\Region $region = null)
+    {
+        $this->region = $region;
+    
+        return $this;
+    }
+
+    /**
+     * Get region
+     *
+     * @return \Budget\BudgetBundle\Entity\Region 
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
 }

@@ -117,6 +117,7 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
      */
     protected function processInvolvements(Employee $employee, $involvementsRaw = null)
     {
+        if($involvementsRaw === null) return;
         $em = $this->get('em');
         $currentInvolvements = $employee->getProjectInvolvements();
 
