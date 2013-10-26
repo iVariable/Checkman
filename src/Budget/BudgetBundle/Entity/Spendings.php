@@ -20,6 +20,8 @@ class Spendings
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Serializer\Groups({"Spending"})
      */
     private $id;
 
@@ -27,6 +29,8 @@ class Spendings
      * @var float
      *
      * @ORM\Column(name="value", type="float")
+     *
+     * @Serializer\Groups({"Spending"})
      */
     private $value;
 
@@ -34,6 +38,8 @@ class Spendings
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date")
+     *
+     * @Serializer\Groups({"Spending"})
      */
     private $date;
 
@@ -44,10 +50,22 @@ class Spendings
     private $project;
 
     /**
+     * @ORM\Column(name="project_id", type="integer", nullable=true)
+     * @Serializer\Groups({"Spending"})
+     */
+    private $project_id;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Employee")
      * @ORM\JoinColumn(name="employee_id", referencedColumnName="id")
      */
     private $employee;
+
+    /**
+     * @ORM\Column(name="employee_id", type="integer", nullable=true)
+     * @Serializer\Groups({"Spending"})
+     */
+    private $employee_id;
 
     /**
      * @ORM\ManyToOne(targetEntity="SpendingsType")
@@ -56,10 +74,17 @@ class Spendings
     private $type;
 
     /**
+     * @ORM\Column(name="type_id", type="integer")
+     * @Serializer\Groups({"Spending"})
+     */
+    private $type_id;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      *
+     * @Serializer\Groups({"Spending"})
      */
     private $description = null;
 

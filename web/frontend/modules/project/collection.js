@@ -21,6 +21,7 @@ define(
                         translations: {
                             title: "Название",
                             status: "Статус",
+                            region_id: "Регион (Общие расходы)",
                             description: "Описание"
                         },
 
@@ -28,6 +29,12 @@ define(
                             status: {
                                 type: "enum",
                                 values: _this.model.prototype.statuses
+                            },
+                            region_id: {
+                                type: "entity",
+                                entityType: "regions",
+                                getter: "region",
+                                nullable: true
                             }
                         },
 
@@ -39,6 +46,10 @@ define(
                         }
                     });
                 })
+            },
+
+            comparator: function(elem1, elem2){
+                return elem1.get('title') < elem2.get('title')?-1:1;
             },
 
             linkTo: function(type){

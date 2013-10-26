@@ -5,7 +5,23 @@ define(
         var translations = {
             title: "Название",
             description: "Описание"
-        }
+        };
+
+        var fields = {
+            description: {
+                type: "text"
+            }
+        };
+
+        var callbacks = {
+            saving: function(savingDeferred){
+                App.loader('Сохранение', savingDeferred);
+            },
+
+            saved: function(){
+                App.router.navigate(this.linkTo('show'),true);
+            }
+        };
 
         var model = {
 
@@ -32,11 +48,9 @@ define(
                         exclude: ["id"],
                         translations: translations,
 
-                        callbacks: {
-                            saved: function(){
-                                App.router.navigate(_this.linkTo('show'),true);
-                            }
-                        }
+                        fields: fields,
+
+                        callbacks: callbacks
                     });
 
                     view.on('render', function(){
@@ -52,11 +66,9 @@ define(
                         exclude: ["id"],
                         translations: translations,
 
-                        callbacks: {
-                            saved: function(){
-                                App.router.navigate(_this.linkTo('show'),true);
-                            }
-                        }
+                        fields: fields,
+
+                        callbacks: callbacks
                     });
 
                     view.on('render', function(){

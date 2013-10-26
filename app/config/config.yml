@@ -105,6 +105,7 @@ repository_alias:
     repository:
         occupation: BudgetBundle:Occupation
         region: BudgetBundle:Region
+        spending: BudgetBundle:Spending
         project: BudgetBundle:Project
         employee: BudgetBundle:Employee
         project_involvement: BudgetBundle:ProjectInvolvement

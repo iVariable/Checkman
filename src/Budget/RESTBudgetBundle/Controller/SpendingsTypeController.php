@@ -98,7 +98,7 @@ class SpendingsTypeController extends \Budget\RESTBudgetBundle\Controller\Helper
             throw $this->createNotFoundException('Unable to find SpendingsType entity.');
         }
 
-        if (!$entity->canBeDeleted()){
+        if (!$entity->getCanBeDeleted()){
             throw new AccessDeniedHttpException("This spendings type is delete-protected!");
         }
 

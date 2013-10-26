@@ -31,8 +31,8 @@ require.config({
 
     packages: [
         "application", "bicycle"
-        ,"modules/occupation", "modules/reports", "helpers", "modules/project", "modules/region", "modules/employee", "modules/spendings-type"
-        , "modules/involvement"
+        ,"modules/occupation", "modules/reports", "helpers", "modules/project", "modules/region", "modules/employee", "modules/spendings-type", "modules/spending"
+        , "modules/report-involvement"
         , "modules/project-involvement"
     ]
 });
@@ -44,9 +44,9 @@ require(
     //reports
     'modules/reports',
     //admin
-    'modules/region', 'modules/occupation', "modules/project", "modules/employee", 'modules/project-involvement', "modules/spendings-type",
+    'modules/region', 'modules/occupation', "modules/project", "modules/employee", 'modules/project-involvement', "modules/spendings-type", "modules/spending",
     //involvements
-    "modules/involvement"
+    "modules/report-involvement"
 ],
 function(app){
 

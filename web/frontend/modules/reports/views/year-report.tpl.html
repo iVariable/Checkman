@@ -20,14 +20,31 @@
         <th>Декабрь</th>
     </tr>
     </thead>
-    <tbody class="">
-    <%_(view.report.getProjects()).each(function(project){%>
+    <tbody>
+    <tr>
+        <th colspan="14">Общие региональные расходы</th>
+    </tr>
+    <%_(view.report.getProjects()).chain().filter(function(project){ return project.region(); }).each(function(project){%>
     <tr>
         <th><a href="<%=project.linkTo('finance_report_by_year', view.options.year)%>" class="j-nav"><%=project%></a></th>
         <%for(var i=1;i< 13; i++){%>
             <td>
                 <a href="<%=project.linkTo('finance_report_by_year_month', view.options.year, i)%>" class="j-nav"><%=_.currencyFormat(view.report.getProjectTotalByMonth(project, i), false)%></a>
             </td>
+        <%};%>
+        <td><%=_.currencyFormat(view.report.getProjectTotal(project))%></td>
+    </tr>
+    <%});%>
+    <tr>
+        <th colspan="14">Проектные расходы</th>
+    </tr>
+    <%_(view.report.getProjects()).chain().filter(function(project){ return !project.region(); }).each(function(project){%>
+    <tr>
+        <th><a href="<%=project.linkTo('finance_report_by_year', view.options.year)%>" class="j-nav"><%=project%></a></th>
+        <%for(var i=1;i< 13; i++){%>
+        <td>
+            <a href="<%=project.linkTo('finance_report_by_year_month', view.options.year, i)%>" class="j-nav"><%=_.currencyFormat(view.report.getProjectTotalByMonth(project, i), false)%></a>
+        </td>
         <%};%>
         <td><%=_.currencyFormat(view.report.getProjectTotal(project))%></td>
     </tr>
