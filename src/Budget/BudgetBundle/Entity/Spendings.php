@@ -40,6 +40,7 @@ class Spendings
      * @ORM\Column(name="date", type="date")
      *
      * @Serializer\Groups({"Spending"})
+     * @Serializer\Type("DateTime<'d-m-Y'>")
      */
     private $date;
 
@@ -52,6 +53,7 @@ class Spendings
     /**
      * @ORM\Column(name="project_id", type="integer", nullable=true)
      * @Serializer\Groups({"Spending"})
+     * @Serializer\SerializedName("project")
      */
     private $project_id;
 
@@ -64,6 +66,7 @@ class Spendings
     /**
      * @ORM\Column(name="employee_id", type="integer", nullable=true)
      * @Serializer\Groups({"Spending"})
+     * @Serializer\SerializedName("employee")
      */
     private $employee_id;
 
@@ -76,6 +79,7 @@ class Spendings
     /**
      * @ORM\Column(name="type_id", type="integer")
      * @Serializer\Groups({"Spending"})
+     * @Serializer\SerializedName("type")
      */
     private $type_id;
 
@@ -228,4 +232,11 @@ class Spendings
     {
         return $this->type;
     }
+
+    public function __toString()
+    {
+        return (string)$this->getValue();
+    }
+
+
 }

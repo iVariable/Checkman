@@ -1,7 +1,7 @@
 define(
     ['marionette', 'backbone'],
     function (Marionette, Backbone) {
-        var model = Marionette.ItemView.extend({
+        var model = Marionette.Layout.extend({
 
             collectData: function () {
                 return this.dataCollector_collect();

@@ -28,6 +28,12 @@ define(
 
                 Marionette.triggerMethod.call(this, "show", view);
                 Marionette.triggerMethod.call(view, "show");
+            },
+
+            html: function(html){
+                this.ensureEl();
+                this.$el.html(html);
+                Marionette.triggerMethod.call(this, "html", html);
             }
         });
 

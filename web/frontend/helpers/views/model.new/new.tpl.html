@@ -16,7 +16,7 @@
                 };%>
                 <%switch(view.options.fields[key].type){
                     case "enum":%>
-                    <select name="<%=key%>" data-data-attr="<%=key%>" class="j-data">
+                    <select name="<%=key%>" data-data-attr="<%=key%>" class="j-data" <%if(view.options.fields[key].fixed){%>disabled="disabled"<%};%>>
                         <%_(view.options.fields[key].values).each(function(text, value){%>
                         <option value="<%=value%>" <%if(value == attr){%>selected="selected"<%};%>><%=text%></option>
                         <%});%>
@@ -28,7 +28,7 @@
                     };
                     var collection = app.collection(view.options.fields[key].entityType);
                     %>
-                    <select multiple="multiple" style="width:100%" name="<%=key%>" data-data-attr="<%=key%>" class="j-data">
+                    <select multiple="multiple" style="width:100%" name="<%=key%>" data-data-attr="<%=key%>" class="j-data" <%if(view.options.fields[key].fixed){%>disabled="disabled"<%};%>>
                         <%collection.each(function(entity){%>
                         <option value="<%=entity.id%>" <%if( attr.indexOf(entity) != -1){%>selected="selected"<%};%>><%=entity%></option>
                         <%});%>
@@ -40,7 +40,7 @@
                     };
                     var collection = app.collection(view.options.fields[key].entityType);
                     %>
-                    <select style="width:100%" name="<%=key%>" data-data-attr="<%=key%>" class="j-data">
+                    <select style="width:100%" name="<%=key%>" data-data-attr="<%=key%>" class="j-data" <%if(view.options.fields[key].fixed){%>disabled="disabled"<%};%>>
                         <%if(view.options.fields[key].nullable){%>
                         <option value="">---</option>
                         <%};%>
@@ -50,10 +50,10 @@
                     </select>
                     <%break;
                     case "text":%>
-                    <textarea name="<%=key%>" class="j-data" data-data-attr="<%=key%>" rows="3" cols="60"><%=attr%></textarea>
+                    <textarea name="<%=key%>" class="j-data" data-data-attr="<%=key%>" rows="3" cols="60" <%if(view.options.fields[key].fixed){%>disabled="disabled"<%};%>><%=attr%></textarea>
                     <%break;
                     default:%>
-                    <input type="text" name="<%=key%>" class="j-data" data-data-attr="<%=key%>" value="<%=attr%>"/>
+                    <input type="text" name="<%=key%>" class="j-data" data-data-attr="<%=key%>" value="<%=attr%>" <%if(view.options.fields[key].fixed){%>disabled="disabled"<%};%>/>
                     <%break;
                 }%>
             <%}else{%>
@@ -65,7 +65,7 @@
     </tbody>
     <tfoot>
     <tr>
-        <td colspan="2">
+        <td colspan="2" class="j-buttons">
             <a class="button j-cancel j-nav" href="<%=view.save2collection.linkTo('list')%>"><i class="icon-remove"></i> Отменить</a>
             <button class="button j-save green"><i class="icon-ok"></i> Сохранить</button>
         </td>

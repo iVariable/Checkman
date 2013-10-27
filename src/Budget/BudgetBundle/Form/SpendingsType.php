@@ -17,7 +17,10 @@ class SpendingsType extends AbstractType
         $builder
             ->add('id', null, ['mapped' => false])
             ->add('value')
-            ->add('date')
+            ->add('date', null, [
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy'
+                ])
             ->add('description')
             ->add('project')
             ->add('employee')

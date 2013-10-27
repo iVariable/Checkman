@@ -7,7 +7,8 @@ require.config({
         marionette: 'bower_components/backbone.marionette/lib/backbone.marionette',
         text: 'bower_components/requirejs-text/text',
         tpl: 'bower_components/requirejs-tpl/tpl',
-        backbone_routefilter: 'bower_components/backbone.routefilter/dist/backbone.routefilter.min'
+        backbone_routefilter: 'bower_components/backbone.routefilter/dist/backbone.routefilter.min',
+        moment: 'bower_components/momentjs/moment'
     },
     shim: {
         jquery: {
@@ -17,7 +18,7 @@ require.config({
             exports: '_'
         },
         backbone: {
-            deps: ['jquery', 'underscore', 'select2'],
+            deps: ['jquery', 'underscore', 'select2', 'moment'],
             exports: 'Backbone'
         },
         backbone_routefilter: {
@@ -44,7 +45,8 @@ require(
     //reports
     'modules/reports',
     //admin
-    'modules/region', 'modules/occupation', "modules/project", "modules/employee", 'modules/project-involvement', "modules/spendings-type", "modules/spending",
+    'modules/region', 'modules/occupation', "modules/project", "modules/employee",
+    'modules/project-involvement', "modules/spendings-type", "modules/spending",
     //involvements
     "modules/report-involvement"
 ],

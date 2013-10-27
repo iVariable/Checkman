@@ -6,19 +6,23 @@ define(
             date: {
                 type: "date"
             },
-            project_id: {
+            description: {
+                type: 'text'
+            },
+            project: {
                 type: "entity",
                 entityType: "projects",
                 getter: "project"
             },
-            employee_id: {
+            employee: {
                 type: "entity",
                 entityType: "employees",
-                getter: "employee"
+                getter: "employee",
+                nullable: true
             },
-            type_id: {
+            type: {
                 type: "entity",
-                entityType: "spendingsType",
+                entityType: "spendingstypes",
                 getter: "type"
             }
         };
@@ -27,18 +31,18 @@ define(
             date: "Дата",
             description: "Примечания",
             value: "Сумма",
-            project_id: "Проект",
-            employee_id: "Сотрудник",
-            type_id: "Тип затрат"
+            project: "Проект",
+            employee: "Сотрудник",
+            type: "Тип затрат"
         };
 
         var model = {
 
             defaults: {
                 date: 1,
-                employee_id: false,
-                type_id: false,
-                project_id: false,
+                employee: false,
+                type: false,
+                project: false,
                 description: "",
                 value: 0
             },
@@ -68,8 +72,8 @@ define(
                         drawAsWindow: true,
 
                         callbacks: {
-                            saved: function(){
-                                App.router.navigate(_this.linkTo('show'),true);
+                            saving: function(xhr){
+                                App.loader('Сохраняем затраты...', xhr);
                             }
                         }
                     });
@@ -89,8 +93,8 @@ define(
 
                         fields: fields,
                         callbacks: {
-                            saved: function(){
-                                App.router.navigate(_this.linkTo('show'),true);
+                            saving: function(xhr){
+                                App.loader('Сохраняем затраты...', xhr);
                             }
                         }
                     });
@@ -103,15 +107,15 @@ define(
             },
 
             employee: function(){
-                return App.collection('employees').get(this.get('employee_id'));
+                return App.collection('employees').get(this.get('employee'));
             },
 
             project: function(){
-                return App.collection('projects').get(this.get('project_id'));
+                return App.collection('projects').get(this.get('project'));
             },
 
             type: function(){
-                return App.collection('spendingsType').get(this.get('type_id'));
+                return App.collection('spendingstypes').get(this.get('type'));
             },
 
             toString: function(){
