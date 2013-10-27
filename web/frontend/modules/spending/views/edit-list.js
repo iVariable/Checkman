@@ -1,24 +1,19 @@
 define(
     [
-        'bicycle',
-        'tpl!./list.tpl.html',
+        'marionette',
+        'tpl!./edit-list.tpl.html',
         'application'
     ],
-    function (Bicycle, TPL_List, App) {
+    function (Marionette, TPL_List, App) {
 
-
-        return Bicycle.Core.View.extend({
+        return Marionette.ItemView.extend({
             template: TPL_List,
 
             events: {
-                'click .j-new-occupation': "event_newModel",
-                'click .j-edit-occupation': "event_editModel",
-                'click .j-remove-occupation': "event_removeModel"
+                'click .j-remove': 'event_remove'
             },
 
-            event_newModel: function(){},
-            event_editModel: function(){},
-            event_removeModel: function(e){
+            event_remove: function(e){
                 var id = $(e.currentTarget).data('id'),
                     model = this.model.get(id);
                 if( !model ) throw Error('Model not found');
@@ -49,7 +44,6 @@ define(
                     });
                 }
             }
-
         });
 
     }

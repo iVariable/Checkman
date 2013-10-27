@@ -1,0 +1,32 @@
+<div class="box">
+    <div class="tab-header">
+        Детализация затрат
+    </div>
+
+    <div>
+        <div class="padded">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="100">Дата</th>
+                    <th width="100">Затраты</th>
+                    <th>Описание</th>
+                    <th width="150">Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%model.each(function(spending){%>
+                <tr>
+                    <td><%=spending.get('date')%></td>
+                    <td><%=spending.get('value')%></td>
+                    <td><%=spending.get('description')%></td>
+                    <td>
+                        <button class="button red mini j-remove" data-id="<%=spending.id%>"><i class="icon-trash"></i> Удалить</button>
+                    </td>
+                </tr>
+                <%});%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -26,7 +26,8 @@ define(
 
             event_editSpendings: function(e){
                 var typeId = $(e.currentTarget).data('typeId'),
-                    employeeId = $(e.currentTarget).data('employeeId');
+                    employeeId = $(e.currentTarget).data('employeeId'),
+                    _this = this;
 
                 var collection = new (App.module('spendings')).Collection();
 
@@ -41,11 +42,19 @@ define(
                     filterParams['employee_id'] = employeeId;
                 }
 
+                this.$('.j-detalization-container').remove();
+
+                var $container = $('<tr class="j-detalization-container"><td colspan="6">Загрузка...</td></tr>')
+                    .insertAfter(this.$('.j-report-row[data-type-id='+typeId+'][data-employee-id='+employeeId+']'))
+                    .find('td')
+                ;
+
                 collection.setUrlParams(filterParams);
 
-                window.z = collection;
-
-                App.loader('Загрузка детализации...', collection.fetch());
+                App.loader('Загрузка детализации...', collection.fetch()).done(function(){
+                    collection.view('edit-list').$el = $container;
+                    collection.view('edit-list').render();
+                });
 
             },
 

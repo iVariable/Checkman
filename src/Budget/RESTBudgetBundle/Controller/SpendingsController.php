@@ -27,8 +27,8 @@ class SpendingsController extends \Budget\RESTBudgetBundle\Controller\Helper\RES
             $request->get('till_date', false)
         ) {
             return $this->get('r.spending')->getByDates(
-                \DateTime::createFromFormat('d-m-Y', $request->get('since_date')),
-                \DateTime::createFromFormat('d-m-Y', $request->get('till_date')),
+                \DateTime::createFromFormat('d-m-Y H:i:s', $request->get('since_date').' 00:00:00'),
+                \DateTime::createFromFormat('d-m-Y H:i:s', $request->get('till_date').' 00:00:00'),
                 [
                     'project_id' => $request->get('project_id'),
                     'type_id' => $request->get('type_id'),
