@@ -2,44 +2,74 @@
     .j-report-description {
         display: none;
     }
-    .b-vasia-header {
-        padding-top:12px;
-        padding-bottom:0;
-        border-top:0 none;
+
+    .b-spending-table {
+
+    }
+
+    .b-spending-table TR TD, .b-spending-table TR TH {
+        border: 0 none;
+        padding: 1px 5px;
+    }
+
+    .b-spending-table .b-header TD, .b-spending-table .b-header TH {
+        border-bottom: 1px solid #ccc;
+        padding-top: 15px;
+    }
+
+    .b-spending-table .b-total-header TD, .b-spending-table .b-total-header TH {
+        border-top: 1px solid #ccc;
+        margin-top: 15px;
+    }
+    .b-spending-table .b-report-description TD {
+        padding: 5px 15px;
     }
 </style>
-<table class="table">
+<table class="table b-spending-table">
+    <thead>
+    <tr>
+        <td width="210"></td>
+        <td></td>
+        <td></td>
+        <td width="120"></td>
+        <td width="120"></td>
+    </tr>
+    </thead>
     <tbody>
     <%view.report.getTypes().each(function(type){%>
-        <tr>
-            <th colspan="5" class="b-vasia-header"><%=type%></th>
-            <th class="b-vasia-header"><%=_.currencyFormat(view.report.getTotalByType(type))%></th>
+        <tr class="b-header">
+            <th colspan="4"><%=type%></th>
+            <th><%=_.currencyFormat(view.report.getTotalByType(type))%></th>
         </tr>
         <%view.report.getByType(type).each(function(employeeReport){%>
             <%if(employeeReport.employee()){%>
-                <tr>
-                    <!--<td>&nbsp;</td>-->
-                    <td colspan="2"><%=employeeReport.employee()%></td>
+                <tr class="j-report-row" data-type-id="<%=type.id%>" data-employee-id="<%=employeeReport.employee().id%>">
+                    <td><%=employeeReport.employee()%></td>
                     <td><%=employeeReport.employee().occupations()%></td>
                     <td><abbr title="Учтено дней"><%=employeeReport.get('rows')%></abbr></td>
                     <td><%=_.currencyFormat(employeeReport.get('total'))%></td>
-                    <td></td>
+                    <td><a class="j-edit-spendings mini" data-type-id="<%=type.id%>" data-employee-id="<%=employeeReport.employee().id%>">Редактировать</a></td>
+                </tr>
+            <%}else{%>
+                <tr class="j-report-row" data-type-id="<%=type.id%>" data-employee-id="">
+                    <td colspan="2">Общие затраты</td>
+                    <td><abbr title="Учтено дней"><%=employeeReport.get('rows')%></abbr></td>
+                    <td><%=_.currencyFormat(employeeReport.get('total'))%></td>
+                    <td><a class="j-edit-spendings mini" data-type-id="<%=type.id%>" data-employee-id="">Редактировать</a></td>
                 </tr>
             <%};%>
             <%if(employeeReport.description()){%>
-            <tr class="j-report-description">
-                <td style="border: 0;"></td>
-                <td  colspan="3" style="border:0; padding-left: 50px;"><i><%=employeeReport.description().join('<br />')%></i></td>
-                <td style="border: 0;"></td>
-                <td style="border: 0;"></td>
+            <tr class="j-report-description b-report-description">
+                <td colspan="3"><div class="well"><i><%=employeeReport.description().join('<br />')%></i></div></td>
+                <td colspan="2"></td>
             </tr>
             <%};%>
         <%});%>
     <%});%>
     </tbody>
     <tfoot>
-    <tr>
-        <th colspan="5">Итого:</th>
+    <tr class="b-header">
+        <th colspan="4">Итого:</th>
         <th><%=_.currencyFormat(view.report.getTotal())%></th>
     </tr>
     </tfoot>

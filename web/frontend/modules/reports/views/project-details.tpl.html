@@ -1,11 +1,19 @@
 <div>
-    <button class="btn mini green j-add-spendings pull-right"><i class="icon-plus"></i> Добавить расходы</button>
+    <button class="button green j-add-spendings pull-right"><i class="icon-plus"></i> Добавить расходы</button>
 </div>
 <div class="j-spendings-add-container" style="margin-top: 10px; clear:both;">&nbsp;</div>
 
 <div class="box">
     <div class="tab-header">
         Детализация: <%=view.options.project%> [<%=view.options.month%>/<%=view.options.year%>]
+        <div class="pull-right">
+            <span class="options">
+                <div class="btn-group">
+                    <button class="button mini j-toggle-description">Подробности</button>
+                </div>
+            </span>
+
+        </div>
     </div>
 
     <div class="padded">

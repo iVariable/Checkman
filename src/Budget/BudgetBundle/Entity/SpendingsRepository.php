@@ -13,6 +13,40 @@ use Doctrine\ORM\EntityRepository;
 class SpendingsRepository extends EntityRepository
 {
 
+    public function getByDates(\DateTime $startDate, \DateTime $endDate, array $criteria = [])
+    {
+        $query = $this->createQueryBuilder('spendings');
+        $query
+            ->select('spendings')
+            ->where('spendings.date >= :startDate')
+            ->andWhere('spendings.date <= :endDate')
+
+            ->setParameters(
+                [
+                    'startDate' => $startDate,
+                    'endDate' => $endDate
+                ]
+            );
+
+        if (!empty($criteria)) {
+            foreach ($criteria as $name => $value) {
+                if($value === null ) {
+                    $query
+                        ->andWhere('spendings.'.$name.' IS NULL')
+                    ;
+                }else{
+                    $query
+                        ->andWhere('spendings.'.$name.' = :'.$name)
+                        ->setParameter($name, $value);
+                    ;
+                }
+
+            }
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
     public function report_projectsSummary($year)
     {
         //SELECT project_id, MONTH(date)as month, SUM(value) as total FROM Spendings WHERE YEAR(date)=:date GROUP BY project_id,MONTH(date)
@@ -70,6 +104,7 @@ class SpendingsRepository extends EntityRepository
         $data = array_map(
             function ($element) {
                 $element['description'] = explode('-|-', $element['description']);
+
                 return $element;
             },
             $data

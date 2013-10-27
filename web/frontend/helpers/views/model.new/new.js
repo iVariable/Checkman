@@ -13,7 +13,16 @@ define(
             },
 
             events: {
-                'click .j-save': 'event_save'
+                'click .j-save': 'event_save',
+                'click .j-cancel': 'event_cancel'
+            },
+
+            event_cancel: function(e) {
+                if(this.options.callbacks && this.options.callbacks.cancelled){
+                    this.options.callbacks.cancelled.call(this);
+                    e.preventDefault();
+                    return false;
+                }
             },
 
             event_save: function () {

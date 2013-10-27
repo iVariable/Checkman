@@ -1,0 +1,21 @@
+{
+  "name": "backbone.actas.paginatable",
+  "version": "0.2.5",
+  "dependencies": {
+    "backbone": "~1.0.0"
+  },
+  "devDependencies": {
+    "qunit": "~1.7.0",
+    "jquery-mockjax": "~1.5.0"
+  },
+  "homepage": "https://github.com/iVariable/Backbone.actAs.Paginatable",
+  "_release": "0.2.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.5",
+    "commit": "de72edd1d9e3fd5c6aaa30fb79f5be4430e77351"
+  },
+  "_source": "git://github.com/iVariable/Backbone.actAs.Paginatable.git",
+  "_target": "~0.2.5",
+  "_direct": true
+}

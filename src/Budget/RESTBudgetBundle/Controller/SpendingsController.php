@@ -18,6 +18,25 @@ class SpendingsController extends \Budget\RESTBudgetBundle\Controller\Helper\RES
      */
     public function getSpendingsAction()
     {
+        $request = $this->getRequest();
+
+        if (
+            $request->get('type_id', false) &&
+            $request->get('project_id', false) &&
+            $request->get('since_date', false) &&
+            $request->get('till_date', false)
+        ) {
+            return $this->get('r.spending')->getByDates(
+                \DateTime::createFromFormat('d-m-Y', $request->get('since_date')),
+                \DateTime::createFromFormat('d-m-Y', $request->get('till_date')),
+                [
+                    'project_id' => $request->get('project_id'),
+                    'type_id' => $request->get('type_id'),
+                    'employee_id' => $request->get('employee_id', null)
+                ]
+            );
+        }
+
         throw new \Exception('Incorrect method! You should specify which spendings to get!');
     }
 
@@ -42,7 +61,11 @@ class SpendingsController extends \Budget\RESTBudgetBundle\Controller\Helper\RES
 
         $entity = $this->get('r.spending')->newEntity();
 
-        $editForm = $this->createForm(new \Budget\BudgetBundle\Form\SpendingsType(), $entity, array('method' => "POST"));
+        $editForm = $this->createForm(
+            new \Budget\BudgetBundle\Form\SpendingsType(),
+            $entity,
+            array('method' => "POST")
+        );
         $editForm->handleRequest($this->getRequest());
 
         if ($editForm->isValid()) {

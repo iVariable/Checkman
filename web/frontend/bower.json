@@ -16,6 +16,7 @@
     "requirejs-tpl": "*",
     "backbone.marionette": "1.1.*",
     "backbone.routefilter": "*",
-    "momentjs": "2.3.1"
+    "momentjs": "2.3.1",
+    "backbone.actas.paginatable": "~0.2.5"
   }
 }

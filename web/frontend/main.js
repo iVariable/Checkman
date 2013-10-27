@@ -8,6 +8,7 @@ require.config({
         text: 'bower_components/requirejs-text/text',
         tpl: 'bower_components/requirejs-tpl/tpl',
         backbone_routefilter: 'bower_components/backbone.routefilter/dist/backbone.routefilter.min',
+        backbone_actas_paginatable: 'bower_components/backbone.actas.paginatable/src/Backbone.actAs.Paginatable',
         moment: 'bower_components/momentjs/moment'
     },
     shim: {
@@ -20,6 +21,10 @@ require.config({
         backbone: {
             deps: ['jquery', 'underscore', 'select2', 'moment'],
             exports: 'Backbone'
+        },
+        backbone_actas_paginatable: {
+            deps: ['backbone'],
+            exports: "Backbone.actAs.Paginatable"
         },
         backbone_routefilter: {
             deps: ['backbone']

@@ -3,15 +3,21 @@ define(
         'bicycle',
         './model',
         'helpers',
+        'backbone_actas_paginatable',
         'module'
     ],
-    function (Bicycle, model, Helpers, module) {
+    function (Bicycle, model, Helpers, Paginatable, module) {
 
         var collection = {
             model: model,
-            url: module.config().url
+            urlRoot: module.config().url,
+            modelUrlRoot: module.config().url
         }
 
-        return Bicycle.Core.Collection.extend(collection);
+        collection = Bicycle.Core.Collection.extend(collection);
+
+        Paginatable.init(collection, model);
+
+        return collection;
     }
 )
