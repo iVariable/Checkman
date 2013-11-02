@@ -19,6 +19,24 @@ use FOS\RestBundle\Controller\FOSRestController;
 class ReportsController extends FOSRestController
 {
     /**
+     * @Route(
+     *      "/region/{id}/shared-spendings/{year}/{month}.{_format}",
+     *      defaults={"id": null, "year": null, "month": null, "_format": "json"},
+     *      name="api_v1_reports_region_shared_spendings"
+     * )
+     */
+    public function getRegionSharedSpendingsAction($id, $year, $month, $format="json")
+    {
+        $date = \DateTime::createFromFormat('d-m-Y', '1-'.$month.'-'.$year);
+        $sharedSpengins = $this->get('budget.reports')->getSharedSpendingsByRegionAndDate($id, $date);
+
+        $view = $this->view($sharedSpengins, 200)
+            ->setFormat($format);
+
+        return $this->handleView($view);
+    }
+
+    /**
      * @Route("/projects/{year}.{_format}", defaults={"year": null, "_format": "json"}, name="api_v1_reports_projects")
      */
     public function projectsSummaryAction($year = null, $format = 'json')
@@ -26,7 +44,7 @@ class ReportsController extends FOSRestController
         if ($year === null) {
             $year = date('Y');
         }
-        $data = $this->get('r.spendings')->report_projectsSummary($year);
+        $data = $this->get('budget.reports')->getProjectsSummary($year);
 
         $view = $this->view($data, 200)
             ->setFormat($format);
@@ -42,7 +60,7 @@ class ReportsController extends FOSRestController
         if ($year === null) {
             $year = date('Y');
         }
-        $data = $this->get('r.spendings')->report_projectSummary($projectId, $year);
+        $data = $this->get('budget.reports')->getProjectSummary($projectId, $year);
 
         $view = $this->view($data, 200)
             ->setFormat($format);
@@ -61,7 +79,7 @@ class ReportsController extends FOSRestController
         if ($month === null) {
             $month = date('m');
         }
-        $data = $this->get('r.spendings')->report_projectMonthDetails($projectId, $year, $month);
+        $data = $this->get('budget.reports')->getProjectMonthDetails($projectId, $year, $month);
 
         $view = $this->view($data, 200)
             ->setFormat($format);

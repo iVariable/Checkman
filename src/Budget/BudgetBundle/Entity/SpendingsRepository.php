@@ -30,87 +30,19 @@ class SpendingsRepository extends EntityRepository
 
         if (!empty($criteria)) {
             foreach ($criteria as $name => $value) {
-                if($value === null ) {
+                if ($value === null) {
                     $query
-                        ->andWhere('spendings.'.$name.' IS NULL')
-                    ;
-                }else{
+                        ->andWhere('spendings.' . $name . ' IS NULL');
+                } else {
                     $query
-                        ->andWhere('spendings.'.$name.' = :'.$name)
-                        ->setParameter($name, $value);
-                    ;
+                        ->andWhere('spendings.' . $name . ' = :' . $name)
+                        ->setParameter($name, $value);;
                 }
 
             }
         }
 
         return $query->getQuery()->getResult();
-    }
-
-    public function report_projectsSummary($year)
-    {
-        //SELECT project_id, MONTH(date)as month, SUM(value) as total FROM Spendings WHERE YEAR(date)=:date GROUP BY project_id,MONTH(date)
-
-        $result = $this->getEntityManager()->getConnection()
-            ->prepare(
-                'SELECT project_id, MONTH(date)as month, SUM(value) as total FROM Spendings WHERE YEAR(date)="' . (int)$year . '" GROUP BY project_id,MONTH(date)'
-            );
-        $result->execute();
-
-        return $result->fetchAll();
-
-        $data = [];
-
-        return $data;
-    }
-
-    public function report_projectSummary($projectId, $year)
-    {
-        //SELECT project_id, MONTH(date)as month, SUM(value) as total FROM Spendings WHERE YEAR(date)=:date GROUP BY project_id,MONTH(date)
-
-        $result = $this->getEntityManager()->getConnection()
-            ->prepare(
-                'SELECT s.type_id, st.title as type, MONTH(s.date)as month, SUM(s.value) as total FROM Spendings s LEFT JOIN SpendingsType st ON s.type_id=st.id WHERE YEAR(s.date)="' . (int)$year . '" AND s.project_id="' . (int)$projectId . '" GROUP BY s.type_id,MONTH(s.date)'
-            );
-        $result->execute();
-
-        return $result->fetchAll();
-    }
-
-    public function report_projectMonthDetails($projectId, $year, $month)
-    {
-        $result = $this->getEntityManager()->getConnection()
-            ->prepare(
-                'SELECT
-                    s.type_id,
-                    st.title AS type,
-                    s.employee_id AS employee_id,
-                    SUM(s.value) AS total,
-                    COUNT(s.id) AS rows,
-                    GROUP_CONCAT(s.description SEPARATOR " -|- ") AS description
-                FROM Spendings s
-                LEFT JOIN SpendingsType st ON s.type_id=st.id
-                WHERE
-                    YEAR(s.date)="' . (int)$year . '"
-                    AND MONTH(s.date)="' . (int)$month . '"
-                    AND s.project_id="' . (int)$projectId . '"
-                GROUP BY
-                    s.type_id, s.employee_id'
-            );
-        $result->execute();
-
-        $data = $result->fetchAll();
-
-        $data = array_map(
-            function ($element) {
-                $element['description'] = explode('-|-', $element['description']);
-
-                return $element;
-            },
-            $data
-        );
-
-        return $data;
     }
 
     public function hasDaySpendings(\DateTime $date)

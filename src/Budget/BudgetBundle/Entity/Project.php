@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation as Serializer;
  * Project
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Budget\BudgetBundle\Entity\ProjectRepository")
  */
 class Project
 {
