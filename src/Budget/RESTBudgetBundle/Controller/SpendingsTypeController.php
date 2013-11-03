@@ -20,7 +20,13 @@ class SpendingsTypeController extends \Budget\RESTBudgetBundle\Controller\Helper
      */
     public function getSpendingstypesAction()
     {
-        return $this->get('r.spendings_type')->findAll();
+        $types = $this->get('r.spendings_type')->findAll();
+        /**@var $type \Budget\BudgetBundle\Entity\SpendingsType*/
+        $type = $this->get('r.spendings_type')->newEntity();
+        $type->setId(0);
+        $type->setTitle('Затраты на содержание офиса');
+        $types[] = $type;
+        return $types;
     }
 
     /**

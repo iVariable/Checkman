@@ -26,6 +26,8 @@ class AppKernel extends Kernel
 
             new Budget\BudgetBundle\BudgetBundle(),
             new Budget\RESTBudgetBundle\RESTBudgetBundle(),
+
+            new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

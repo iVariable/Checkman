@@ -93,6 +93,15 @@ class Spendings
     private $description = null;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="extra", type="text", nullable=true)
+     *
+     * @Serializer\Groups({"Spending"})
+     */
+    private $extra = null;
+
+    /**
      * @param string $description
      */
     public function setDescription($description)
@@ -106,6 +115,21 @@ class Spendings
     public function getDescription()
     {
         return $this->description;
+    }
+    /**
+     * @param string $extra
+     */
+    public function setExtra($extra)
+    {
+        $this->extra = $extra;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExtra()
+    {
+        return $this->extra;
     }
 
     /**

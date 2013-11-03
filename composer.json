@@ -29,7 +29,9 @@
         "white-october/pagerfanta-bundle": "dev-master",
         "friendsofsymfony/rest-bundle": "dev-master",
         "jms/serializer-bundle": "dev-master",
-        "jquery/jquery": "1.9.*"
+        "jquery/jquery": "1.9.*",
+
+        "simplethings/entity-audit-bundle": "dev-master"
 
 
     },

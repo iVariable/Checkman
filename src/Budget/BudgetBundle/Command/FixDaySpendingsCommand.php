@@ -90,7 +90,9 @@ EOF
                     ->setEmployee($employee)
                     ->setDate($date)
                     ->setType($salaryType)
-                    ->setValue($daySalary / 100 * $projectInvolvement->getInvolvement());
+                    ->setValue($daySalary / 100 * $projectInvolvement->getInvolvement())
+                    ->setExtra($projectInvolvement->getInvolvement())
+                ;
 
                 $em->persist($salarySpending);
             }

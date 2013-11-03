@@ -14,13 +14,56 @@ class LoadUserData extends ContainerAware implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $this->createSalaryType($manager);
+        $this->createSalaryTypes($manager);
 
         $occupations = $this->loadOccupations($manager);
         $projects = $this->loadProjects($manager);
+        $regions = $this->loadRegions($manager);
+        $this->createSharedProjects($manager, $regions);
 
-        $employees = $this->loadEmployees($manager, $occupations, $projects);
+        $employees = $this->loadEmployees($manager, $occupations, $projects, $regions);
 
+    }
+
+    public function loadRegions(ObjectManager $manager)
+    {
+        $regionsTitles = [
+            'Оренбург',
+            'Таганрог',
+            'Красноярск',
+            'Новосибирск',
+        ];
+
+        $regions = [];
+
+        $repo = $this->container->get('r.region');
+
+        foreach ($regionsTitles as $title) {
+            /* @var $region  \Budget\BudgetBundle\Entity\Region */
+            $region = $repo->newEntity();
+            $region->setTitle($title);
+            $regions[] = $region;
+            $manager->persist($region);
+        }
+
+        $manager->flush();
+
+        return $regions;
+    }
+
+    public function createSharedProjects(ObjectManager $manager, $regions)
+    {
+        $repo = $this->container->get('r.project');
+        foreach ($regions as $region) {
+            /* @var $project  \Budget\BudgetBundle\Entity\Project */
+            $project = $repo->newEntity();
+            $project->setTitle('Офис. '.$region->getTitle());
+            $project->setRegion($region);
+            $project->setStatus($project::STATUS_ACTIVE);
+            $manager->persist($project);
+        }
+
+        $manager->flush();
     }
 
     /**
@@ -48,7 +91,7 @@ class LoadUserData extends ContainerAware implements FixtureInterface
         $repo = $this->container->get('r.occupation');
 
         foreach ($occupationTitles as $title) {
-            /* @var $occupation  \Budget\BudgetBundle\Entity\Occupation*/
+            /* @var $occupation  \Budget\BudgetBundle\Entity\Occupation */
             $occupation = $repo->newEntity();
             $occupation->setTitle($title);
             $occupations[] = $occupation;
@@ -97,7 +140,7 @@ class LoadUserData extends ContainerAware implements FixtureInterface
         $repo = $this->container->get('r.project');
 
         foreach ($projectTitles as $title) {
-            /* @var $project  \Budget\BudgetBundle\Entity\Project*/
+            /* @var $project  \Budget\BudgetBundle\Entity\Project */
             $project = $repo->newEntity();
             $project->setTitle($title);
             $project->setStatus($project::STATUS_ACTIVE);
@@ -115,7 +158,7 @@ class LoadUserData extends ContainerAware implements FixtureInterface
      * @param $occupations
      * @param $employee
      */
-    public function loadEmployees(ObjectManager $manager, $occupations, $projects)
+    public function loadEmployees(ObjectManager $manager, $occupations, $projects, $regions)
     {
         $fio = [
             "Абдуллаев Руслан Романович",
@@ -184,20 +227,23 @@ class LoadUserData extends ContainerAware implements FixtureInterface
                 $fioData[1],
                 mt_rand(10000, 50000)
             ];
-            /* @var $employee  \Budget\BudgetBundle\Entity\Employee*/
+            /* @var $employee  \Budget\BudgetBundle\Entity\Employee */
             $employee = call_user_func_array([$repo, "newEntity"], $data);
             $employee->setStatus($employee::STATUS_ACTIVE);
 
             $employee->addOccupation($occupations[array_rand($occupations)]);
+            $employee->setRegion($regions[array_rand($regions)]);
 
-            for ($i =0, $count = mt_rand(1,4); $i < $count; $i++) {
-                if(mt_rand(0,2) == 1) continue;
+            for ($i = 0, $count = mt_rand(1, 4); $i < $count; $i++) {
+                if (mt_rand(0, 2) == 1) {
+                    continue;
+                }
                 $project = $projects[array_rand($projects)];
-                /* @var $involvement Entity\ProjectInvolvement*/
+                /* @var $involvement Entity\ProjectInvolvement */
                 $involvement = $involvementRepo->newEntity(
                     $project,
                     $employee,
-                    100/$count,
+                    100 / $count,
                     ""
                 );
                 $manager->persist($involvement);
@@ -216,16 +262,27 @@ class LoadUserData extends ContainerAware implements FixtureInterface
     /**
      * @param ObjectManager $manager
      */
-    public function createSalaryType(ObjectManager $manager)
+    public function createSalaryTypes(ObjectManager $manager)
     {
-        /* @var $salarySpendingsType Entity\SpendingsType */
-        $salarySpendingsType = $this->container->get('r.spendings_type')->newEntity();
+        $typeTitles = [
+            'Зарплата',
+            'Премия',
+            'Железо',
+            'Командировка',
+            'Уборка офиса',
+        ];
 
-        $salarySpendingsType->setTitle("Зарплата")
-            ->setCanBeDeleted(false)
-            ->setDescription("");
+        foreach ($typeTitles as $type) {
+            /* @var $salarySpendingsType Entity\SpendingsType */
+            $salarySpendingsType = $this->container->get('r.spendings_type')->newEntity();
 
-        $manager->persist($salarySpendingsType);
+            $salarySpendingsType->setTitle($type)
+                ->setCanBeDeleted(false)
+                ->setDescription("");
+
+            $manager->persist($salarySpendingsType);
+        }
+
         $manager->flush();
     }
 }

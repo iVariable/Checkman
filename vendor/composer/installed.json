@@ -2498,5 +2498,50 @@
         "keywords": [
             "framework"
         ]
+    },
+    {
+        "name": "simplethings/entity-audit-bundle",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/simplethings/EntityAudit.git",
+            "reference": "e298560dedc8ba6558116eef5a06bcf0599fe1c5"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/simplethings/EntityAudit/zipball/e298560dedc8ba6558116eef5a06bcf0599fe1c5",
+            "reference": "e298560dedc8ba6558116eef5a06bcf0599fe1c5",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/orm": "~2.1"
+        },
+        "require-dev": {
+            "symfony/framework-bundle": "~2.0"
+        },
+        "time": "2013-08-08 10:42:45",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.x-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "SimpleThings\\EntityAudit": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "New BSD"
+        ],
+        "description": "Audit for Doctrine Entities",
+        "keywords": [
+            "Audit",
+            "database",
+            "persistence"
+        ]
     }
 ]

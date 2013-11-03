@@ -112,3 +112,9 @@ repository_alias:
 
         spendings: BudgetBundle:Spendings
         spendings_type: BudgetBundle:SpendingsType
+
+simple_things_entity_audit:
+    audited_entities:
+        - Budget\BudgetBundle\Entity\Project
+        - Budget\BudgetBundle\Entity\Employee
+        - Budget\BudgetBundle\Entity\ProjectInvolvement

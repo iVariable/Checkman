@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f9733d2e4746d4cb20309c13b78e3611",
+    "hash": "247d86e7bafbe56cbf3c2fa5ddecfdd6",
     "packages": [
         {
             "name": "codemonkeys-ru/repository-alias-bundle",
@@ -1818,6 +1818,49 @@
             "time": "2013-08-13 20:01:59"
         },
         {
+            "name": "simplethings/entity-audit-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/simplethings/EntityAudit.git",
+                "reference": "e298560dedc8ba6558116eef5a06bcf0599fe1c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/simplethings/EntityAudit/zipball/e298560dedc8ba6558116eef5a06bcf0599fe1c5",
+                "reference": "e298560dedc8ba6558116eef5a06bcf0599fe1c5",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "~2.1"
+            },
+            "require-dev": {
+                "symfony/framework-bundle": "~2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "SimpleThings\\EntityAudit": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "New BSD"
+            ],
+            "description": "Audit for Doctrine Entities",
+            "keywords": [
+                "Audit",
+                "database",
+                "persistence"
+            ],
+            "time": "2013-08-08 10:42:45"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.0.1",
             "source": {
@@ -2433,7 +2476,8 @@
         "codemonkeys-ru/repository-alias-bundle": 20,
         "white-october/pagerfanta-bundle": 20,
         "friendsofsymfony/rest-bundle": 20,
-        "jms/serializer-bundle": 20
+        "jms/serializer-bundle": 20,
+        "simplethings/entity-audit-bundle": 20
     },
     "platform": {
         "php": ">=5.3.3"

@@ -72,7 +72,7 @@ class SpendingsController extends \Budget\RESTBudgetBundle\Controller\Helper\RES
             $em->persist($entity);
             $em->flush();
         } else {
-            return $editForm->getErrorsAsString();
+            throw new \Exception($editForm->getErrorsAsString());
         }
 
         return $entity;
@@ -100,7 +100,7 @@ class SpendingsController extends \Budget\RESTBudgetBundle\Controller\Helper\RES
             $em->persist($entity);
             $em->flush();
         } else {
-            return $editForm->getErrorsAsString();
+            throw new \Exception($editForm->getErrorsAsString());
         }
 
         return $entity;

@@ -14,6 +14,13 @@ use JMS\Serializer\Annotation as Serializer;
 class SpendingsType
 {
     /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
