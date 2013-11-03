@@ -165,51 +165,55 @@ class Reports
 
     public function getProjectMonthSharedSpendings($projectId, $year, $month)
     {
-        $salaryType = $this->container->get('r.spendings_type')->getSalaryType();
-
-        $reports = $this->getProjectMonthClearDetails($projectId, $year, $month);
-
-        $sharedSpendings = [];
-
+        $project = $this->container->get('r.project')->findOneById($projectId);
         $totalSum = 0;
-        $startDate = \DateTime::createFromFormat('d-m-Y', '1-' . $month . '-' . $year);
-        /**
-         * pzdc
-         */
-        $endDate = \DateTime::createFromFormat('U', strtotime('+1 month', $startDate->getTimestamp()));
 
-        foreach ($reports as &$report) {
-            if ($report['type_id'] != $salaryType->getId()) {
-                continue;
-            }
-            if (!array_key_exists($report['employee_region_id'], $sharedSpendings)) {
-                $sharedSpendings[$report['employee_region_id']] = $this->getSharedSpendingsByRegionAndDate(
-                    $report['employee_region_id'],
-                    $startDate
+        if($project && $project->getRegion()){
+
+            $salaryType = $this->container->get('r.spendings_type')->getSalaryType();
+
+            $reports = $this->getProjectMonthClearDetails($projectId, $year, $month);
+
+            $sharedSpendings = [];
+
+            $startDate = \DateTime::createFromFormat('d-m-Y', '1-' . $month . '-' . $year);
+            /**
+             * pzdc
+             */
+            $endDate = \DateTime::createFromFormat('U', strtotime('+1 month', $startDate->getTimestamp()));
+
+            foreach ($reports as &$report) {
+                if ($report['type_id'] != $salaryType->getId()) {
+                    continue;
+                }
+                if (!array_key_exists($report['employee_region_id'], $sharedSpendings)) {
+                    $sharedSpendings[$report['employee_region_id']] = $this->getSharedSpendingsByRegionAndDate(
+                        $report['employee_region_id'],
+                        $startDate
+                    );
+                }
+                $sharedSpending = $sharedSpendings[$report['employee_region_id']];
+
+                $spendings = $this->container->get('r.spendings')->getByDates(
+                    $startDate,
+                    $endDate,
+                    [
+                        'employee_id' => $report['employee_id'],
+                        'type_id' => $salaryType->getId(),
+                        'project_id' => $projectId
+                    ]
                 );
+
+                $totalSum += array_reduce(
+                    $spendings,
+                    function ($sum, $spending) use ($sharedSpending) {
+                        return $sum + ($sharedSpending['perEmployeeDay'] / 100 * $spending->getExtra());
+                    },
+                    0
+                );
+
             }
-            $sharedSpending = $sharedSpendings[$report['employee_region_id']];
-
-            $spendings = $this->container->get('r.spendings')->getByDates(
-                $startDate,
-                $endDate,
-                [
-                    'employee_id' => $report['employee_id'],
-                    'type_id' => $salaryType->getId(),
-                    'project_id' => $projectId
-                ]
-            );
-
-            $totalSum += array_reduce(
-                $spendings,
-                function ($sum, $spending) use ($sharedSpending) {
-                    return $sum + ($sharedSpending['perEmployeeDay'] / 100 * $spending->getExtra());
-                },
-                0
-            );
-
         }
-
         return [
             'type_id' => 0,
             'type' => 'Затраты на содержание офиса',

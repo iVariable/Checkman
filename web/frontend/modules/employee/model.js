@@ -142,7 +142,7 @@ define(
             },
 
             toString: function () {
-                return this.get('secondName') + ' ' + this.get('firstName');
+                return this.get('secondName') + ' ' + this.get('firstName') + ' ['+this.region()+']';
             },
 
             hasOccupation: function(occupation){

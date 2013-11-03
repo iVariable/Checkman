@@ -21,6 +21,7 @@ define(
                 "reports/year" : "route_year"
                 ,"reports/year/:year" : "route_year"
                 ,"reports/deviations" : "route_list"
+                ,"reports/fot" : "route_list"
                 ,"reports/projects" : "route_projects"
                 ,"reports/projects/:id/:year" : "route_project"
                 ,"reports/projects/:id/:year/:month" : "route_project_detail"

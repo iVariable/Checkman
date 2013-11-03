@@ -44,6 +44,11 @@ define([],function(){
                     title: "Отклонения",
                     icon: "icon-tasks",
                     url: "reports/deviations"
+                },
+                fot: {
+                    title: "ФОТ",
+                    icon: "icon-th",
+                    url: "reports/fot"
                 }
             }
         },
