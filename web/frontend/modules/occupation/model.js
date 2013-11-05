@@ -94,13 +94,13 @@ define(
 
             abbr: function(){
                 var titles = {
-                    "PHP Разработчик": "php"
+                    "PHP разработчик": "php"
                     ,"Аналитик": "analytics"
                     ,"Верстальщик": "html"
                     ,"Тестировщик": "qa"
                     ,"Дизайнер": "psd"
                     ,"Разработчик. JS": "js"
-                    ,"Разработчик. .NET": "dotnet"
+                    ,".NET разработчик": "dotnet"
                 };
 
                 return titles[this.get('title')]?titles[this.get('title')]:'free';
