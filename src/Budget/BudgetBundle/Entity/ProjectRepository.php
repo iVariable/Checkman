@@ -18,4 +18,11 @@ class ProjectRepository extends EntityRepository
             'region_id' => $regionId
         ]);
     }
+
+    public function getLostMoneyProject()
+    {
+        return $this->findOneBy([
+            'title' => '[==Простой сотрудников==]'
+        ]);
+    }
 }

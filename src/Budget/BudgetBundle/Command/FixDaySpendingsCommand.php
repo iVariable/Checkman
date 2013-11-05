@@ -70,6 +70,8 @@ EOF
 
         $em = $this->getContainer()->get('em');
 
+        $lostMoneyProject = $this->getContainer()->get('r.project')->getLostMoneyProject();
+
         /* @var $employee Employee */
         foreach ($employees as $employee) {
 
@@ -79,11 +81,15 @@ EOF
 
             $daySalary = $employee->getSalary() / $numberDaysInMonth;
 
+            $totalEmployment = 0;
+
             /* @var $projectInvolvement ProjectInvolvement */
             foreach ($projects as $projectInvolvement) {
 
                 /* @var $salarySpending Spendings */
                 $salarySpending = $spendingsRepo->newEntity();
+
+                $totalEmployment += $projectInvolvement->getInvolvement();
 
                 $salarySpending
                     ->setProject($projectInvolvement->getProject())
@@ -92,6 +98,22 @@ EOF
                     ->setType($salaryType)
                     ->setValue($daySalary / 100 * $projectInvolvement->getInvolvement())
                     ->setExtra($projectInvolvement->getInvolvement())
+                ;
+
+                $em->persist($salarySpending);
+            }
+
+            if($totalEmployment < 100) {
+                /* @var $salarySpending Spendings */
+                $salarySpending = $spendingsRepo->newEntity();
+
+                $salarySpending
+                    ->setProject($lostMoneyProject)
+                    ->setEmployee($employee)
+                    ->setDate($date)
+                    ->setType($salaryType)
+                    ->setValue($daySalary / 100 * (100-$totalEmployment))
+                    ->setExtra((100-$totalEmployment))
                 ;
 
                 $em->persist($salarySpending);
