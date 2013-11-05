@@ -13,7 +13,8 @@ define(
                 profile: "#secondary>.profile-menu",
                 breadcrumbs: "#main>.top-nav .breadcrumb",
                 content: "#main>.a-main-container",
-                modalWindowContainer: "#main>.a-modal-window-container"
+                modalWindowContainer: "#main>.a-modal-window-container",
+                regionSelector: "#main>.top-nav .a-region-selector"
             }
         });
 

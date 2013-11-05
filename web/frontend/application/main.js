@@ -13,6 +13,13 @@ define(
 
         var app = new Bicycle.Core.Application();
 
+        app.selectedRegion = function(region){
+            if (!_(region).isUndefined()){
+                this.region = region;
+            }
+            return this.region;
+        }
+
         app.prepareNavigation = function () {
             $('body').on('click', '.j-nav', function (e) {
                 if ($(this).data('navTo')) {
@@ -38,6 +45,7 @@ define(
             app.menu.view('secondary').render();
             app.menu.view('breadcrumbs').render();
             app.menu.view('profile').render();
+            app.menu.view('regionSelector').render();
         }
 
         app.loader = function (text, xhr) {
@@ -81,17 +89,22 @@ define(
             });
             $.when.apply($, loaders).always(function () {
                 //refresh views
-                _this.layouts.main.regionManager.each(function (region) {
-                    if (region.currentView)region.currentView.render();
-                })
+                _this.redraw();
             });
-        },
+        };
 
-            app.layouts = {
-                main: new (Layouts.MainLayout)({el: module.config().container})
-            };
+        app.redraw = function(){
+            this.layouts.main.regionManager.each(function (region) {
+                if (region.currentView)region.currentView.render();
+            })
+        }
+
+        app.layouts = {
+            main: new (Layouts.MainLayout)({el: module.config().container})
+        };
 
         app.menu = new Menu(MenuData, {app: app});
+        app.menu.app = app;
 
         app.router = new Router();
         app.router.app(app);
@@ -104,6 +117,7 @@ define(
             app.layouts.main.secondaryMenu.draw(app.menu.view('secondary'));
             app.layouts.main.profile.draw(app.menu.view('profile'));
             app.layouts.main.breadcrumbs.draw(app.menu.view('breadcrumbs'));
+            app.layouts.main.regionSelector.draw(app.menu.view('regionSelector'));
 
             if (Backbone.history) {
 
