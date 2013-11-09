@@ -93,7 +93,11 @@ class Reports
         $result = $this->getProjectsSummaryClear($year);
 
         foreach ($result as &$yearResult) {
-            $sharedSpendings = $this->getProjectMonthSharedSpendings($yearResult['project_id'], $year, $yearResult['month']);
+            $sharedSpendings = $this->getProjectMonthSharedSpendings(
+                $yearResult['project_id'],
+                $year,
+                $yearResult['month']
+            );
             $yearResult['total'] += $sharedSpendings['total'];
         }
 
@@ -145,6 +149,7 @@ class Reports
 
         return $result->fetchAll();
     }
+
     /**
      * Project summary for a year
      *
@@ -156,7 +161,7 @@ class Reports
     {
         $result = $this->getProjectSummaryClear($projectId, $year);
 
-        for ($i=1; $i < 13; $i++) {
+        for ($i = 1; $i < 13; $i++) {
             $result[] = $this->getProjectMonthSharedSpendings($projectId, $year, $i);
         }
 
@@ -168,7 +173,7 @@ class Reports
         $project = $this->container->get('r.project')->findOneById($projectId);
         $totalSum = 0;
 
-        if($project && !$project->getRegion()){
+        if ($project && !$project->getRegion()) {
 
             $salaryType = $this->container->get('r.spendings_type')->getSalaryType();
 
@@ -214,6 +219,7 @@ class Reports
 
             }
         }
+
         return [
             'type_id' => 0,
             'type' => 'Затраты на содержание офиса',
@@ -288,4 +294,58 @@ class Reports
 
         return $data;
     }
+
+    public function getFOT($year, $regionId = null)
+    {
+        $salaryType = $salaryType = $this->container->get('r.spendings_type')->getSalaryType();
+        $raw = $this->getPreparedStatement(
+            'SELECT
+                MONTH(s.date) as month,
+                e.region_id AS employee_region_id,
+                s.employee_id AS employee_id,
+                SUM(s.value) AS total
+            FROM Spendings s
+            LEFT JOIN SpendingsType st ON s.type_id=st.id
+            LEFT JOIN Employee e ON s.employee_id=e.id
+            WHERE
+                YEAR(s.date)="' . (int)$year . '"
+                AND
+                s.type_id="' . (int)$salaryType->getId() . '"
+            GROUP BY
+                s.employee_id, MONTH(s.date)'
+        );
+        $raw->execute();
+
+        $data = $raw->fetchAll();
+
+        $result = [];
+
+        foreach ($data as $dataRow) {
+            if ($regionId && $regionId != $dataRow['employee_region_id']) continue;
+            if (!array_key_exists($dataRow['employee_id'], $result)) {
+                $result[$dataRow['employee_id']] = [
+                    'employee_id' => $dataRow['employee_id'],
+                    'months' => [
+                        1 => 0,
+                        2 => 0,
+                        3 => 0,
+                        4 => 0,
+                        5 => 0,
+                        6 => 0,
+                        7 => 0,
+                        8 => 0,
+                        9 => 0,
+                        10 => 0,
+                        11 => 0,
+                        12 => 0,
+                    ]
+                ];
+            };
+            $result[$dataRow['employee_id']]['months'][$dataRow['month']] = $dataRow['total'];
+        }
+
+        return $result;
+    }
+
+
 }

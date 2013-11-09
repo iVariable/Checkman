@@ -30,13 +30,16 @@
                 "modules/employee/collection": {
                     url: "{{ path("api_v1_get_employees") }}"
                 },
-                "modules/reports/projects-collection": {
+                "modules/reports/year/projects-collection": {
                     url: "{{ path("api_v1_reports_projects", {"year": ":year"}) }}"
                 },
-                "modules/reports/project-summary-collection": {
+                "modules/reports/fot/fot-collection": {
+                    url: "{{ path("api_v1_reports_fot", {"year": ":year"}) }}"
+                },
+                "modules/reports/project-summary/project-summary-collection": {
                     url: "{{ path("api_v1_reports_project", {"projectId": ":id", "year": ":year"}) }}"
                 },
-                "modules/reports/project-month-details-collection": {
+                "modules/reports/project-month/project-month-details-collection": {
                     url: "{{ path("api_v1_reports_project_month_detail", {"projectId": ":id", "year": ":year", "month": ":month"}) }}"
                 }
             }

@@ -3,7 +3,7 @@ define(
         'bicycle',
         'application',
         './router',
-        './projects-collection'
+        './year/projects-collection'
     ],
 
     function (Bycycle, app, Router, ProjectsCollection) {

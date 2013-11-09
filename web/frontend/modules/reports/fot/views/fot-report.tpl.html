@@ -1,0 +1,37 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th rowspan="2" style="vertical-align: middle">Сотрудник</th>
+        <th colspan="12" style="text-align: center"><%=view.options.year%></th>
+        <th rowspan="2" style="vertical-align: middle">Итого</th>
+    </tr>
+    <tr>
+        <th>Январь</th>
+        <th>Февраль</th>
+        <th>Март</th>
+        <th>Апрель</th>
+        <th>Май</th>
+        <th>Июнь</th>
+        <th>Июль</th>
+        <th>Август</th>
+        <th>Сентябрь</th>
+        <th>Октябрь</th>
+        <th>Ноябрь</th>
+        <th>Декабрь</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%view.report.each(function(report){%>
+    <tr>
+        <th><a href="<%=report.employee().linkTo('show')%>" class="j-nav"><%=report.employee()%></a></th>
+        <%for(var i=1;i< 13; i++){%>
+        <td>
+            <%=_.currencyFormat(report.get('months')[i])%>
+        </td>
+        <%};%>
+        <td><%=_.currencyFormat(_(report.get('months')).reduce(function(sum,elem){ return sum+parseFloat(elem); }, 0))%></td>
+    </tr>
+    <%});%>
+    </tbody>
+</table>
+

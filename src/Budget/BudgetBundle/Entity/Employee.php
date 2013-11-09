@@ -457,4 +457,9 @@ class Employee
     {
         return $this->region;
     }
+
+    public function isFired()
+    {
+        return $this->getStatus() == self::STATUS_DELETED;
+    }
 }

@@ -2,10 +2,11 @@ define(
     [
         'bicycle',
 
-        './views/year'
+        './year/views/year'
         ,'./views/list'
-        ,'./views/projects'
-        ,'./views/project-details'
+        ,'./project-summary/views/projects'
+        ,'./project-month/views/project-details'
+        ,'./fot/views/fot'
     ],
     function(
         Bicycle,
@@ -14,6 +15,7 @@ define(
         ,View_List
         ,View_Projects
         ,View_ProjectDetails
+        ,View_FOT
 
     ){
         var router = Bicycle.Core.Router.extend({
@@ -21,13 +23,17 @@ define(
                 "reports/year" : "route_year"
                 ,"reports/year/:year" : "route_year"
                 ,"reports/deviations" : "route_list"
-                ,"reports/fot" : "route_list"
+                ,"reports/fot" : "route_fot"
+                ,"reports/fot/:year" : "route_fot"
                 ,"reports/projects" : "route_projects"
                 ,"reports/projects/:id/:year" : "route_project"
                 ,"reports/projects/:id/:year/:month" : "route_project_detail"
             },
             route_year : function(year){
                 this.app().layouts.main.content.show( new View_Year({year: year}) );
+            },
+            route_fot : function(year){
+                this.app().layouts.main.content.show( new View_FOT({year: year}) );
             },
             route_list : function(){
                 this.app().layouts.main.content.show( new View_List() );

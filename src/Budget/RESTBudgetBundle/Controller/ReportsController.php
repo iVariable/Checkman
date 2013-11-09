@@ -53,6 +53,22 @@ class ReportsController extends FOSRestController
     }
 
     /**
+     * @Route("/fot/{year}.{_format}", defaults={"year": null, "_format": "json"}, name="api_v1_reports_fot")
+     */
+    public function fotAction($year = null, $format = 'json')
+    {
+        if ($year === null) {
+            $year = date('Y');
+        }
+        $data = $this->get('budget.reports')->getFOT($year);
+
+        $view = $this->view(array_values($data), 200)
+            ->setFormat($format);
+
+        return $this->handleView($view);
+    }
+
+    /**
      * @Route("/project/{projectId}/{year}.{_format}", defaults={"year": null, "_format": "json"}, name="api_v1_reports_project")
      */
     public function projectSummaryAction($projectId, $year = null, $format = 'json')

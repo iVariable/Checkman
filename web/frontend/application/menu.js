@@ -40,15 +40,15 @@ define([],function(){
                     icon: "icon-folder-close",
                     url: "reports/projects"
                 },
-                deviations: {
-                    title: "Отклонения",
-                    icon: "icon-tasks",
-                    url: "reports/deviations"
-                },
                 fot: {
                     title: "ФОТ",
                     icon: "icon-th",
                     url: "reports/fot"
+                },
+                deviations: {
+                    title: "Отклонения",
+                    icon: "icon-tasks",
+                    url: "reports/deviations"
                 }
             }
         },
