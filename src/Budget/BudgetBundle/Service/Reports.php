@@ -168,7 +168,7 @@ class Reports
         $project = $this->container->get('r.project')->findOneById($projectId);
         $totalSum = 0;
 
-        if($project && $project->getRegion()){
+        if($project && !$project->getRegion()){
 
             $salaryType = $this->container->get('r.spendings_type')->getSalaryType();
 
