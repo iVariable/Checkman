@@ -70,7 +70,15 @@ define(
                         exclude: ["id"],
                         translations: translations,
 
-                        fields: fields
+                        fields: fields,
+
+                        htmlInclude: {
+                            footer: function(model) {
+                                return '<tr><th>Стоимость дня работы:</th><td>'+_.currencyFormat(model.get('salary')/30)+'</td></tr>' +
+                                    '<tr><th>Стоимость часа работы:</th><td>'+_.currencyFormat(model.get('salary')/30/8)+'</td></tr>'
+                                ;
+                            }
+                        }
                     });
                 });
 

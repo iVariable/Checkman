@@ -34,6 +34,9 @@
                 </td>
             </tr>
         <%});%>
+        <%if(view.options.htmlInclude && view.options.htmlInclude.footer){%>
+            <%=view.options.htmlInclude.footer(model)%>
+        <%};%>
     </tbody>
     <tfoot>
     <tr>
