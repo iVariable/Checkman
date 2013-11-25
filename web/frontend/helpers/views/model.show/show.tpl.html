@@ -14,7 +14,7 @@
             <%if(view.options.exclude && _(view.options.exclude).contains(key)) return;%>
             <%var attr = model.get(key);%>
             <tr>
-                <th><%if(view.options.translations && view.options.translations[key]){%><%=view.options.translations[key]%><%}else{%><%=key%><%}%></th>
+                <th width="250"><%if(view.options.translations && view.options.translations[key]){%><%=view.options.translations[key]%><%}else{%><%=key%><%}%></th>
                 <td>
                     <%if(view.options.fields && view.options.fields[key]){%>
                         <%if(view.options.fields[key].getter){
