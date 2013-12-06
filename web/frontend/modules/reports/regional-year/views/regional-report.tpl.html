@@ -17,7 +17,7 @@
         <tr>
             <th><%=view.getMonths()[i]%></th>
             <%view.report.spendingTypeTitles().each(function(type){%>
-            <%var elem = view.report.find(function(row){ return (row.get('month')==i && row.get('type')==type); });%>
+            <%var elem = view.report.find(function(row){ return (row.get('month')==i+1 && row.get('type')==type); });%>
             <th><%=_.currencyFormat(elem?elem.get('total'):0)%></th>
             <%});%>
         </tr>
