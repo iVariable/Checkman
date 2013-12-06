@@ -7,6 +7,7 @@ define(
         ,'./project-summary/views/projects'
         ,'./project-month/views/project-details'
         ,'./fot/views/fot'
+        ,'./regional-year/views/regional'
     ],
     function(
         Bicycle,
@@ -16,6 +17,7 @@ define(
         ,View_Projects
         ,View_ProjectDetails
         ,View_FOT
+        ,View_Regional
 
     ){
         var router = Bicycle.Core.Router.extend({
@@ -28,6 +30,8 @@ define(
                 ,"reports/projects" : "route_projects"
                 ,"reports/projects/:id/:year" : "route_project"
                 ,"reports/projects/:id/:year/:month" : "route_project_detail"
+                ,"reports/regional" : "route_regional"
+                ,"reports/regional/:id/:year" : "route_regional"
             },
             route_year : function(year){
                 this.app().layouts.main.content.show( new View_Year({year: year}) );
@@ -41,6 +45,10 @@ define(
             route_projects : function(){
                 this.app().layouts.main.content.show( new View_Projects() );
             },
+            route_regional : function(id, year){
+                this.app().layouts.main.content.show( new View_Regional({id:id, year: year}) );
+            },
+
             route_project : function(project_id, year){
                 var project = this.app().collection('projects').get(project_id);
                 this.app().menu.addBreadcrumb({ title: project+" ["+year+"]" });

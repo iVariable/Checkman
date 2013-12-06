@@ -53,6 +53,21 @@ class ReportsController extends FOSRestController
     }
 
     /**
+     * @Route("/regional/{id}/{year}.{_format}", defaults={"id": null, "year": null, "_format": "json"}, name="api_v1_reports_regional")
+     */
+    public function regionalYearReportAction($id, $year = null, $format = 'json'){
+        if ($year === null) {
+            $year = date('Y');
+        }
+        $data = $this->get('budget.reports')->getRegionalYearlyReport($id, $year);
+
+        $view = $this->view($data, 200)
+            ->setFormat($format);
+
+        return $this->handleView($view);
+    }
+
+    /**
      * @Route("/fot/{year}.{_format}", defaults={"year": null, "_format": "json"}, name="api_v1_reports_fot")
      */
     public function fotAction($year = null, $format = 'json')

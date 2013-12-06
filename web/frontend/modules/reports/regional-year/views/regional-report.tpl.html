@@ -1,0 +1,27 @@
+<div class="tab-header">
+    Годовой отчет по региону: <%=app.collection('regions').get(view.options.id)%> [<%=view.options.year%>]
+</div>
+
+<div class="padded">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <%view.report.spendingTypeTitles().each(function(type){%>
+            <th><%=type%></th>
+            <%});%>
+        </tr>
+        </thead>
+        <tbody>
+        <%for(var i=0; i < 12; i++){%>
+        <tr>
+            <th><%=view.getMonths()[i]%></th>
+            <%view.report.spendingTypeTitles().each(function(type){%>
+            <%var elem = view.report.find(function(row){ return (row.get('month')==i && row.get('type')==type); });%>
+            <th><%=_.currencyFormat(elem?elem.get('total'):0)%></th>
+            <%});%>
+        </tr>
+        <%};%>
+        </tbody>
+    </table>
+</div>

@@ -295,9 +295,42 @@ class Reports
         return $data;
     }
 
+    public function getRegionalYearlyReport($id, $year)
+    {
+        $result = $this->getPreparedStatement(
+            'SELECT
+                s.type_id,
+                st.title AS type,
+                MONTH(s.date) AS `month`,
+                SUM(s.value) AS total,
+                COUNT(s.id) AS rows
+            FROM Spendings s
+            LEFT JOIN SpendingsType st ON s.type_id=st.id
+            LEFT JOIN Employee e ON s.employee_id=e.id
+            LEFT JOIN Region r ON e.region_id=r.id
+            LEFT JOIN Project p ON s.project_id=p.id
+            LEFT JOIN Region r2 ON p.region_id=r2.id
+            WHERE
+                YEAR(s.date)="' . (int)$year . '"
+                AND
+                (
+                    r.id = '.(int)$id.'
+                    OR
+                    r2.id = '.(int)$id.'
+                )
+            GROUP BY
+                s.type_id, MONTH(s.date)'
+        );
+        $result->execute();
+
+        $data = $result->fetchAll();
+
+        return $data;
+    }
+
     public function getFOT($year, $regionId = null)
     {
-        $salaryType = $salaryType = $this->container->get('r.spendings_type')->getSalaryType();
+        $salaryType = $this->container->get('r.spendings_type')->getSalaryType();
         $raw = $this->getPreparedStatement(
             'SELECT
                 MONTH(s.date) as month,
@@ -321,7 +354,9 @@ class Reports
         $result = [];
 
         foreach ($data as $dataRow) {
-            if ($regionId && $regionId != $dataRow['employee_region_id']) continue;
+            if ($regionId && $regionId != $dataRow['employee_region_id']) {
+                continue;
+            }
             if (!array_key_exists($dataRow['employee_id'], $result)) {
                 $result[$dataRow['employee_id']] = [
                     'employee_id' => $dataRow['employee_id'],

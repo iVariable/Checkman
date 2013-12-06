@@ -1,0 +1,13 @@
+<div class="box j-report">
+    <%if(!_(view.options.id).isUndefined()){%>
+        <div class="padded">Загрузка...</div>
+    <%}else{%>
+        <div class="padded">
+            <ul>
+                <%app.collection('regions').each(function(region){%>
+                    <li><a href="<%=view.linkTo(region.id, (new Date()).getFullYear())%>" class="j-nav"><%=region%></a></li>
+                <%});%>
+            </ul>
+        </div>
+    <%};%>
+</div>

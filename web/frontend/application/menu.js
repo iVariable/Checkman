@@ -45,6 +45,11 @@ define([],function(){
                     icon: "icon-th",
                     url: "reports/fot"
                 },
+                regional: {
+                    title: "Региональный годовой",
+                    icon: "icon-bar-chart",
+                    url: "reports/regional"
+                },
                 deviations: {
                     title: "Отклонения",
                     icon: "icon-tasks",
