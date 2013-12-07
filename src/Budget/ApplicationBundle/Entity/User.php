@@ -57,7 +57,7 @@ class User extends BaseUser
      * @param \Budget\ApplicationBundle\Entity\Region $regions
      * @return User
      */
-    public function addRegion(\Budget\ApplicationBundle\Entity\Region $regions)
+    public function addRegion(\Budget\BudgetBundle\Entity\Region $regions)
     {
         $this->regions[] = $regions;
     
@@ -69,7 +69,7 @@ class User extends BaseUser
      *
      * @param \Budget\ApplicationBundle\Entity\Region $regions
      */
-    public function removeRegion(\Budget\ApplicationBundle\Entity\Region $regions)
+    public function removeRegion(\Budget\BudgetBundle\Entity\Region $regions)
     {
         $this->regions->removeElement($regions);
     }
