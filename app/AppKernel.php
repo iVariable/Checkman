@@ -1,4 +1,5 @@
 <?php
+umask(0002);
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -28,6 +29,7 @@ class AppKernel extends Kernel
             new Budget\RESTBudgetBundle\RESTBudgetBundle(),
 
             new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -1,10 +1,10 @@
 <div class="pull-left">
     <div class="avatar">
-        <img src="http://gravatar.com/avatar/8d99d7085d91e5a4a3f69d54fe9acb10">
+        <img src="http://gravatar.com/avatar/<%=app.user.gravatarHash%>">
     </div>
 </div>
 <div class="pull-left">
-    <div class="title">iVariable</div>
+    <div class="title"><%=app.user.login%></div>
     <div class="btn-group">
         <!--<button class="button mini inset black"><i class="icon-search"></i></button>-->
         <!--<button class="button mini inset black">Projects</button>-->
@@ -13,7 +13,7 @@
         <!--<ul class="dropdown-menu black-box-dropdown">-->
         <!--...-->
         <!--</ul>-->
-        <button class="button mini inset black"><i class="icon-signout"></i> Logout</button>
+        <a href="<%=app.routes.logout%>" class="button mini inset black"><i class="icon-signout"></i> Logout</a>
     </div>
 </div>
 

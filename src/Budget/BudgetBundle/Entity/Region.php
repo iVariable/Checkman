@@ -4,6 +4,7 @@ namespace Budget\BudgetBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use Budget\ApplicationBundle\Entity\User;
 
 /**
  * Region
@@ -33,6 +34,10 @@ class Region
      */
     private $title;
 
+    /**
+     * @ManyToMany(targetEntity="User", mappedBy="regions")
+     */
+    private $users;
 
     /**
      * Get id

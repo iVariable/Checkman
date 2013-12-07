@@ -31,8 +31,9 @@
         "jms/serializer-bundle": "dev-master",
         "jquery/jquery": "1.9.*",
 
-        "simplethings/entity-audit-bundle": "dev-master"
+        "simplethings/entity-audit-bundle": "dev-master",
 
+        "friendsofsymfony/user-bundle": "~2.0@dev"
 
     },
 

@@ -7,7 +7,15 @@
         var require = {
             config: {
                 "application/main": {
-                    container: "body"
+                    container: "body",
+                    user: {
+                        id: "{{ app.user.id }}",
+                        login: "{{ app.user.username }}",
+                        gravatarHash: "{{ app.user.email|md5 }}"
+                    },
+                    routes: {
+                        logout: "{{ path("fos_user_security_logout") }}"
+                    }
                 },
                 "modules/occupation/collection": {
                     url: "{{ path("api_v1_get_occupations") }}"
@@ -49,11 +57,11 @@
         };
     </script>
 
-    <script type="text/javascript" data-main="frontend/main.js"
-            src="frontend/bower_components/requirejs/require.js"></script>
+    <script type="text/javascript" data-main="/frontend/main.js"
+            src="/frontend/bower_components/requirejs/require.js"></script>
 
 
-    <link rel="stylesheet" href="frontend/bower_components/select2/select2.css"/>
+    <link rel="stylesheet" href="/frontend/bower_components/select2/select2.css"/>
 
     <style type="text/css">
         #notifications {

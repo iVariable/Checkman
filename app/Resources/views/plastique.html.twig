@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>{% block title %}Welcome!!{% endblock %}</title>
+    <title>{% block title %}CodeMonkeys Budget{% endblock %}</title>
 
     <!-- Le styles -->
     <link href="/frontend/plastique/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css"/>
@@ -20,7 +20,8 @@
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 
-    <script src="frontend/bower_components/jquery/jquery.min.js"></script>
+    <script src="/frontend/bower_components/jquery/jquery.min.js"></script>
+    <script src="/frontend/bower_components/underscore/underscore-min.js"></script>
 
     {% block stylesheets %}{% endblock %}
     <!-- Bootstrap -->
@@ -32,10 +33,18 @@
         }
     </style>
 </head>
-<body *id="main_container">
+<body {% block body_class %}{% endblock %}>
     <div id="main_container">
 
         {% block body %}{% endblock %}
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for key, message in messages %}
+                <div class="flash-{{ type }}">
+                    {{ message|trans({}, 'FOSUserBundle') }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% block fos_user_content %}{% endblock fos_user_content %}
     </div>
 
 {% verbatim %}

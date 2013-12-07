@@ -1,7 +1,7 @@
 parameters:
-#    application.example.class: Budget\ApplicationBundle\Example
 
 services:
-#    application.example:
-#        class: %application.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+  ivariable.extra.templating.helper.options:
+    class: Budget\ApplicationBundle\Twig\Extension\Common
+    tags:
+       - { name: twig.extension, alias: common }
