@@ -35,6 +35,22 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
     }
 
     /**
+     * @View()
+     *
+     * @return mixed
+     */
+    public function getEmployeeProjectshistoryAction($id)
+    {
+        $data = $this->get('budget.history')->getEmployeeProjectsHistory($id);
+
+        return $data;
+//        $view = $this->view($data, 200)
+//            ->setFormat($format);
+//
+//        return $this->handleView($view);
+    }
+
+    /**
      * @View(serializerGroups={"Employee", "Occupation", "ProjectInvolvement"})
      *
      * @return mixed

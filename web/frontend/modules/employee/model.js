@@ -1,6 +1,6 @@
 define(
-    ['bicycle', 'helpers', 'application', './views/involvement/edit'],
-    function (Bicycle, Helpers, App, View_InvolvementEdit) {
+    ['bicycle', 'helpers', 'application', './views/involvement/edit', './views/show/show'],
+    function (Bicycle, Helpers, App, View_InvolvementEdit, View_Show) {
 
         var translations = {
             secondName: "Фамилия",
@@ -64,7 +64,7 @@ define(
             __init: function () {
                 var _this = this;
                 this.registerView('show', function () {
-                    return new (Helpers.View.Model.Show)({
+                    return new (View_Show)({
                         model: _this,
 
                         exclude: ["id"],

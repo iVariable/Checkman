@@ -1,0 +1,50 @@
+<%var fields = [];%>
+<%_(model.defaults).each(function(attr, key){%>
+    <%if(view.options.exclude && _(view.options.exclude).contains(key)) return;
+    fields.push(key);
+});%>
+<table class="table table-striped table-bordered box">
+    <thead>
+        <tr>
+            <th colspan="2"><%=model%></th>
+        </tr>
+    </thead>
+    <tbody>
+        <%_(fields).each(function(key){%>
+            <%if(view.options.exclude && _(view.options.exclude).contains(key)) return;%>
+            <%var attr = model.get(key);%>
+            <tr>
+                <th width="250"><%if(view.options.translations && view.options.translations[key]){%><%=view.options.translations[key]%><%}else{%><%=key%><%}%></th>
+                <td>
+                    <%if(view.options.fields && view.options.fields[key]){%>
+                        <%if(view.options.fields[key].getter){
+                        attr = model[view.options.fields[key].getter]();
+                        };%>
+                        <%switch(view.options.fields[key].type){
+                            case "enum":%>
+                            <%=view.options.fields[key].values[attr]%>
+                            <%break;
+                            default:%>
+                            <%=attr%>
+                            <%break;
+                         }%>
+                    <%}else{%>
+                        <%=attr%>
+                    <%}%>
+                </td>
+            </tr>
+        <%});%>
+        <%if(view.options.htmlInclude && view.options.htmlInclude.footer){%>
+            <%=view.options.htmlInclude.footer(model)%>
+        <%};%>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="2">
+            <a class="button blue j-nav" href="<%=model.linkTo('edit')%>"><i class="icon-pencil"></i> Редактировать</a>
+        </td>
+    </tr>
+    </tfoot>
+</table>
+
+<div class="a-asyncreports"></div>

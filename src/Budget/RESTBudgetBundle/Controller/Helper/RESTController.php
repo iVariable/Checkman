@@ -25,4 +25,13 @@ class RESTController extends Controller
 
     }
 
+    protected function regionAllowedToUser($region)
+    {
+        if( $region instanceof \Budget\BudgetBundle\Entity\Region ){
+            $region = $region->getId();
+        }
+
+        return in_array($region, $this->getUser()->getRegionIds());
+    }
+
 }
