@@ -20,8 +20,8 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ManyToMany(targetEntity="Region", inversedBy="users")
-     * @JoinTable(name="users_regions")
+     * @ORM\ManyToMany(targetEntity="Budget\BudgetBundle\Entity\Region", inversedBy="users")
+     * @ORM\JoinTable(name="users_regions")
      */
     private $regions;
 
@@ -31,4 +31,66 @@ class User extends BaseUser
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    public function getExpiresAt()
+    {
+        return $this->expiresAt;
+    }
+
+    public function getCredentialsExpireAt()
+    {
+        return $this->credentialsExpireAt;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add regions
+     *
+     * @param \Budget\ApplicationBundle\Entity\Region $regions
+     * @return User
+     */
+    public function addRegion(\Budget\ApplicationBundle\Entity\Region $regions)
+    {
+        $this->regions[] = $regions;
+    
+        return $this;
+    }
+
+    /**
+     * Remove regions
+     *
+     * @param \Budget\ApplicationBundle\Entity\Region $regions
+     */
+    public function removeRegion(\Budget\ApplicationBundle\Entity\Region $regions)
+    {
+        $this->regions->removeElement($regions);
+    }
+
+    /**
+     * Get regions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRegions()
+    {
+        return $this->regions;
+    }
+
+    public function getRegionIds()
+    {
+        return $this->getRegions()->map(function($region){return $region->getId();})->toArray();
+    }
+
+    public function __toString()
+    {
+        return $this->getUsername();
+    }
 }

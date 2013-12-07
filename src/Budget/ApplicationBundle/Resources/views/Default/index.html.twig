@@ -11,7 +11,8 @@
                     user: {
                         id: "{{ app.user.id }}",
                         login: "{{ app.user.username }}",
-                        gravatarHash: "{{ app.user.email|md5 }}"
+                        gravatarHash: "{{ app.user.email|md5 }}",
+                        availableRegions: {{ app.user.regionIds|jsonEncode }}
                     },
                     routes: {
                         logout: "{{ path("fos_user_security_logout") }}"
