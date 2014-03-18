@@ -44,10 +44,6 @@ class EmployeeController extends \Budget\RESTBudgetBundle\Controller\Helper\REST
         $data = $this->get('budget.history')->getEmployeeProjectsHistory($id);
 
         return $data;
-//        $view = $this->view($data, 200)
-//            ->setFormat($format);
-//
-//        return $this->handleView($view);
     }
 
     /**
