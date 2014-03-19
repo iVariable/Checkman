@@ -12,10 +12,12 @@ class Reports
 {
 
     protected $container;
+    protected $allowedRegionIds = [];
 
     function __construct($container)
     {
         $this->container = $container;
+        $this->allowedRegionIds = $container->get('security.context')->getToken()->getUser()->getRegionIds();
     }
 
     private function getPreparedStatement($SQLStatement)
@@ -31,6 +33,7 @@ class Reports
      */
     public function getSharedSpendingsByRegionAndDate($regionId, \DateTime $date)
     {
+        //Подсчет количества сотрудников работавщих в регионе в выбранный месяц
         $result = $this->getPreparedStatement(
             'SELECT COUNT(*) as cnt FROM (
                 SELECT
@@ -114,15 +117,18 @@ class Reports
     {
         $result = $this->getPreparedStatement(
             'SELECT
-                project_id,
-                MONTH(date) AS month,
-                SUM(value) AS total
+                s.project_id,
+                MONTH(s.date) AS month,
+                SUM(s.value) AS total
             FROM
-                Spendings
+                Spendings s
+                LEFT JOIN Employee e ON s.employee_id=e.id
             WHERE
-                YEAR(date)="' . (int)$year . '"
-                GROUP BY
-                    project_id,MONTH(date)'
+                YEAR(s.date)="' . (int)$year . '"
+                AND
+                ( e.id IS NULL OR e.region_id IN ('.implode(',', $this->allowedRegionIds).'))
+            GROUP BY
+                s.project_id,MONTH(s.date)'
         );
         $result->execute();
 
@@ -139,11 +145,14 @@ class Reports
                 SUM(s.value) AS total
             FROM Spendings s
             LEFT JOIN SpendingsType st ON s.type_id=st.id
+            LEFT JOIN Employee e ON s.employee_id=e.id
             WHERE
                 YEAR(s.date)="' . (int)$year . '"
-                    AND s.project_id="' . (int)$projectId . '"
-                GROUP BY
-                    s.type_id, MONTH(s.date)'
+                AND s.project_id="' . (int)$projectId . '"
+                AND
+                ( e.id IS NULL OR e.region_id IN ('.implode(',', $this->allowedRegionIds).'))
+            GROUP BY
+                s.type_id, MONTH(s.date)'
         );
         $result->execute();
 
@@ -191,6 +200,7 @@ class Reports
                 if ($report['type_id'] != $salaryType->getId()) {
                     continue;
                 }
+                if (!in_array($report['employee_region_id'], $this->allowedRegionIds)) continue;
                 if (!array_key_exists($report['employee_region_id'], $sharedSpendings)) {
                     $sharedSpendings[$report['employee_region_id']] = $this->getSharedSpendingsByRegionAndDate(
                         $report['employee_region_id'],
@@ -241,7 +251,7 @@ class Reports
      */
     public function getProjectMonthDetails($projectId, $year, $month)
     {
-        $salaryType = $this->container->get('r.spendings_type')->getSalaryType();
+        //$salaryType = $this->container->get('r.spendings_type')->getSalaryType();
 
         $reports = $this->getProjectMonthClearDetails($projectId, $year, $month);
 
@@ -276,6 +286,7 @@ class Reports
                 YEAR(s.date)="' . (int)$year . '"
                     AND MONTH(s.date)="' . (int)$month . '"
                     AND s.project_id="' . (int)$projectId . '"
+                    AND ( e.id IS NULL OR e.region_id IN ('.implode(',', $this->allowedRegionIds).'))
                 GROUP BY
                     s.type_id, s.employee_id'
         );
@@ -344,6 +355,7 @@ class Reports
                 YEAR(s.date)="' . (int)$year . '"
                 AND
                 s.type_id="' . (int)$salaryType->getId() . '"
+                AND ( e.id IS NULL OR e.region_id IN ('.implode(',', $this->allowedRegionIds).'))
             GROUP BY
                 s.employee_id, MONTH(s.date)'
         );
