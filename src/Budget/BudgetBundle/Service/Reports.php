@@ -1,6 +1,8 @@
 <?php
 namespace Budget\BudgetBundle\Service;
 
+use Budget\ApplicationBundle\Entity\User;
+
 /**
  * Created by PhpStorm.
  * User: vladimirsavenkov
@@ -14,10 +16,10 @@ class Reports
     protected $container;
     protected $allowedRegionIds = [];
 
-    function __construct($container)
+    function __construct($container, User $user)
     {
         $this->container = $container;
-        $this->allowedRegionIds = $container->get('security.context')->getToken()->getUser()->getRegionIds();
+        $this->allowedRegionIds = $user->getRegionIds();
     }
 
     private function getPreparedStatement($SQLStatement)

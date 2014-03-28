@@ -3,9 +3,14 @@ parameters:
     budget.history.class: Budget\BudgetBundle\Service\History
 
 services:
+    budget.services.factory:
+        class: Budget\BudgetBundle\Service\Factory
+        arguments: [@service_container]
+
     budget.reports:
         class: %budget.reports.class%
-        arguments: [@service_container]
+        factory_service: budget.services.factory
+        factory_method: getReportsForCurrentUser
 
     budget.history:
         class: %budget.history.class%
