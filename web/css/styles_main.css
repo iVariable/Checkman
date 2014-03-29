@@ -3,6 +3,10 @@ body {
   margin: 0;
 }
 
+strike, s {
+    text-decoration: line-through;
+}
+
 .b-projects_viewtype_list {
     width: 800px;
 }
