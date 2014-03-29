@@ -7,8 +7,61 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Budget\BudgetBundle\Entity;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
-class LoadUserData extends ContainerAware implements FixtureInterface
+class LoadFullData extends ContainerAware implements FixtureInterface
 {
+    public static $regionsTitles = [
+        'Оренбург',
+        'Таганрог',
+        'Красноярск',
+        'Новосибирск',
+    ];
+
+    public static $projectTitles = [
+        "ВТБ24",
+        "*.softline",
+        "edu.softline",
+        "store.softline",
+        "ЕТП",
+        "Axoft",
+        "Якутск (портал)",
+        "Газпром",
+        "Альфастрахование",
+        "Дезигно-интеро (РОСПАН)",
+        "КГУ",
+        "Русэнерго",
+        "sl-matlab",
+        "softcloud.ru",
+        "ITMan",
+        "МТА внутренний",
+        "МТА Внешний",
+        "ДГК",
+        "Нанословарь",
+        "FAST на касперском",
+        "Мобильный Якутск",
+        "Япошка",
+        "Россельхоз",
+        "BI-Холдинг",
+    ];
+
+    public static $occupationTitles = [
+        "Разработчик. PHP",
+        "Разработчик. .NET",
+        "Разработчик. JAVA",
+        "Верстальщик",
+        "Аналитик",
+        "Тестировщик",
+        "Менеджер проектов",
+        "Системный администратор",
+        "Дизайнер",
+        "Руководитель",
+        "Администратор офиса"
+    ];
+
+    protected $occupations;
+    protected $projects;
+    protected $regions;
+    protected $employees;
+
     /**
      * {@inheritDoc}
      */
@@ -16,33 +69,32 @@ class LoadUserData extends ContainerAware implements FixtureInterface
     {
         $this->createSalaryTypes($manager);
 
-        $occupations = $this->loadOccupations($manager);
-        $projects = $this->loadProjects($manager);
-        $regions = $this->loadRegions($manager);
+        $this->occupations = $occupations = $this->loadOccupations($manager);
+        $this->projects = $projects = $this->loadProjects($manager);
+        $this->regions =$regions = $this->loadRegions($manager);
         $this->createSharedProjects($manager, $regions);
 
-        $employees = $this->loadEmployees($manager, $occupations, $projects, $regions);
+        $this->employees = $this->loadEmployees($manager, $occupations, $projects, $regions);
 
+        $this->loadAdditionalData($manager);
+    }
+
+    protected function loadAdditionalData(ObjectManager $manager)
+    {
+        //for extension
     }
 
     public function loadRegions(ObjectManager $manager)
     {
-        $regionsTitles = [
-            'Оренбург',
-            'Таганрог',
-            'Красноярск',
-            'Новосибирск',
-        ];
-
         $regions = [];
 
         $repo = $this->container->get('r.region');
 
-        foreach ($regionsTitles as $title) {
+        foreach (self::$regionsTitles as $title) {
             /* @var $region  \Budget\BudgetBundle\Entity\Region */
             $region = $repo->newEntity();
             $region->setTitle($title);
-            $regions[] = $region;
+            $regions[$title] = $region;
             $manager->persist($region);
         }
 
@@ -72,29 +124,15 @@ class LoadUserData extends ContainerAware implements FixtureInterface
      */
     public function loadOccupations(ObjectManager $manager)
     {
-        $occupationTitles = [
-            "Разработчик. PHP",
-            "Разработчик. .NET",
-            "Разработчик. JAVA",
-            "Верстальщик",
-            "Аналитик",
-            "Тестировщик",
-            "Менеджер проектов",
-            "Системный администратор",
-            "Дизайнер",
-            "Руководитель",
-            "Администратор офиса"
-        ];
-
         $occupations = [];
 
         $repo = $this->container->get('r.occupation');
 
-        foreach ($occupationTitles as $title) {
+        foreach (self::$occupationTitles as $title) {
             /* @var $occupation  \Budget\BudgetBundle\Entity\Occupation */
             $occupation = $repo->newEntity();
             $occupation->setTitle($title);
-            $occupations[] = $occupation;
+            $occupations[$title] = $occupation;
             $manager->persist($occupation);
         }
 
@@ -108,43 +146,16 @@ class LoadUserData extends ContainerAware implements FixtureInterface
      */
     public function loadProjects(ObjectManager $manager)
     {
-        $projectTitles = [
-            "ВТБ24",
-            "*.softline",
-            "edu.softline",
-            "store.softline",
-            "ЕТП",
-            "Axoft",
-            "Якутск (портал)",
-            "Газпром",
-            "Альфастрахование",
-            "Дезигно-интеро (РОСПАН)",
-            "КГУ",
-            "Русэнерго",
-            "sl-matlab",
-            "softcloud.ru",
-            "ITMan",
-            "МТА внутренний",
-            "МТА Внешний",
-            "ДГК",
-            "Нанословарь",
-            "FAST на касперском",
-            "Мобильный Якутск",
-            "Япошка",
-            "Россельхоз",
-            "BI-Холдинг",
-        ];
-
         $projects = [];
 
         $repo = $this->container->get('r.project');
 
-        foreach ($projectTitles as $title) {
+        foreach (self::$projectTitles as $title) {
             /* @var $project  \Budget\BudgetBundle\Entity\Project */
             $project = $repo->newEntity();
             $project->setTitle($title);
             $project->setStatus($project::STATUS_ACTIVE);
-            $projects[] = $project;
+            $projects[$title] = $project;
             $manager->persist($project);
         }
 
@@ -250,7 +261,7 @@ class LoadUserData extends ContainerAware implements FixtureInterface
                 $employee->addProjectInvolvement($involvement);
             }
 
-            $employees[] = $employee;
+            $employees[$fioString] = $employee;
             $manager->persist($employee);
         }
 
