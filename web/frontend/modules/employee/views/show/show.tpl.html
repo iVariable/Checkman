@@ -38,6 +38,7 @@
             <%=view.options.htmlInclude.footer(model)%>
         <%};%>
     </tbody>
+    <%if(model.isEditable()){%>
     <tfoot>
     <tr>
         <td colspan="2">
@@ -45,6 +46,7 @@
         </td>
     </tr>
     </tfoot>
+    <%};%>
 </table>
 
 <div class="a-asyncreports"></div>

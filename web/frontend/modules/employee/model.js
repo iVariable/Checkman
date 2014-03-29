@@ -145,6 +145,10 @@ define(
                 })
             },
 
+            isEditable: function(){
+                return App.user.canEditRegion(this.region());
+            },
+
             status: function(){
                 return statuses[this.get('status')];
             },

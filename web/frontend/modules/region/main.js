@@ -10,8 +10,10 @@ define(
 
         var Module = app.module('region', function (module) {
 
-            module.router = new Router();
-            module.router.app(app);
+            if(app.user.isAdmin){
+                module.router = new Router();
+                module.router.app(app);
+            }
 
             app.collection('regions', new Collection());
             app.collection('regions').reloadCollection = function(){

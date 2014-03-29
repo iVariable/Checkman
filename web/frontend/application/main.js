@@ -14,6 +14,11 @@ define(
         var app = new Bicycle.Core.Application();
 
         app.user = module.config().user;
+        app.user.canEditRegion = function(regionId){
+            if (_.isObject(regionId)) regionId = regionId.id;
+            regionId = parseInt(regionId);
+            return this.isAdmin || _(this.availableRegions).contains(regionId);
+        }
         app.routes = module.config().routes;
 
         app.prepareNavigation = function () {
@@ -98,6 +103,13 @@ define(
         app.layouts = {
             main: new (Layouts.MainLayout)({el: module.config().container})
         };
+
+        //Говно. Потом поправлю. Надо перенести в каждый конкретный модуль
+        if (!app.user.isAdmin) {
+            delete MenuData.admin.children.occupations;
+            delete MenuData.admin.children.regions;
+            delete MenuData.admin.children.spendingstype;
+        }
 
         app.menu = new Menu(MenuData, {app: app});
         app.menu.app = app;

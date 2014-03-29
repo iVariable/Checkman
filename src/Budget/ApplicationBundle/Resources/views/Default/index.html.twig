@@ -12,7 +12,8 @@
                         id: "{{ app.user.id }}",
                         login: "{{ app.user.username }}",
                         gravatarHash: "{{ app.user.email|md5 }}",
-                        availableRegions: {{ app.user.regionIds|jsonEncode }}
+                        availableRegions: {{ app.user.regionIds|jsonEncode }},
+                        isAdmin: {{ (app.user.hasRole('ROLE_ADMIN') or app.user.hasRole('ROLE_SUPER_ADMIN'))|jsonEncode }}
                     },
                     routes: {
                         logout: "{{ path("fos_user_security_logout") }}"
