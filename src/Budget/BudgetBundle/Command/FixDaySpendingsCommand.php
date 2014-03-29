@@ -46,6 +46,7 @@ EOF
         // @TODO: check repo
 
         $hasDaySpendings = $spendingsRepo->hasDaySpendings($date);
+        $salaryType = $this->getContainer()->get('r.spendings_type')->getSalaryType();
 
         if ($hasDaySpendings) {
             if (!$input->getOption("overwrite-day-spendings")) {
@@ -56,12 +57,11 @@ EOF
 
                 return false;
             } else {
-                $this->log('<info>Existed day spendings cleared</info>');
-                $spendingsRepo->clearDaySpendings($date);
+                $this->log('<info>Existed day salary spendings cleared</info>');
+                $spendingsRepo->clearDaySpendings($date, $salaryType);
             }
         }
 
-        $salaryType = $this->getContainer()->get('r.spendings_type')->getSalaryType();
         $employees = $this->getContainer()->get('r.employee')->getActiveEmployees();
 
         $numberDaysInMonth = date('t', $date->getTimestamp());

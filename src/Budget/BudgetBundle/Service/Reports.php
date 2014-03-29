@@ -197,7 +197,6 @@ class Reports
              * pzdc
              */
             $endDate = \DateTime::createFromFormat('U', strtotime('+1 month', $startDate->getTimestamp()));
-
             foreach ($reports as &$report) {
                 if ($report['type_id'] != $salaryType->getId()) {
                     continue;
@@ -220,7 +219,6 @@ class Reports
                         'project_id' => $projectId
                     ]
                 );
-
                 $totalSum += array_reduce(
                     $spendings,
                     function ($sum, $spending) use ($sharedSpending) {

@@ -23,8 +23,8 @@ class SpendingsRepository extends EntityRepository
 
             ->setParameters(
                 [
-                    'startDate' => $startDate,
-                    'endDate' => $endDate
+                    'startDate' => $startDate->format('Y-m-d'),
+                    'endDate' => $endDate->format('Y-m-d')
                 ]
             );
 
@@ -41,7 +41,6 @@ class SpendingsRepository extends EntityRepository
 
             }
         }
-
         return $query->getQuery()->getResult();
     }
 
@@ -59,12 +58,20 @@ class SpendingsRepository extends EntityRepository
 
     }
 
-    public function clearDaySpendings(\DateTime $date)
+    public function clearDaySpendings(\DateTime $date, SpendingsType $type = null)
     {
-        $result = $this->getEntityManager()
-            ->createQuery('DELETE FROM Budget\\BudgetBundle\\Entity\\Spendings s WHERE s.date=:date')
-            ->setParameter('date', $date->format('Y-m-d'))
-            ->execute();
+        if ($type === null) {
+            $result = $this->getEntityManager()
+                ->createQuery('DELETE FROM Budget\\BudgetBundle\\Entity\\Spendings s WHERE s.date=:date')
+                ->setParameter('date', $date->format('Y-m-d'))
+                ->execute();
+        }else{
+            $result = $this->getEntityManager()
+                ->createQuery('DELETE FROM Budget\\BudgetBundle\\Entity\\Spendings s WHERE s.date=:date AND s.type_id=:type_id')
+                ->setParameter('date', $date->format('Y-m-d'))
+                ->setParameter('type_id', $type->getId())
+                ->execute();
+        }
 
         return $result;
     }

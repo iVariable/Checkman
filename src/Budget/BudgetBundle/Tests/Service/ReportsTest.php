@@ -11,6 +11,12 @@ class ReportsFunctionalTest extends WebTestCase
      */
     private $em;
 
+    private $users = [];
+    private $reports = [];
+    private $projects = [];
+    private $testYear = 0;
+    private $testMonth = 0;
+
     /**
      * {@inheritDoc}
      */
@@ -20,38 +26,42 @@ class ReportsFunctionalTest extends WebTestCase
         static::$kernel->boot();
         $this->em = static::$kernel->getContainer()
             ->get('em');
-    }
 
-    public function testProjectSummaryClear()
-    {
         $container = static::$kernel->getContainer();
 
-        $tgnUser = $container->get('r.user')->findOneByUsername('Tgn');
-        $tgnOrnUser = $container->get('r.user')->findOneByUsername('TgnOren');
-        $adminUser = $container->get('r.user')->findOneByUsername('Admin');
+        $this->users['Tgn'] = $container->get('r.user')->findOneByUsername('Tgn');
+        $this->users['TgnOren'] = $container->get('r.user')->findOneByUsername('TgnOren');
+        $this->users['Admin'] = $container->get('r.user')->findOneByUsername('Admin');
 
-        $project_vtb24 = $container->get('r.project')->findOneByTitle('ВТБ24');
-        $project_softline = $container->get('r.project')->findOneByTitle('*.softline');
-        $project_etp = $container->get('r.project')->findOneByTitle('ЕТП');
-        $project_edu = $container->get('r.project')->findOneByTitle('edu.softline');
-        $project_alpha = $container->get('r.project')->findOneByTitle('Альфастрахование');
+        $this->projects['vtb24'] = $container->get('r.project')->findOneByTitle('ВТБ24');
+        $this->projects['softline'] = $container->get('r.project')->findOneByTitle('*.softline');
+        $this->projects['etp'] = $container->get('r.project')->findOneByTitle('ЕТП');
+        $this->projects['edu'] = $container->get('r.project')->findOneByTitle('edu.softline');
+        $this->projects['alpha'] = $container->get('r.project')->findOneByTitle('Альфастрахование');
 
-        $reports = [];
+        $this->projects['office.tgn'] = $container->get('r.project')->findOneByTitle('Офис. Таганрог');
+        $this->projects['office.oren'] = $container->get('r.project')->findOneByTitle('Офис. Оренбург');
+        $this->projects['office.nsk'] = $container->get('r.project')->findOneByTitle('Офис. Новосибирск');
 
         /** @var  $servicesFactory \Budget\BudgetBundle\Service\Factory */
         $servicesFactory = $container->get('budget.services.factory');
 
         /** @var  $reports \Budget\BudgetBundle\Service\Reports */
-        $reports['Tgn'] = $servicesFactory->getReportsForUser($tgnUser);
+        $this->reports['Tgn'] = $servicesFactory->getReportsForUser($this->users['Tgn']);
 
         /** @var  $reports \Budget\BudgetBundle\Service\Reports */
-        $reports['TgnOren'] = $servicesFactory->getReportsForUser($tgnOrnUser);
+        $this->reports['TgnOren'] = $servicesFactory->getReportsForUser($this->users['TgnOren']);
 
         /** @var  $reports \Budget\BudgetBundle\Service\Reports */
-        $reports['Admin'] = $servicesFactory->getReportsForUser($adminUser);
+        $this->reports['Admin'] = $servicesFactory->getReportsForUser($this->users['Admin']);
 
-        $testYear = explode('.', LoadTestData::$testDateStart)[2];
-        $testMonth = (int)explode('.', LoadTestData::$testDateStart)[1];
+        $this->testYear = explode('.', LoadTestData::$testDateStart)[2];
+        $this->testMonth = (int)explode('.', LoadTestData::$testDateStart)[1];
+
+    }
+
+    public function testProjectSummaryClear()
+    {
 
         $checkSummary = function ($result, $expected, $description) {
             $result = array_reduce(
@@ -66,52 +76,52 @@ class ReportsFunctionalTest extends WebTestCase
 
         $expectations = [
             [
-                'project' => $project_vtb24,
+                'project' => $this->projects['vtb24'],
                 'results' => [
-                    ['user' => $tgnUser, 'result' => 9900],
-                    ['user' => $tgnOrnUser, 'result' => 34900],
-                    ['user' => $adminUser, 'result' => 54700],
+                    ['user' => $this->users['Tgn'], 'result' => 9900],
+                    ['user' => $this->users['TgnOren'], 'result' => 34900],
+                    ['user' => $this->users['Admin'], 'result' => 54700],
                 ]
             ],
             [
-                'project' => $project_softline,
+                'project' => $this->projects['softline'],
                 'results' => [
-                    ['user' => $tgnUser, 'result' => 69900],
-                    ['user' => $tgnOrnUser, 'result' => 69900],
-                    ['user' => $adminUser, 'result' => 89700],
+                    ['user' => $this->users['Tgn'], 'result' => 69900],
+                    ['user' => $this->users['TgnOren'], 'result' => 69900],
+                    ['user' => $this->users['Admin'], 'result' => 89700],
                 ]
             ],
             [
-                'project' => $project_etp,
+                'project' => $this->projects['etp'],
                 'results' => [
-                    ['user' => $tgnUser, 'result' => 29900],
-                    ['user' => $tgnOrnUser, 'result' => 29900],
-                    ['user' => $adminUser, 'result' => 49700],
+                    ['user' => $this->users['Tgn'], 'result' => 29900],
+                    ['user' => $this->users['TgnOren'], 'result' => 29900],
+                    ['user' => $this->users['Admin'], 'result' => 49700],
                 ]
             ],
             [
-                'project' => $project_edu,
+                'project' => $this->projects['edu'],
                 'results' => [
-                    ['user' => $tgnUser, 'result' => 50000],
-                    ['user' => $tgnOrnUser, 'result' => 50000],
-                    ['user' => $adminUser, 'result' => 50000],
+                    ['user' => $this->users['Tgn'], 'result' => 50000],
+                    ['user' => $this->users['TgnOren'], 'result' => 50000],
+                    ['user' => $this->users['Admin'], 'result' => 50000],
                 ]
             ],
             [
-                'project' => $project_alpha,
+                'project' => $this->projects['alpha'],
                 'results' => [
-                    ['user' => $tgnUser, 'result' => 0],
-                    ['user' => $tgnOrnUser, 'result' => 0],
-                    ['user' => $adminUser, 'result' => 13],
+                    ['user' => $this->users['Tgn'], 'result' => 0],
+                    ['user' => $this->users['TgnOren'], 'result' => 0],
+                    ['user' => $this->users['Admin'], 'result' => 13],
                 ]
             ]
         ];
 
         foreach ($expectations as $expectation) {
             foreach ($expectation['results'] as $expectedUserResult) {
-                $spendings = $reports[$expectedUserResult['user']->getUsername()]->getProjectSummaryClear(
+                $spendings = $this->reports[$expectedUserResult['user']->getUsername()]->getProjectSummaryClear(
                     $expectation['project']->getId(),
-                    $testYear
+                    $this->testYear
                 );
                 $checkSummary(
                     $spendings,
@@ -120,7 +130,103 @@ class ReportsFunctionalTest extends WebTestCase
                 );
             }
         }
+    }
 
+    public function testProjectSummaryWithShared()
+    {
+
+        $checkSummary = function ($result, $expected, $description) {
+            $result = array_reduce(
+                $result,
+                function ($start, $current) {
+                    return $start + $current['total'];
+                },
+                0
+            );
+            $this->assertEquals(round($expected), round($result), $description);
+        };
+
+        /**
+         * Вручную считаем общие затраты.
+         * Берем общую сумму затрат, делим на количество работников в регионе и умножаем на процент участия работника в проекте
+         */
+        $expectations = [
+            [
+                'project' => $this->projects['vtb24'],
+                'results' => [
+                    ['user' => $this->users['Tgn'], 'result' => 9900 + 12500 / 4 * 33 / 100],
+                    [
+                        'user' => $this->users['TgnOren'],
+                        'result' => 34900 + 12500 / 4 * 33 / 100 + 23500 / 2 * 50 / 100 + 23500 / 2 * 100 / 100
+                    ],
+                    [
+                        'user' => $this->users['Admin'],
+                        'result' => 54700 + 12500 / 4 * 33 / 100 + 23500 / 2 * 50 / 100 + 23500 / 2 * 100 / 100 + 31540 / 2 * 33 / 100
+                    ],
+                ]
+            ],
+            [
+                'project' => $this->projects['softline'],
+                'results' => [
+                    [
+                        'user' => $this->users['Tgn'],
+                        'result' => 69900 + 12500 / 4 * 33 / 100 + 12500 / 4 + 12500 / 4 * 50 / 100
+                    ],
+                    [
+                        'user' => $this->users['TgnOren'],
+                        'result' => 69900 + 12500 / 4 * 33 / 100 + 12500 / 4 + 12500 / 4 * 50 / 100
+                    ],
+                    [
+                        'user' => $this->users['Admin'],
+                        'result' => 89700 + 12500 / 4 * 33 / 100 + 12500 / 4 + 12500 / 4 * 50 / 100 + 31540 / 2 * 33 / 100
+                    ],
+                ]
+            ],
+            [
+                'project' => $this->projects['etp'],
+                'results' => [
+                    ['user' => $this->users['Tgn'], 'result' => 29900 + 12500 / 4 * 33 / 100 + 12500 / 4 * 50 / 100],
+                    [
+                        'user' => $this->users['TgnOren'],
+                        'result' => 29900 + 12500 / 4 * 33 / 100 + 12500 / 4 * 50 / 100
+                    ],
+                    [
+                        'user' => $this->users['Admin'],
+                        'result' => 49700 + 12500 / 4 * 33 / 100 + 12500 / 4 * 50 / 100 + 31540 / 2 * 33 / 100
+                    ],
+                ]
+            ],
+            [
+                'project' => $this->projects['edu'],
+                'results' => [
+                    ['user' => $this->users['Tgn'], 'result' => 50000 + 12500 / 4 * 100 / 100],
+                    ['user' => $this->users['TgnOren'], 'result' => 50000 + 12500 / 4 * 100 / 100],
+                    ['user' => $this->users['Admin'], 'result' => 50000 + 12500 / 4 * 100 / 100],
+                ]
+            ],
+            [
+                'project' => $this->projects['alpha'],
+                'results' => [
+                    ['user' => $this->users['Tgn'], 'result' => 0],
+                    ['user' => $this->users['TgnOren'], 'result' => 0],
+                    ['user' => $this->users['Admin'], 'result' => 13 + 31540 / 2 * 100 / 100],
+                ]
+            ]
+        ];
+
+        foreach ($expectations as $expectation) {
+            foreach ($expectation['results'] as $expectedUserResult) {
+                $spendings = $this->reports[$expectedUserResult['user']->getUsername()]->getProjectSummary(
+                    $expectation['project']->getId(),
+                    $this->testYear
+                );
+                $checkSummary(
+                    $spendings,
+                    $expectedUserResult['result'],
+                    $expectation['project'] . ': ' . $expectedUserResult['user'] . ' total spendings'
+                );
+            }
+        }
     }
 
     /**

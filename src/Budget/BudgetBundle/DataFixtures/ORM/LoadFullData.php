@@ -59,7 +59,9 @@ class LoadFullData extends ContainerAware implements FixtureInterface
 
     protected $occupations;
     protected $projects;
+    protected $sharedProjects;
     protected $regions;
+    protected $salaryTypes;
     protected $employees;
 
     /**
@@ -67,12 +69,12 @@ class LoadFullData extends ContainerAware implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $this->createSalaryTypes($manager);
+        $this->salaryTypes = $this->createSalaryTypes($manager);
 
         $this->occupations = $occupations = $this->loadOccupations($manager);
         $this->projects = $projects = $this->loadProjects($manager);
-        $this->regions =$regions = $this->loadRegions($manager);
-        $this->createSharedProjects($manager, $regions);
+        $this->regions = $regions = $this->loadRegions($manager);
+        $this->sharedProjects = $this->createSharedProjects($manager, $regions);
 
         $this->employees = $this->loadEmployees($manager, $occupations, $projects, $regions);
 
@@ -105,17 +107,22 @@ class LoadFullData extends ContainerAware implements FixtureInterface
 
     public function createSharedProjects(ObjectManager $manager, $regions)
     {
+        $sharedProjects = [];
+
         $repo = $this->container->get('r.project');
         foreach ($regions as $region) {
             /* @var $project  \Budget\BudgetBundle\Entity\Project */
             $project = $repo->newEntity();
-            $project->setTitle('Офис. '.$region->getTitle());
+            $project->setTitle('Офис. ' . $region->getTitle());
             $project->setRegion($region);
             $project->setStatus($project::STATUS_ACTIVE);
             $manager->persist($project);
+            $sharedProjects[$region->getTitle()] = $project;
         }
 
         $manager->flush();
+
+        return $sharedProjects;
     }
 
     /**
@@ -275,6 +282,8 @@ class LoadFullData extends ContainerAware implements FixtureInterface
      */
     public function createSalaryTypes(ObjectManager $manager)
     {
+        $types = [];
+
         $typeTitles = [
             'Зарплата',
             'Премия',
@@ -292,8 +301,11 @@ class LoadFullData extends ContainerAware implements FixtureInterface
                 ->setDescription("");
 
             $manager->persist($salarySpendingsType);
+            $types[$type] = $salarySpendingsType;
         }
 
         $manager->flush();
+
+        return $types;
     }
 }

@@ -97,7 +97,36 @@ class LoadTestData extends \Budget\BudgetBundle\DataFixtures\ORM\LoadFullData im
     protected function loadAdditionalData(ObjectManager $manager)
     {
         $this->loadUsers($manager);
-        //$this->fixSpendings($manager);
+        $this->fixSharedSpendings($manager);
+    }
+
+    protected function fixSharedSpendings(ObjectManager $manager)
+    {
+        $sharedSpendings = [
+            'Таганрог' => 12500,
+            'Оренбург' => 23500,
+            'Новосибирск' => 31540,
+        ];
+
+        $date = \DateTime::createFromFormat('d.m.Y', self::$testDateStart);
+
+        $spendingsRepo = $this->container->get('r.spendings');
+
+        foreach ($sharedSpendings as $title => $amount) {
+            /* @var $spending Spendings */
+            $spending = $spendingsRepo->newEntity();
+
+            $spending
+                ->setProject($this->sharedProjects[$title])
+                ->setDate($date)
+                ->setType($this->salaryTypes['Уборка офиса'])
+                ->setValue($amount)
+            ;
+
+            $manager->persist($spending);
+            $manager->flush();
+        }
+
     }
 
     protected function loadUsers(ObjectManager $manager)
