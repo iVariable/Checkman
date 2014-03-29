@@ -14,6 +14,7 @@ class ReportsFunctionalTest extends WebTestCase
     private $users = [];
     private $reports = [];
     private $projects = [];
+    private $regions = [];
     private $testYear = 0;
     private $testMonth = 0;
 
@@ -32,6 +33,10 @@ class ReportsFunctionalTest extends WebTestCase
         $this->users['Tgn'] = $container->get('r.user')->findOneByUsername('Tgn');
         $this->users['TgnOren'] = $container->get('r.user')->findOneByUsername('TgnOren');
         $this->users['Admin'] = $container->get('r.user')->findOneByUsername('Admin');
+
+        $this->regions['Tgn'] = $container->get('r.region')->findOneByTitle('Таганрог');
+        $this->regions['Orn'] = $container->get('r.region')->findOneByTitle('Оренбург');
+        $this->regions['Nsk'] = $container->get('r.region')->findOneByTitle('Новосибирск');
 
         $this->projects['vtb24'] = $container->get('r.project')->findOneByTitle('ВТБ24');
         $this->projects['softline'] = $container->get('r.project')->findOneByTitle('*.softline');
@@ -224,6 +229,62 @@ class ReportsFunctionalTest extends WebTestCase
                     $spendings,
                     $expectedUserResult['result'],
                     $expectation['project'] . ': ' . $expectedUserResult['user'] . ' total spendings'
+                );
+            }
+        }
+    }
+
+    public function testRegionalYearlyReport()
+    {
+
+        $checkSummary = function ($result, $expected, $description) {
+            $result = array_reduce(
+                $result,
+                function ($start, $current) {
+                    return $start + $current['total'];
+                },
+                0
+            );
+            $this->assertEquals($expected, round($result), $description);
+        };
+
+        $expectations = [
+            [
+                'region' => 'Tgn',
+                'results' => [
+                    ['user' => $this->users['Tgn'], 'result' => 12500 + 30000 + 40000 + 40000 + 50000],
+                    ['user' => $this->users['TgnOren'], 'result' => 12500 + 30000 + 40000 + 40000 + 50000],
+                    ['user' => $this->users['Admin'], 'result' => 12500 + 30000 + 40000 + 40000 + 50000],
+                ]
+            ],
+            [
+                'region' => 'Orn',
+                'results' => [
+                    ['user' => $this->users['Tgn'], 'result' => 0],
+                    ['user' => $this->users['TgnOren'], 'result' => 10000 + 20000 + 23500],
+                    ['user' => $this->users['Admin'], 'result' => 10000 + 20000 + 23500],
+                ]
+            ],
+            [
+                'region' => 'Nsk',
+                'results' => [
+                    ['user' => $this->users['Tgn'], 'result' => 0],
+                    ['user' => $this->users['TgnOren'], 'result' => 0],
+                    ['user' => $this->users['Admin'], 'result' => 31540 + 60013],
+                ]
+            ]
+        ];
+
+        foreach ($expectations as $expectation) {
+            foreach ($expectation['results'] as $expectedUserResult) {
+                $spendings = $this->reports[$expectedUserResult['user']->getUsername()]->getRegionalYearlyReport(
+                    $this->regions[$expectation['region']]->getId(),
+                    $this->testYear
+                );
+                $checkSummary(
+                    $spendings,
+                    $expectedUserResult['result'],
+                    $expectation['region'] . ': ' . $expectedUserResult['user'] . ' total spendings'
                 );
             }
         }

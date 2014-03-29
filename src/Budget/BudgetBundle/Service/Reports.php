@@ -251,8 +251,6 @@ class Reports
      */
     public function getProjectMonthDetails($projectId, $year, $month)
     {
-        //$salaryType = $this->container->get('r.spendings_type')->getSalaryType();
-
         $reports = $this->getProjectMonthClearDetails($projectId, $year, $month);
 
         $reports[] = $this->getProjectMonthSharedSpendings($projectId, $year, $month);
@@ -329,6 +327,7 @@ class Reports
                     OR
                     r2.id = '.(int)$id.'
                 )
+                AND ( r.id IN ('.implode(',', $this->allowedRegionIds).') OR r2.id IN ('.implode(',', $this->allowedRegionIds).'))
             GROUP BY
                 s.type_id, MONTH(s.date)'
         );
