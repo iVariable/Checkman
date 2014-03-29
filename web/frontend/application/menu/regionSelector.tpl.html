@@ -1,6 +1,2 @@
-<select class="j-region-selector mini"  style="margin-bottom:-20px; height: 20px">
-    <option value="">Все регионы</option>
-    <%app.collection('regions').each(function(region){%>
-    <option <%if(app.selectedRegion() == region){%>selected="selected"<%};%>value="<%=region.id%>"><%=region%></option>
-    <%});%>
-</select>
+<b>Регионы:</b> <%=_(app.user.availableRegions).chain().map(function(regionId){
+return app.collection('regions').get(regionId).get('title');}).value().join(', ')%>

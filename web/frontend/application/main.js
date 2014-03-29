@@ -16,13 +16,6 @@ define(
         app.user = module.config().user;
         app.routes = module.config().routes;
 
-        app.selectedRegion = function(region){
-            if (!_(region).isUndefined()){
-                this.region = region;
-            }
-            return this.region;
-        }
-
         app.prepareNavigation = function () {
             $('body').on('click', '.j-nav', function (e) {
                 if ($(this).data('navTo')) {

@@ -22,6 +22,9 @@ body {
   padding: 8px 16px;
   width: 160px;
 }
+.b-project__details {
+    margin-left: 170px;
+}
 .b-project__title-text {
   background: #fff;
   display: inline-block;
@@ -41,10 +44,11 @@ body {
 .b-list_content_roles .b-list__item {
   display: inline-block;
   vertical-align: top;
+  padding-top: 3px;
   margin: 0;
 }
 .b-roles {
-  margin: 0;
+  margin: -3px 0 0 0 ;
   padding: 0;
 }
 .b-role {
@@ -313,3 +317,11 @@ body {
   transform: rotate(45deg);
   display: none;
 }
+
+/* line 3, search.css.scss */
+.regions-in-breadcrumbs {
+    font-size: 12px;
+    color: #fff;
+    position: absolute;
+    right: 0px;
+    top: 10px; }
