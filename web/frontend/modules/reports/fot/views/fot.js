@@ -13,7 +13,7 @@ define(
 
             report: new Collection(),
 
-            onRender: function () {
+            onBeforeRender: function () {
                 var _this = this;
                 if (_(this.options).isUndefined() || _(this.options.year).isUndefined()) {
                     this.options.year = (new Date()).getFullYear();

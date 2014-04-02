@@ -4,11 +4,13 @@ var employees = app.collection('employees');
 var occupations = app.collection('occupations');
 %>
 
-
 <div class="tabbable black-box" style="margin-bottom: 18px;">
 
     <div class="tab-header">
         Персонал
+        <div class="pull-right">
+            <input class="search j-search" style="width:230px; margin-top:3px; height: 23px; line-height: 12px; margin-right: 2px" type="text" placeholder="Фильтровать по ФИО или проекту..."/>
+        </div>
     </div>
 
     <ul class="nav nav-tabs">

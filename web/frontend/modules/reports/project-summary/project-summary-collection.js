@@ -17,6 +17,7 @@ define(
             urlTemplate: module.config().url,
 
             setProjectAndYear: function(projectId, year) {
+                this.projectId = projectId;
                 this.url = this.urlTemplate.replace(/:year/ig, year).replace(/:id/ig, projectId);
             },
 
@@ -34,6 +35,10 @@ define(
                     return sum;
                 }, 0)
                 return sum;
+            },
+
+            getProject: function() {
+                return App.collection('projects').get(this.projectId);
             }
 
         }

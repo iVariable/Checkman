@@ -1,5 +1,12 @@
 <div class="tab-header">
     Годовой отчет по региону: <%=app.collection('regions').get(view.options.id)%> [<%=view.options.year%>]
+
+    <div class="pull-right" style="margin-right: 10px; margin-top: -1px;">
+        <div class="btn-group">
+            <a class="button j-nav" href="<%=view.linkTo(view.options.id, (parseInt(view.options.year)-1))%>"> ◄ </a>
+            <a class="button j-nav" href="<%=view.linkTo(view.options.id, (parseInt(view.options.year)+1))%>"> ► </a>
+        </div>
+    </div>
 </div>
 
 <div class="padded">
