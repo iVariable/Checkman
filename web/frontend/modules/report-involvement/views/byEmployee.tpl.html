@@ -9,28 +9,31 @@ var occupations = app.collection('occupations');
     <div class="tab-header">
         Персонал
         <div class="pull-right">
-            <input class="search j-search" style="width:230px; margin-top:3px; height: 23px; line-height: 12px; margin-right: 2px" type="text" placeholder="Фильтровать по ФИО или проекту..."/>
+            <input class="search j-search"
+                   style="width:230px; margin-top:3px; height: 23px; line-height: 12px; margin-right: 2px" type="text"
+                   placeholder="Фильтровать по ФИО или проекту..."/>
         </div>
     </div>
+    <div class="a-all">
+        <ul class="nav nav-tabs">
+            <%occupations.each(function(occupation, i){%>
+            <li class="<%if(i == 0){%>active<%};%>"><a href="#occupation-<%=occupation.id%>" data-toggle="tab"><%=occupation%></a>
+            </li>
+            <%});%>
+        </ul>
 
-    <ul class="nav nav-tabs">
-        <%occupations.each(function(occupation, i){%>
-        <li class="<%if(i == 0){%>active<%};%>"><a href="#occupation-<%=occupation.id%>" data-toggle="tab"><%=occupation%></a></li>
-        <%});%>
-    </ul>
-
-    <div class="tab-content">
-    <%occupations.each(function(occupation, i){%>
-        <div class="padded tab-pane <%if(i == 0){%>active<%};%>" id="occupation-<%=occupation.id%>">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th width="200">ФИО</th>
-                    <th width="100">Свободное время</th>
-                    <th>Проекты</th>
-                </tr>
-                </thead>
-                <tbody>
+        <div class="tab-content">
+            <%occupations.each(function(occupation, i){%>
+            <div class="padded tab-pane <%if(i == 0){%>active<%};%>" id="occupation-<%=occupation.id%>">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th width="200">ФИО</th>
+                        <th width="100">Свободное время</th>
+                        <th>Проекты</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     <%employees.chain().filter(function(employee){
                     return employee.hasOccupation(occupation);
                     }).each(function(employee){%>
@@ -38,26 +41,34 @@ var occupations = app.collection('occupations');
                     var involvements = employee.involvements();
                     %>
                     <tr>
-                        <td><%=employee%> <a class="j-nav" href="<%=employee.linkTo("show")%>"><i class="icon-user"></i></a></td>
+                        <td><%=employee%> <a class="j-nav" href="<%=employee.linkTo(" show")%>"><i
+                                class="icon-user"></i></a></td>
                         <td><%=employee.freetime()%></td>
                         <td>
-                            <button class="pull-right button rounded mini j-edit-involvement" data-employee-id="<%=employee.id%>"><i class="icon-pencil"></i> Занятость</button>
+                            <button class="pull-right button rounded mini j-edit-involvement"
+                                    data-employee-id="<%=employee.id%>"><i class="icon-pencil"></i> Занятость
+                            </button>
                             <%if(involvements.length != 0){%>
-                                <%involvements.each(function(involvement){%>
-                                <div>
-                                    <%=involvement.project()%> | <%=involvement.get('involvement')%>%
-                                </div>
-                                <%});%>
+                            <%involvements.each(function(involvement){%>
+                            <div>
+                                <%=involvement.project()%> | <%=involvement.get('involvement')%>%
+                            </div>
+                            <%});%>
                             <%}else{%>
                             &nbsp;
                             <%};%>
                         </td>
                     </tr>
                     <%});%>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
+            <%});%>
         </div>
-    <%});%>
+    </div>
+
+    <div class="a-search-pane tab-content" style="width: 100%">
+
     </div>
 
 </div>

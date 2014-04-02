@@ -1,0 +1,36 @@
+<div class="padded">
+    <table class="table">
+        <thead>
+        <tr>
+            <th width="200">ФИО</th>
+            <th width="100">Свободное время</th>
+            <th>Проекты</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%_(employees).each(function(employee){%>
+        <%
+        var involvements = employee.involvements();
+        %>
+        <tr>
+            <td><%=employee%> <a class="j-nav" href="<%=employee.linkTo(" show")%>"><i class="icon-user"></i></a></td>
+            <td><%=employee.freetime()%></td>
+            <td>
+                <button class="pull-right button rounded mini j-edit-involvement" data-employee-id="<%=employee.id%>"><i
+                        class="icon-pencil"></i> Занятость
+                </button>
+                <%if(involvements.length != 0){%>
+                <%involvements.each(function(involvement){%>
+                <div>
+                    <%=involvement.project()%> | <%=involvement.get('involvement')%>%
+                </div>
+                <%});%>
+                <%}else{%>
+                &nbsp;
+                <%};%>
+            </td>
+        </tr>
+        <%});%>
+        </tbody>
+    </table>
+</div>
