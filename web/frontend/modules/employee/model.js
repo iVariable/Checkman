@@ -1,13 +1,13 @@
 define(
-    ['bicycle', 'helpers', 'application', './views/involvement/edit', './views/show/show'],
-    function (Bicycle, Helpers, App, View_InvolvementEdit, View_Show) {
+    ['bicycle', 'helpers', 'application', './views/involvement/edit', './views/show/show', './views/edit/edit'],
+    function (Bicycle, Helpers, App, View_InvolvementEdit, View_Show, View_Edit) {
 
         var translations = {
             secondName: "Фамилия",
             firstName: "Имя",
             status: "Статус",
             occupations: "Специализация",
-            salary: "Зарплата",
+            salary: "Зарплата (gross)",
             notes: "Заметки",
             projects: "Проекты",
             region_id: "Регион"
@@ -74,7 +74,8 @@ define(
 
                         htmlInclude: {
                             footer: function(model) {
-                                return '<tr><th>Стоимость дня работы</th><td>'+_.currencyFormat(model.get('salary')/30)+'</td></tr>' +
+                                return '<tr><th>Зарплата (net)</th><td>'+_.currencyFormat(model.get('salary') * 0.87)+'</td></tr>' +
+                                    '<tr><th>Стоимость дня работы</th><td>'+_.currencyFormat(model.get('salary')/30)+'</td></tr>' +
                                     '<tr><th>Стоимость часа работы</th><td>'+_.currencyFormat(model.get('salary')/30/8)+'</td></tr>'
                                 ;
                             }
@@ -101,7 +102,8 @@ define(
                 });
 
                 this.registerView('edit', function () {
-                    var view = new (Helpers.View.Model.Edit)({
+
+                    var view = new (View_Edit)({
                         model: _this,
 
                         exclude: ["id", "projects"],
