@@ -32,6 +32,10 @@ define(
                 })
             },
 
+            comparator: function(elem){
+                return elem.toString();
+            },
+
             linkTo: function(type){
                 var links = {
                     'new': 'admin/employees/new',
