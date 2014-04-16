@@ -1,9 +1,0 @@
-doctrine:
-    dbal:
-        default_connection: default
-        connections:
-            default:
-                dbname: db
-
-    orm:
-        entity_listener_resolver: entity_listener_resolver
