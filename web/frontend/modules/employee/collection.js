@@ -22,6 +22,10 @@ define(
 
                         fields: _this.model.prototype.fields,
 
+                        filterBy: function(model) {
+                            return model.toString().toLowerCase();
+                        },
+
                         title: "Сотрудники",
                         callbacks: {
                             removed: function(){
@@ -30,6 +34,12 @@ define(
                         }
                     });
                 })
+            },
+
+            active: function(){
+                return _(this.filter(function(elem){
+                    return elem.get('status') != 0;
+                }));
             },
 
             comparator: function(elem){

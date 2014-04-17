@@ -22,7 +22,7 @@ var occupations = app.collection('occupations');
                             <ul class="b-roles b-list b-list_content_roles">
                                 <%occupations.each(function(occupation){%>
                                 <%
-                                var freeEmployeesWithOccupation = employees.filter(function(employee){
+                                var freeEmployeesWithOccupation = employees.active().filter(function(employee){
                                 return ( employee.occupations().indexOf(occupation) != -1 ) && (employee.freetime() != false);
                                 });
                                 if( freeEmployeesWithOccupation.length == 0 ) return;
@@ -68,7 +68,7 @@ var occupations = app.collection('occupations');
                                 <%occupations.each(function(occupation){%>
                                 <%
                                 var employeesWithOccupation = _projectEmployees.filter(function(employee){
-                                return employee.occupations().indexOf(occupation) != -1;
+                                return (employee.occupations().indexOf(occupation) != -1) && (employee.get('status') != 0);
                                 });
                                 if( employeesWithOccupation.length == 0 ) return;
                                 %>

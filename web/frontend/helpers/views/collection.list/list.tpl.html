@@ -8,7 +8,16 @@
 <table class="table table-striped table-bordered box">
     <thead>
         <tr>
+            <%if(_(view.options.filterBy).isUndefined()){%>
             <th colspan="<%=countFields%>"><%=view.options.title%></th>
+            <%}else{%>
+            <th colspan="<%=countFields-2%>"><%=view.options.title%></th>
+            <th colspan="2">
+                <input class="pull-right search j-filter-by"
+                       style="width:230px; margin: 0; background: none;" type="text"
+                       placeholder="Фильтр..."/>
+            </th>
+            <%};%>
         </tr>
     </thead>
     <tbody>
@@ -20,7 +29,7 @@
             <th width="140">Действия</th>
         </tr>
         <%model.each(function(elem){%>
-        <tr>
+        <tr class="j-filterable" <%if(view.options.filterBy){%>data-filter-by="<%=view.options.filterBy(elem)%>"<%};%>>
             <%_(fields).each(function(key){%>
                 <%var attr = elem.get(key);%>
                 <td>

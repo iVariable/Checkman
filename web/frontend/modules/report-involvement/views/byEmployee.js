@@ -16,7 +16,7 @@ define(
                 'click a[data-toggle=tab]': 'event_setActiveTab'
             },
 
-            event_setActiveTab: function(e) {
+            event_setActiveTab: function (e) {
                 this.activeTabIndex($(e.currentTarget).data('tabIndex'));
             },
 
@@ -33,8 +33,8 @@ define(
             },
 
             _activeTabIndex: 0,
-            activeTabIndex: function(activeTabIndex){
-                if(!_(activeTabIndex).isUndefined()) {
+            activeTabIndex: function (activeTabIndex) {
+                if (!_(activeTabIndex).isUndefined()) {
                     this._activeTabIndex = activeTabIndex;
                 }
                 return this._activeTabIndex;

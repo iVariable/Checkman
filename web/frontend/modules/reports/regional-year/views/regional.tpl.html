@@ -3,11 +3,14 @@
         <div class="padded">Загрузка...</div>
     <%}else{%>
         <div class="padded">
-            <ul>
+            <div class="big-button-bar">
                 <%app.collection('regions').each(function(region){%>
-                    <li><a href="<%=view.linkTo(region.id, (new Date()).getFullYear())%>" class="j-nav"><%=region%></a></li>
+                    <a class="button large j-nav" href="<%=view.linkTo(region.id, (new Date()).getFullYear())%>" class="j-nav">
+                        <i class="icon-bar-chart"></i>
+                        <span><%=region%></span>
+                    </a>
                 <%});%>
-            </ul>
+            </div>
         </div>
     <%};%>
 </div>

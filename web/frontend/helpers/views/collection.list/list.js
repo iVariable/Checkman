@@ -13,7 +13,17 @@ define(
             events: {
                 'click .j-new-occupation': "event_newModel",
                 'click .j-edit-occupation': "event_editModel",
-                'click .j-remove-occupation': "event_removeModel"
+                'click .j-remove-occupation': "event_removeModel",
+                'keyup .j-filter-by': 'event_filter'
+            },
+
+            event_filter: function () {
+                var filter = this.$('.j-filter-by').val().toLowerCase();
+                if (filter == "") {
+                    this.$('table tbody .j-filterable').show();
+                } else {
+                    this.$('table tbody .j-filterable').not('[data-filter-by*='+filter+']').hide();
+                }
             },
 
             event_newModel: function(){},
