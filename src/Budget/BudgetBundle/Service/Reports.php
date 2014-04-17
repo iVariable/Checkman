@@ -42,7 +42,7 @@ class Reports
                     s.id
                 FROM Spendings s
                 LEFT JOIN
-                    employee e ON s.employee_id=e.id
+                    Employee e ON s.employee_id=e.id
                 WHERE
                     MONTH(s.`date`)="' . $date->format('m') . '"
                         AND YEAR(s.`date`)="' . $date->format('Y') . '"
