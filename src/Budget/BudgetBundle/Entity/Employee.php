@@ -94,7 +94,8 @@ class Employee
      *      "Employee"
      * })
      *
-     *  @Serializer\Accessor(getter="getProjectsIds")
+     * @Serializer\Type("array<integer>")
+     * @Serializer\Accessor(getter="getProjectsIds")
      *
      */
     private $projects;
@@ -126,6 +127,7 @@ class Employee
      * })
      *
      * @Serializer\Accessor(getter="getOccupationsIds")
+     * @Serializer\Type("array<integer>")
      */
     private $occupations;
 
