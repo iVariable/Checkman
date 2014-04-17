@@ -17,14 +17,14 @@ var occupations = app.collection('occupations');
     <div class="a-all">
         <ul class="nav nav-tabs">
             <%occupations.each(function(occupation, i){%>
-            <li class="<%if(i == 0){%>active<%};%>"><a href="#occupation-<%=occupation.id%>" data-toggle="tab"><%=occupation%></a>
+            <li class="<%if(i == view.activeTabIndex()){%>active<%};%>"><a href="#occupation-<%=occupation.id%>" data-tab-index="<%=i%>" data-toggle="tab"><%=occupation%></a>
             </li>
             <%});%>
         </ul>
 
         <div class="tab-content">
             <%occupations.each(function(occupation, i){%>
-            <div class="padded tab-pane <%if(i == 0){%>active<%};%>" id="occupation-<%=occupation.id%>">
+            <div class="padded tab-pane <%if(i == view.activeTabIndex()){%>active<%};%>" id="occupation-<%=occupation.id%>">
                 <table class="table">
                     <thead>
                     <tr>

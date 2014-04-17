@@ -12,7 +12,12 @@ define(
 
             events: {
                 'click .j-edit-involvement': 'event_editInvolvement',
-                'keyup .j-search': 'event_search'
+                'keyup .j-search': 'event_search',
+                'click a[data-toggle=tab]': 'event_setActiveTab'
+            },
+
+            event_setActiveTab: function(e) {
+                this.activeTabIndex($(e.currentTarget).data('tabIndex'));
             },
 
             event_editInvolvement: function (e) {
@@ -25,6 +30,14 @@ define(
                 App.layouts.main.modalWindowContainer.show(employee.view('involvement'));
 
                 return false;
+            },
+
+            _activeTabIndex: 0,
+            activeTabIndex: function(activeTabIndex){
+                if(!_(activeTabIndex).isUndefined()) {
+                    this._activeTabIndex = activeTabIndex;
+                }
+                return this._activeTabIndex;
             },
 
             event_search: function (e) {
