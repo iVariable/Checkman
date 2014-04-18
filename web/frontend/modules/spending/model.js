@@ -23,6 +23,9 @@ define(
             type: {
                 type: "entity",
                 entityType: "spendingstypes",
+                entityAllowed: function(model){
+                    return model.id != 0;
+                },
                 getter: "type"
             }
         };

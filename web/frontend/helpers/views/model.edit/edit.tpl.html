@@ -62,6 +62,7 @@ fields.push(key);
                                 <option value="">---</option>
                                 <%};%>
                                 <%collection.each(function(entity){%>
+                                <%if(view.options.fields[key].entityAllowed && !view.options.fields[key].entityAllowed(entity)){return;};%>
                                 <option value="<%=entity.id%>" <%if( attr == entity ){%>selected="selected"<%};%>><%=entity%></option>
                                 <%});%>
                             </select>
