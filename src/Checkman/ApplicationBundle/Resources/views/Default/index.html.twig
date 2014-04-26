@@ -62,8 +62,14 @@
         };
     </script>
 
-    <script type="text/javascript" data-main="/frontend/main.js"
-            src="/frontend/bower_components/requirejs/require.js"></script>
+    {% if app.environment == 'prod' %}
+        <script type="text/javascript" data-main="/frontend-build/main.js"
+                src="/frontend-build/bower_components/requirejs/require.js"></script>
+    {% else %}
+        <script type="text/javascript" data-main="/frontend/main.js"
+                src="/frontend/bower_components/requirejs/require.js"></script>
+    {% endif %}
+
 
 
     <link rel="stylesheet" href="/frontend/bower_components/select2/select2.css"/>
