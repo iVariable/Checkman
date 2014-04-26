@@ -34,22 +34,22 @@ class ReportsFunctionalTest extends WebTestCase
         $this->users['TgnOren'] = $container->get('r.user')->findOneByUsername('TgnOren');
         $this->users['Admin'] = $container->get('r.user')->findOneByUsername('Admin');
 
-        $this->regions['Tgn'] = $container->get('r.region')->findOneByTitle('Таганрог');
-        $this->regions['Orn'] = $container->get('r.region')->findOneByTitle('Оренбург');
-        $this->regions['Nsk'] = $container->get('r.region')->findOneByTitle('Новосибирск');
+        $this->regions['Tgn'] = $container->get('r.region')->findOneByTitle('Moscow');
+        $this->regions['Orn'] = $container->get('r.region')->findOneByTitle('Orenburg');
+        $this->regions['Nsk'] = $container->get('r.region')->findOneByTitle('Novosibirsk');
 
-        $this->projects['vtb24'] = $container->get('r.project')->findOneByTitle('ВТБ24');
-        $this->projects['softline'] = $container->get('r.project')->findOneByTitle('*.softline');
-        $this->projects['etp'] = $container->get('r.project')->findOneByTitle('ЕТП');
-        $this->projects['edu'] = $container->get('r.project')->findOneByTitle('edu.softline');
-        $this->projects['alpha'] = $container->get('r.project')->findOneByTitle('Альфастрахование');
+        $this->projects['yandex'] = $container->get('r.project')->findOneByTitle('yandex.ru');
+        $this->projects['habr'] = $container->get('r.project')->findOneByTitle('habrahabr.ru');
+        $this->projects['stack'] = $container->get('r.project')->findOneByTitle('stackoverflow.com');
+        $this->projects['ms'] = $container->get('r.project')->findOneByTitle('microsoft.com');
+        $this->projects['lenta'] = $container->get('r.project')->findOneByTitle('lenta.ru');
 
-        $this->projects['office.tgn'] = $container->get('r.project')->findOneByTitle('Офис. Таганрог');
-        $this->projects['office.oren'] = $container->get('r.project')->findOneByTitle('Офис. Оренбург');
-        $this->projects['office.nsk'] = $container->get('r.project')->findOneByTitle('Офис. Новосибирск');
+        $this->projects['office.tgn'] = $container->get('r.project')->findOneByTitle('Офис. Moscow');
+        $this->projects['office.oren'] = $container->get('r.project')->findOneByTitle('Офис. Orenburg');
+        $this->projects['office.nsk'] = $container->get('r.project')->findOneByTitle('Офис. Novosibirsk');
 
         /** @var  $servicesFactory \Checkman\CheckmanBundle\Service\Factory */
-        $servicesFactory = $container->get('budget.services.factory');
+        $servicesFactory = $container->get('checkman.services.factory');
 
         /** @var  $reports \Checkman\CheckmanBundle\Service\Reports */
         $this->reports['Tgn'] = $servicesFactory->getReportsForUser($this->users['Tgn']);
@@ -81,7 +81,7 @@ class ReportsFunctionalTest extends WebTestCase
 
         $expectations = [
             [
-                'project' => $this->projects['vtb24'],
+                'project' => $this->projects['yandex'],
                 'results' => [
                     ['user' => $this->users['Tgn'], 'result' => 9900],
                     ['user' => $this->users['TgnOren'], 'result' => 34900],
@@ -89,7 +89,7 @@ class ReportsFunctionalTest extends WebTestCase
                 ]
             ],
             [
-                'project' => $this->projects['softline'],
+                'project' => $this->projects['habr'],
                 'results' => [
                     ['user' => $this->users['Tgn'], 'result' => 69900],
                     ['user' => $this->users['TgnOren'], 'result' => 69900],
@@ -97,7 +97,7 @@ class ReportsFunctionalTest extends WebTestCase
                 ]
             ],
             [
-                'project' => $this->projects['etp'],
+                'project' => $this->projects['stack'],
                 'results' => [
                     ['user' => $this->users['Tgn'], 'result' => 29900],
                     ['user' => $this->users['TgnOren'], 'result' => 29900],
@@ -105,7 +105,7 @@ class ReportsFunctionalTest extends WebTestCase
                 ]
             ],
             [
-                'project' => $this->projects['edu'],
+                'project' => $this->projects['ms'],
                 'results' => [
                     ['user' => $this->users['Tgn'], 'result' => 50000],
                     ['user' => $this->users['TgnOren'], 'result' => 50000],
@@ -113,7 +113,7 @@ class ReportsFunctionalTest extends WebTestCase
                 ]
             ],
             [
-                'project' => $this->projects['alpha'],
+                'project' => $this->projects['lenta'],
                 'results' => [
                     ['user' => $this->users['Tgn'], 'result' => 0],
                     ['user' => $this->users['TgnOren'], 'result' => 0],
@@ -157,7 +157,7 @@ class ReportsFunctionalTest extends WebTestCase
          */
         $expectations = [
             [
-                'project' => $this->projects['vtb24'],
+                'project' => $this->projects['yandex'],
                 'results' => [
                     ['user' => $this->users['Tgn'], 'result' => 9900 + 12500 / 4 * 33 / 100],
                     [
@@ -171,7 +171,7 @@ class ReportsFunctionalTest extends WebTestCase
                 ]
             ],
             [
-                'project' => $this->projects['softline'],
+                'project' => $this->projects['habr'],
                 'results' => [
                     [
                         'user' => $this->users['Tgn'],
@@ -188,7 +188,7 @@ class ReportsFunctionalTest extends WebTestCase
                 ]
             ],
             [
-                'project' => $this->projects['etp'],
+                'project' => $this->projects['stack'],
                 'results' => [
                     ['user' => $this->users['Tgn'], 'result' => 29900 + 12500 / 4 * 33 / 100 + 12500 / 4 * 50 / 100],
                     [
@@ -202,7 +202,7 @@ class ReportsFunctionalTest extends WebTestCase
                 ]
             ],
             [
-                'project' => $this->projects['edu'],
+                'project' => $this->projects['ms'],
                 'results' => [
                     ['user' => $this->users['Tgn'], 'result' => 50000 + 12500 / 4 * 100 / 100],
                     ['user' => $this->users['TgnOren'], 'result' => 50000 + 12500 / 4 * 100 / 100],
@@ -210,7 +210,7 @@ class ReportsFunctionalTest extends WebTestCase
                 ]
             ],
             [
-                'project' => $this->projects['alpha'],
+                'project' => $this->projects['lenta'],
                 'results' => [
                     ['user' => $this->users['Tgn'], 'result' => 0],
                     ['user' => $this->users['TgnOren'], 'result' => 0],

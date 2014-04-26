@@ -16,78 +16,78 @@ class LoadTestData extends \Checkman\CheckmanBundle\DataFixtures\ORM\LoadFullDat
 
     public static $users = [
         'Admin' => [
-            'Оренбург',
-            'Таганрог',
-            'Красноярск',
-            'Новосибирск',
+            'Orenburg',
+            'Moscow',
+            'Novosibirsk',
+            'New York',
         ],
         'TgnOren' => [
-            'Оренбург',
-            'Таганрог',
+            'Orenburg',
+            'Moscow',
         ],
         'Tgn' => [
-            'Таганрог',
+            'Moscow',
         ]
     ];
 
     public static $employeeInfo = [
-        'Оренбург' => [
+        'Orenburg' => [
             'orn1 1' => [
                 'salary' => 10000,
                 'projects' => [
-                    'ВТБ24',
-                    'Газпром'
+                    "yandex.ru",//'yandex.ru',
+                    "google.com", //'google.com',
                 ]
             ],
             'orn2 2' => [
                 'salary' => 20000,
                 'projects' => [
-                    'ВТБ24'
+                    'yandex.ru'
                 ]
             ],
         ],
-        'Таганрог' => [
+        'Moscow' => [
             'tgn1 1' => [
                 'salary' => 30000,
                 'projects' => [
-                    'ВТБ24',
-                    '*.softline',
-                    "ЕТП"
+                    'yandex.ru',
+                    'habrahabr.ru',
+                    "stackoverflow.com"
                 ]
             ],
             'tgn2 2' => [
                 'salary' => 40000,
                 'projects' => [
-                    '*.softline'
+                    'habrahabr.ru'
                 ]
             ],
             'tgn3 2' => [
                 'salary' => 40000,
                 'projects' => [
-                    '*.softline',
-                    'ЕТП'
+                    'habrahabr.ru',
+                    'stackoverflow.com'
                 ]
             ],
             'tgn4 2' => [
                 'salary' => 50000,
                 'projects' => [
-                    'edu.softline'
+                    'microsoft.com'
                 ]
             ],
         ],
-        'Новосибирск' => [
+        'Novosibirsk' => [
             'nsk 1' => [
                 'salary' => 60000,
                 'projects' => [
-                    'ВТБ24',
-                    '*.softline',
-                    "ЕТП"
+                    'yandex.ru',
+                    'habrahabr.ru',
+                    "stackoverflow.com"
                 ]
             ],
             'nsk 2' => [
                 'salary' => 13,
                 'projects' => [
-                    'Альфастрахование'
+                    'lenta.ru'
                 ]
             ],
         ]
@@ -103,9 +103,9 @@ class LoadTestData extends \Checkman\CheckmanBundle\DataFixtures\ORM\LoadFullDat
     protected function fixSharedSpendings(ObjectManager $manager)
     {
         $sharedSpendings = [
-            'Таганрог' => 12500,
-            'Оренбург' => 23500,
-            'Новосибирск' => 31540,
+            'Moscow' => 12500,
+            'Orenburg' => 23500,
+            'Novosibirsk' => 31540,
         ];
 
         $date = \DateTime::createFromFormat('d.m.Y', self::$testDateStart);

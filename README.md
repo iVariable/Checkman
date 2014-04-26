@@ -1,4 +1,6 @@
-Budget
-======================
+Checkman
+=================
 
-Хренотня для учета бюджета за Володю. Володя заманался.
+Tool for fixing spendings on projects.
+
+Detailed description will be later, and demo website also. :)

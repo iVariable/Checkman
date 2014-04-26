@@ -28,7 +28,7 @@ class ReportsController extends FOSRestController
     public function getRegionSharedSpendingsAction($id, $year, $month, $format="json")
     {
         $date = \DateTime::createFromFormat('d-m-Y', '1-'.$month.'-'.$year);
-        $sharedSpengins = $this->get('budget.reports')->getSharedSpendingsByRegionAndDate($id, $date);
+        $sharedSpengins = $this->get('checkman.reports')->getSharedSpendingsByRegionAndDate($id, $date);
 
         $view = $this->view($sharedSpengins, 200)
             ->setFormat($format);
@@ -44,7 +44,7 @@ class ReportsController extends FOSRestController
         if ($year === null) {
             $year = date('Y');
         }
-        $data = $this->get('budget.reports')->getProjectsSummary($year);
+        $data = $this->get('checkman.reports')->getProjectsSummary($year);
 
         $view = $this->view($data, 200)
             ->setFormat($format);
@@ -59,7 +59,7 @@ class ReportsController extends FOSRestController
         if ($year === null) {
             $year = date('Y');
         }
-        $data = $this->get('budget.reports')->getRegionalYearlyReport($id, $year);
+        $data = $this->get('checkman.reports')->getRegionalYearlyReport($id, $year);
 
         $view = $this->view($data, 200)
             ->setFormat($format);
@@ -75,7 +75,7 @@ class ReportsController extends FOSRestController
         if ($year === null) {
             $year = date('Y');
         }
-        $data = $this->get('budget.reports')->getFOT($year);
+        $data = $this->get('checkman.reports')->getFOT($year);
 
         $view = $this->view(array_values($data), 200)
             ->setFormat($format);
@@ -91,7 +91,7 @@ class ReportsController extends FOSRestController
         if ($year === null) {
             $year = date('Y');
         }
-        $data = $this->get('budget.reports')->getProjectSummary($projectId, $year);
+        $data = $this->get('checkman.reports')->getProjectSummary($projectId, $year);
 
         $view = $this->view($data, 200)
             ->setFormat($format);
@@ -110,7 +110,7 @@ class ReportsController extends FOSRestController
         if ($month === null) {
             $month = date('m');
         }
-        $data = $this->get('budget.reports')->getProjectMonthDetails($projectId, $year, $month);
+        $data = $this->get('checkman.reports')->getProjectMonthDetails($projectId, $year, $month);
 
         $view = $this->view($data, 200)
             ->setFormat($format);

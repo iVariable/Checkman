@@ -20,8 +20,8 @@ executeCommand(
     $application,
     'budget:spendings:interval-fix',
     [
-        'startDate' => \Budget\BudgetBundle\DataFixtures\Test\LoadTestData::$testDateStart,
-        'endDate' => \Budget\BudgetBundle\DataFixtures\Test\LoadTestData::$testDateEnd,
+        'startDate' => \Checkman\CheckmanBundle\DataFixtures\Test\LoadTestData::$testDateStart,
+        'endDate' => \Checkman\CheckmanBundle\DataFixtures\Test\LoadTestData::$testDateEnd,
 
     ]
 );

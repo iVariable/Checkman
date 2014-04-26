@@ -1,17 +1,17 @@
 parameters:
-    budget.reports.class: Checkman\CheckmanBundle\Service\Reports
-    budget.history.class: Checkman\CheckmanBundle\Service\History
+    checkman.reports.class: Checkman\CheckmanBundle\Service\Reports
+    checkman.history.class: Checkman\CheckmanBundle\Service\History
 
 services:
-    budget.services.factory:
+    checkman.services.factory:
         class: Checkman\CheckmanBundle\Service\Factory
         arguments: [@service_container]
 
-    budget.reports:
-        class: %budget.reports.class%
-        factory_service: budget.services.factory
+    checkman.reports:
+        class: %checkman.reports.class%
+        factory_service: checkman.services.factory
         factory_method: getReportsForCurrentUser
 
-    budget.history:
-        class: %budget.history.class%
+    checkman.history:
+        class: %checkman.history.class%
         arguments: [@service_container]

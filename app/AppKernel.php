@@ -23,8 +23,8 @@ class AppKernel extends Kernel
             new CodeMonkeysRu\RepositoryAliasBundle\RepositoryAliasBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
-            new Checkman\ApplicationBundle\ApplicationBundle(),
 
+            new Checkman\ApplicationBundle\ApplicationBundle(),
             new Checkman\CheckmanBundle\CheckmanBundle(),
             new Checkman\RESTCheckmanBundle\RESTCheckmanBundle(),
 
