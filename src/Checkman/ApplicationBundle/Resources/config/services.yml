@@ -1,0 +1,7 @@
+parameters:
+
+services:
+  ivariable.extra.templating.helper.options:
+    class: Checkman\ApplicationBundle\Twig\Extension\Common
+    tags:
+       - { name: twig.extension, alias: common }

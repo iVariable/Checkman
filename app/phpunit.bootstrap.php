@@ -13,7 +13,7 @@ $kernel->boot();
 $application = new Application($kernel);
 $application->setAutoExit(false);
 //executeCommand($application, "doctrine:schema:create");
-executeCommand($application, "doctrine:fixtures:load", ["--fixtures" => "src/Budget/BudgetBundle/DataFixtures/Test"]);
+executeCommand($application, "doctrine:fixtures:load", ["--fixtures" => "src/Checkman/CheckmanBundle/DataFixtures/Test"]);
 
 //Shiiiiit
 executeCommand(

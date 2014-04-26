@@ -102,25 +102,25 @@ swiftmailer:
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
-    user_class: Budget\ApplicationBundle\Entity\User
+    user_class: Checkman\ApplicationBundle\Entity\User
 
 repository_alias:
     repository_key: "r"
     repository:
         user: ApplicationBundle:User
 
-        occupation: BudgetBundle:Occupation
-        region: BudgetBundle:Region
-        spending: BudgetBundle:Spendings
-        project: BudgetBundle:Project
-        employee: BudgetBundle:Employee
-        project_involvement: BudgetBundle:ProjectInvolvement
+        occupation: CheckmanBundle:Occupation
+        region: CheckmanBundle:Region
+        spending: CheckmanBundle:Spendings
+        project: CheckmanBundle:Project
+        employee: CheckmanBundle:Employee
+        project_involvement: CheckmanBundle:ProjectInvolvement
 
-        spendings: BudgetBundle:Spendings
-        spendings_type: BudgetBundle:SpendingsType
+        spendings: CheckmanBundle:Spendings
+        spendings_type: CheckmanBundle:SpendingsType
 
 simple_things_entity_audit:
     audited_entities:
-        - Budget\BudgetBundle\Entity\Project
-        - Budget\BudgetBundle\Entity\Employee
-        - Budget\BudgetBundle\Entity\ProjectInvolvement
+        - Checkman\BudgetBundle\Entity\Project
+        - Checkman\BudgetBundle\Entity\Employee
+        - Checkman\BudgetBundle\Entity\ProjectInvolvement

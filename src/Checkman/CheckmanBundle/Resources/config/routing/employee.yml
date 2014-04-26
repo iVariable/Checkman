@@ -1,0 +1,30 @@
+crud_employee:
+    pattern:  /
+    defaults: { _controller: "CheckmanBundle:Employee:index" }
+
+crud_employee_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "CheckmanBundle:Employee:show" }
+
+crud_employee_new:
+    pattern:  /new
+    defaults: { _controller: "CheckmanBundle:Employee:new" }
+
+crud_employee_create:
+    pattern:  /create
+    defaults: { _controller: "CheckmanBundle:Employee:create" }
+    requirements: { _method: post }
+
+crud_employee_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "CheckmanBundle:Employee:edit" }
+
+crud_employee_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "CheckmanBundle:Employee:update" }
+    requirements: { _method: post|put }
+
+crud_employee_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "CheckmanBundle:Employee:delete" }
+    requirements: { _method: post|delete }

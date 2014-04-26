@@ -1,0 +1,34 @@
+employee:
+    type:         rest
+    resource:     Checkman\RESTCheckmanBundle\Controller\EmployeeController
+    name_prefix:  api_v1_
+
+occupation:
+    type:         rest
+    resource:     Checkman\RESTCheckmanBundle\Controller\OccupationController
+    name_prefix:  api_v1_
+
+spendings_type:
+    type:         rest
+    resource:     Checkman\RESTCheckmanBundle\Controller\SpendingsTypeController
+    name_prefix:  api_v1_
+
+project:
+    type:         rest
+    resource:     Checkman\RESTCheckmanBundle\Controller\ProjectController
+    name_prefix:  api_v1_
+
+region:
+    type:         rest
+    resource:     Checkman\RESTCheckmanBundle\Controller\RegionController
+    name_prefix:  api_v1_
+
+spendings:
+    type:         rest
+    resource:     Checkman\RESTCheckmanBundle\Controller\SpendingsController
+    name_prefix:  api_v1_
+
+involvement:
+    type:         rest
+    resource:     Checkman\RESTCheckmanBundle\Controller\ProjectInvolvementController
+    name_prefix:  api_v1_

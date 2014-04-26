@@ -23,10 +23,10 @@ class AppKernel extends Kernel
             new CodeMonkeysRu\RepositoryAliasBundle\RepositoryAliasBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
-            new Budget\ApplicationBundle\ApplicationBundle(),
+            new Checkman\ApplicationBundle\ApplicationBundle(),
 
-            new Budget\BudgetBundle\BudgetBundle(),
-            new Budget\RESTBudgetBundle\RESTBudgetBundle(),
+            new Checkman\CheckmanBundle\CheckmanBundle(),
+            new Checkman\RESTCheckmanBundle\RESTCheckmanBundle(),
 
             new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
             new FOS\UserBundle\FOSUserBundle(),

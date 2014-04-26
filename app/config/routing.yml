@@ -1,15 +1,15 @@
 rest_budget:
-    resource: "@RESTBudgetBundle/Controller/"
+    resource: "@RESTCheckmanBundle/Controller/"
     type:     annotation
     prefix:   /
 
 users:
     type:     rest
     prefix:   /api/v1
-    resource: "@RESTBudgetBundle/Resources/config/rest_routes_v1.yml"
+    resource: "@RESTCheckmanBundle/Resources/config/rest_routes_v1.yml"
 
 budget:
-    resource: "@BudgetBundle/Controller/"
+    resource: "@CheckmanBundle/Controller/"
     type:     annotation
     prefix:   /
 
