@@ -8,7 +8,8 @@ define({
             deleting: "Удаление",
             saving: "Сохранение",
             save: "Сохранить",
-            cancel: "Отменить"
+            cancel: "Отменить",
+            loading: 'Загрузка'
         },
         helpers: {
             deleteConfirmation: "Вы действительно хотите удалить",

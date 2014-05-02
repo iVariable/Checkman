@@ -1,28 +1,28 @@
 <table class="table">
     <thead>
     <tr>
-        <th rowspan="2" style="vertical-align: middle">Проект</th>
-        <th colspan="12" style="text-align: center">Месяцы</th>
-        <th rowspan="2" style="vertical-align: middle">Итого</th>
+        <th rowspan="2" style="vertical-align: middle"><%=i18n.project%></th>
+        <th colspan="12" style="text-align: center"><%=i18n.months.title%></th>
+        <th rowspan="2" style="vertical-align: middle"><%=i18n.total%></th>
     </tr>
     <tr>
-        <th>Январь</th>
-        <th>Февраль</th>
-        <th>Март</th>
-        <th>Апрель</th>
-        <th>Май</th>
-        <th>Июнь</th>
-        <th>Июль</th>
-        <th>Август</th>
-        <th>Сентябрь</th>
-        <th>Октябрь</th>
-        <th>Ноябрь</th>
-        <th>Декабрь</th>
+        <th><%=i18n.months.jan%></th>
+        <th><%=i18n.months.feb%></th>
+        <th><%=i18n.months.mar%></th>
+        <th><%=i18n.months.apr%></th>
+        <th><%=i18n.months.may%></th>
+        <th><%=i18n.months.jun%></th>
+        <th><%=i18n.months.jul%></th>
+        <th><%=i18n.months.aug%></th>
+        <th><%=i18n.months.sep%></th>
+        <th><%=i18n.months.oct%></th>
+        <th><%=i18n.months.nov%></th>
+        <th><%=i18n.months.dec%></th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <th colspan="14">Общие региональные расходы</th>
+        <th colspan="14"><%=i18n.sharedRegionalSpendings%></th>
     </tr>
     <%_(view.report.getProjects()).chain().filter(function(project){ return project.region(); }).each(function(project){%>
     <tr>
@@ -36,7 +36,7 @@
     </tr>
     <%});%>
     <tr>
-        <th colspan="14">Проектные расходы</th>
+        <th colspan="14"><%=i18n.perProject%></th>
     </tr>
     <%_(view.report.getProjects()).chain().filter(function(project){ return !project.region(); }).sortBy(function(project){ return project.toString();}).each(function(project){%>
     <tr>

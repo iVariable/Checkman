@@ -6,7 +6,8 @@ define({
         deleting: "Removing",
         saving: "Saving",
         save: "Save",
-        cancel: "Cancel"
+        cancel: "Cancel",
+        loading: "Loading"
     },
     helpers: {
         deleteConfirmation: "Are you sure want to delete",

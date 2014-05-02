@@ -39,7 +39,7 @@ require.config({
 
     packages: [
         "application", "bicycle"
-        , "modules/occupation", "modules/reports", "helpers", "modules/project", "modules/region", "modules/employee", "modules/spendings-type", "modules/spending"
+        , "modules/occupation", "modules/financial-reports", "helpers", "modules/project", "modules/region", "modules/employee", "modules/spendings-type", "modules/spending"
         , "modules/report-involvement"
         , "modules/project-involvement"
     ]
@@ -50,7 +50,7 @@ require(
         'application',
         'mixins/main',
         //reports
-        'modules/reports',
+        'modules/financial-reports',
         //admin
         'modules/region', 'modules/occupation', "modules/project", "modules/employee",
         'modules/project-involvement', "modules/spendings-type", "modules/spending",
