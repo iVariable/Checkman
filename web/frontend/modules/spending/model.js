@@ -40,7 +40,7 @@ define(
                 type: false,
                 project: false,
                 description: "",
-                value: 0
+                value: "0"
             },
 
             __init: function(){

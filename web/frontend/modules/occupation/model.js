@@ -73,7 +73,7 @@ define(
                 titles[i18n.specs.psd] = "PSD";
                 titles[i18n.specs.js] = "JS";
                 titles[i18n.specs.ios] = "iOS";
-                titles[i18n.specs.adnroid] = "And";
+                titles[i18n.specs.android] = "And";
                 titles[i18n.specs.win] = "Win";
                 titles[i18n.specs.dotnet] = ".NET";
                 titles[i18n.specs.java] = "JAVA";

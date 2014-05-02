@@ -8,9 +8,11 @@ define({
         ,"freetime": "Free time"
         ,"specialization": "Specialization"
         ,"warning": "Warning!"
-        ,"todo": "Additional info on projects goes where. Later )"
+        ,"todo": "Additional info on projects goes here. Later )"
+        ,lookAtReport: 'Take a look at <a class="j-nav" href="reports/year">yearly report</a>. It needs your attention!'
     },
     menu:{
+        logout: "Logout",
         regions: "Regions",
         dashboard: "Dashboard"
     },

@@ -6,11 +6,13 @@
             </div>
 
             <div>
-                <div class="padded">
+                <div class="padded" style="padding-bottom: 5px; padding-top: 5px;">
+                    <img src="http://gravatar.com/avatar/<%=app.user.gravatarHash%>" class="pull-left" style="margin-right: 10px;">
                     <p><%=i18n.hello%> <b><%=app.user.login%></b>! </p>
-                    <p><%=i18n.regionsAvailable%> <%_(app.user.availableRegions).each(function(regionId){%>
-                        <%=app.collection('regions').get(regionId)%>
-                    <%});%></p>
+                    <p><%=i18n.regionsAvailable%> <%=_(app.user.availableRegions).chain().map(function(regionId){
+                        return app.collection('regions').get(regionId).get('title');}).value().join(', ')%>
+                    </p>
+                    <p><%=i18n.lookAtReport%></p>
                 </div>
 
             </div>

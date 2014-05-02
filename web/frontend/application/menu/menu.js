@@ -23,7 +23,10 @@ define(
             }),
 
             profile: Marionette.ItemView.extend({
-                template: Tpl_Profile
+                template: Tpl_Profile,
+                _serializeAdditionalData: {
+                    i18n: i18n.menu
+                }
             }),
 
             regionSelector: Marionette.ItemView.extend({

@@ -7,21 +7,21 @@ define({
         newSpec: "Новая специализация",
 
         specs: {
-            php: "PHP разработчик"
-            ,analyst: "Системный аналитик"
-            ,frontend: "Верстальщик"
-            ,qa: "Тестировщик"
-            ,psd: "Дизайнер"
-            ,js: "JS разработчик"
-            ,ios: "iOS разработчик"
-            ,android: "Android разработчик"
-            ,win: "WinPhone разработчик"
-            ,dotnet: ".NET разработчик"
-            ,java: "JAVA разработчик"
-            ,pm: "Менеджер проекта"
-            ,admin: "Системный администратор"
-            ,officeManager:"Офис-менеджер"
-            ,boss: "Региональный руководитель"
+            php: "PHP developer"
+            ,analyst: "System analyst"
+            ,frontend: "Frontend developer"
+            ,qa: "QA engineer"
+            ,psd: "Designer"
+            ,js: "JS developer"
+            ,ios: "iOS developer"
+            ,android: "Android developer"
+            ,win: "WinPhone developer"
+            ,dotnet: ".NET developer"
+            ,java: "JAVA developer"
+            ,pm: "Project manager"
+            ,admin: "System administrator"
+            ,officeManager:"Office manager"
+            ,boss: "Head of dept."
         }
     }
 })

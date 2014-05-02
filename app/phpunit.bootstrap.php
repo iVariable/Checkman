@@ -22,7 +22,6 @@ executeCommand(
     [
         'startDate' => \Checkman\CheckmanBundle\DataFixtures\Test\LoadTestData::$testDateStart,
         'endDate' => \Checkman\CheckmanBundle\DataFixtures\Test\LoadTestData::$testDateEnd,
-
     ]
 );
 

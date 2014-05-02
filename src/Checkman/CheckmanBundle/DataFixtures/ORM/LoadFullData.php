@@ -54,6 +54,22 @@ class LoadFullData extends ContainerAware implements FixtureInterface
         "Head of dept.",
     ];
 
+    public static $users = [
+        'Admin' => [
+            'Orenburg',
+            'Moscow',
+            'Novosibirsk',
+            'New York',
+        ],
+        'TgnOren' => [
+            'Orenburg',
+            'Moscow',
+        ],
+        'Tgn' => [
+            'Moscow',
+        ]
+    ];
+
     protected $occupations;
     protected $projects;
     protected $sharedProjects;
@@ -80,8 +96,25 @@ class LoadFullData extends ContainerAware implements FixtureInterface
 
     protected function loadAdditionalData(ObjectManager $manager)
     {
-        //for extension
+        $this->loadUsers($manager);
     }
+
+    protected function loadUsers(ObjectManager $manager)
+    {
+
+        $manipulator = $this->container->get('fos_user.util.user_manipulator');
+
+        foreach (self::$users as $username => $regions) {
+            /** @var $user \Checkman\ApplicationBundle\Entity\User */
+            $user = $manipulator->create($username, $username, $username . '@test.local', true, false);
+            foreach ($regions as $regionName) {
+                $user->addRegion($this->regions[$regionName]);
+            }
+            $manager->persist($user);
+        }
+        $manager->flush();
+    }
+
 
     public function loadRegions(ObjectManager $manager)
     {
