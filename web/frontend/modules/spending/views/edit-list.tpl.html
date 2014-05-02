@@ -1,6 +1,6 @@
 <div class="box">
     <div class="tab-header">
-        Детализация затрат
+        <%=i18n.title%>
     </div>
 
     <div>
@@ -8,10 +8,10 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th width="100">Дата</th>
-                    <th width="100">Затраты</th>
-                    <th>Описание</th>
-                    <th width="150">Действия</th>
+                    <th width="100"><%=i18n.date%></th>
+                    <th width="100"><%=i18n.spendings%></th>
+                    <th><%=i18n.description%></th>
+                    <th width="150"><%=_i18n.actions.title%></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -21,7 +21,7 @@
                     <td><%=spending.get('value')%></td>
                     <td><%=spending.get('description')%></td>
                     <td>
-                        <button class="button red mini j-remove" data-id="<%=spending.id%>"><i class="icon-trash"></i> Удалить</button>
+                        <button class="button red mini j-remove" data-id="<%=spending.id%>"><i class="icon-trash"></i> <%=_i18n.actions.delete%></button>
                     </td>
                 </tr>
                 <%});%>

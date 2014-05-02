@@ -2,13 +2,13 @@
     <div class="row-fluid">
         <div class="box">
             <div class="tab-header">
-                Приветы
+                <%=i18n.title%>
             </div>
 
             <div>
                 <div class="padded">
-                    <p>Привет <b><%=app.user.login%></b>! </p>
-                    <p>Тебе доступны для просмотра регионы: <%_(app.user.availableRegions).each(function(regionId){%>
+                    <p><%=i18n.hello%> <b><%=app.user.login%></b>! </p>
+                    <p><%=i18n.regionsAvailable%> <%_(app.user.availableRegions).each(function(regionId){%>
                         <%=app.collection('regions').get(regionId)%>
                     <%});%></p>
                 </div>
@@ -19,13 +19,13 @@
     <div class="row-fluid">
         <div class="span6">
             <div class="box">
-                <div class="tab-header">Алярм! Простой ресурсов!</div>
+                <div class="tab-header"><%=i18n.freeResourcesTitle%></div>
                 <div>
                     <table class="table">
                         <tr>
-                            <th>ФИО</th>
-                            <th>Специализация</th>
-                            <th>Свободное время</th>
+                            <th><%=i18n.name%></th>
+                            <th><%=i18n.specialization%></th>
+                            <th><%=i18n.freetime%></th>
                         </tr>
                         <%app.collection('employees').each(function(employee){%>
                             <%if(!employee.freetime()) return;%>
@@ -41,9 +41,9 @@
         </div>
         <div class="span6">
             <div class="black-box">
-                <div class="tab-header">Превышения</div>
+                <div class="tab-header"><%=i18n.warning%></div>
                 <div class="padded">
-                    Тут можно отображать проекты которые скоро закончатся, либо проекты, идущие с превышением бюджета
+                    <%=i18n.todo%>
                 </div>
             </div>
         </div>

@@ -7,9 +7,10 @@ define(
         'tpl!./secondary.tpl.html',
         'tpl!./breadcrumbs.tpl.html',
         'tpl!./profile.tpl.html',
-        'tpl!./regionSelector.tpl.html'
+        'tpl!./regionSelector.tpl.html',
+        'i18n!./../nls/general'
     ],
-    function (Marionette, Bicycle, _, Tpl_MainMenu, Tpl_SecondaryMenu, Tpl_Breadcrumbs, Tpl_Profile, Tpl_RegionSelector) {
+    function (Marionette, Bicycle, _, Tpl_MainMenu, Tpl_SecondaryMenu, Tpl_Breadcrumbs, Tpl_Profile, Tpl_RegionSelector, i18n) {
 
         var views = {
             main: Marionette.ItemView.extend({
@@ -27,25 +28,16 @@ define(
 
             regionSelector: Marionette.ItemView.extend({
                 template: Tpl_RegionSelector,
-
-                events: {
-                    //Не пашет почему то (
-                    'change .j-region-selector': 'event_regionSelected'
-                },
-
-                onRender: function(){
-                    this.$('.j-region-selector').change(_.bind(this.event_regionSelected, this));
-                },
-
-                event_regionSelected: function(e){
-                    var region = this.model.app.collection('regions').get(this.$(e.currentTarget).val());
-                    this.model.app.selectedRegion(region);
-                    this.model.app.redraw();
+                _serializeAdditionalData: {
+                    i18n: i18n.menu
                 }
             }),
 
             breadcrumbs: Marionette.ItemView.extend({
-                template: Tpl_Breadcrumbs
+                template: Tpl_Breadcrumbs,
+                _serializeAdditionalData: {
+                    i18n: i18n.menu
+                }
             })
         };
 

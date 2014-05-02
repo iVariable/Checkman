@@ -3,9 +3,10 @@ define(
         'bicycle',
         './model',
         'helpers',
+        'i18n!./nls/general',
         'module'
     ],
-    function (Bicycle, model, Helpers, module) {
+    function (Bicycle, model, Helpers, i18n, module) {
 
         var collection = {
             model: model,
@@ -26,7 +27,7 @@ define(
                             return model.toString().toLowerCase();
                         },
 
-                        title: "Сотрудники",
+                        title: i18n.employees,
                         callbacks: {
                             removed: function(){
                                 _this.render();

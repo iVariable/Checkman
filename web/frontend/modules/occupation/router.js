@@ -1,9 +1,10 @@
 define(
     [
-        'bicycle'
+        'bicycle',
+        'i18n!nls/general'
     ],
     function(
-        Bicycle
+        Bicycle, i18n
     ){
         var router = Bicycle.Core.Router.extend({
 
@@ -35,7 +36,7 @@ define(
             route_edit: function(id){
                 var model = this.collection().get(id);
                 this.app().menu.addBreadcrumb({ title: model.toString(), url: model.linkTo('show') });
-                this.app().menu.addBreadcrumb({ title: "Редактирование" });
+                this.app().menu.addBreadcrumb({ title: i18n.actions.edit });
                 this.show(model.view("edit"));
 
             },
@@ -47,7 +48,7 @@ define(
                     this.collection().add(model);
                     var saving = $.Deferred(),
                         _this = this;
-                    this.app().loader( 'Сохраняем', saving.promise() );
+                    this.app().loader( i18n.actions.saving, saving.promise() );
                     saving.done(function(){
                         _this.app().router().navigate(model.linkTo('edit'), true);
                     });

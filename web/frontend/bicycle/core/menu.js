@@ -67,7 +67,8 @@ define(['./model'], function (model) {
 
     var menu = {
 
-        __init: function (args) {
+        __init: function (args, opts) {
+            this.opts = opts;
             this._menu = {};
             this._breadcrumbs = [];
             this._paths = {};

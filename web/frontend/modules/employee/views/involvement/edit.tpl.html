@@ -1,10 +1,10 @@
 <div id="modal" class="black-box modal hide">
     <div class="modal-header tab-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <span>Проектная занятость: <%=model%></span>
+        <span><%=i18n.projectInvolvement%>: <%=model%></span>
     </div>
     <div class="modal-body *separator">
-        <h5 class="pull-right">Статус: <%=model.status()%></h5>
+        <h5 class="pull-right"><%=i18n.status%>: <%=model.status()%></h5>
         <h4><%=model%></h4>
         <h5><%=model.occupations()%></h5>
         <table class="table j-involvements">
@@ -22,11 +22,10 @@
                     </div>
                 </td>
                 <td>
-                    <a class="j-add-comment b-link_type_pseudo"><%if(involvement.get('notes') == ""){%>Добавить
-                        комментарий<%}else{%><%=involvement.get('notes')%><%};%></a>
+                    <a class="j-add-comment b-link_type_pseudo"><%if(involvement.get('notes') == ""){%><%=i18n.addComment%><%}else{%><%=involvement.get('notes')%><%};%></a>
 
                     <div class="input hidden j-comment"><textarea class="j-involvement-notes"
-                                                                  placeholder="Ваш комментарий" rows="3"><%=involvement.get('notes')%></textarea>
+                                                                  placeholder="<%=i18n.yourComment%>" rows="3"><%=involvement.get('notes')%></textarea>
                     </div>
                 </td>
                 <td>
@@ -50,10 +49,10 @@
                     </div>
                 </td>
                 <td>
-                    <a class="j-add-comment b-link_type_pseudo">Добавить комментарий</a>
+                    <a class="j-add-comment b-link_type_pseudo"><%=i18n.addComment%></a>
 
                     <div class="input hidden j-comment"><textarea class="j-involvement-notes"
-                                                                  placeholder="Ваш комментарий" rows="3"></textarea>
+                                                                  placeholder="<%=i18n.yourComment%>" rows="3"></textarea>
                     </div>
                 </td>
                 <td>
@@ -65,13 +64,13 @@
     <div class="modal-footer">
         <div class="inner-well">
             <div class="buttons">
-                <button class="j-add button mini rounded green pull-left"><i class="icon-plus-sign"></i> Добавить проект</button>
+                <button class="j-add button mini rounded green pull-left"><i class="icon-plus-sign"></i> <%=i18n.addProject%></button>
 
-                <a class="button mini rounded light-gray" data-dismiss="modal">Отменить</a>
-                <button class="button j-save mini rounded blue"><i class="icon-ok"></i> Сохранить</button>
+                <a class="button mini rounded light-gray" data-dismiss="modal"><%=_i18n.actions.cancel%></a>
+                <button class="button j-save mini rounded blue"><i class="icon-ok"></i> <%=_i18n.actions.save%></button>
             </div>
             <div class="saving hide" style="text-align: center">
-                Сохраняю...
+                <%=_i18n.actions.saving%>...
             </div>
         </div>
     </div>

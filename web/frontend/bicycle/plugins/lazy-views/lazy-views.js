@@ -43,6 +43,10 @@ define(function(){
             }
             if( typeof console != 'undefined' ) console.log('View not found!', this._views, name);
             throw Error('View not found ['+name+']!');
+        },
+
+        render: function(name){
+            this.view(name).render();
         }
     }
 

@@ -1,11 +1,11 @@
 define(
-    ['bicycle', 'helpers', 'application'],
-    function (Bicycle, Helpers, App) {
+    ['bicycle', 'helpers', 'application', 'i18n!./nls/general'],
+    function (Bicycle, Helpers, App, i18n) {
 
         var model = {
 
             defaults: {
-                title: "Новый регион"
+                title: i18n.newModel
             },
 
             __init: function(){
@@ -15,9 +15,7 @@ define(
                         model:_this,
 
                         exclude: ["id"],
-                        translations: {
-                            title: "Название"
-                        }
+                        translations: i18n.model
                     });
                 });
 
@@ -26,9 +24,7 @@ define(
                         model:_this,
 
                         exclude: ["id"],
-                        translations: {
-                            title: "Название"
-                        },
+                        translations: i18n.model,
 
                         callbacks: {
                             saved: function(){
@@ -48,9 +44,7 @@ define(
                         model:_this,
 
                         exclude: ["id"],
-                        translations: {
-                            title: "Название"
-                        },
+                        translations: i18n.model,
 
                         callbacks: {
                             saved: function(){

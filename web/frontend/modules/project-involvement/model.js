@@ -1,6 +1,6 @@
 define(
-    ['bicycle', 'helpers', 'application'],
-    function (Bicycle, Helpers, App) {
+    ['bicycle', 'helpers', 'application', 'i18n!./nls/general'],
+    function (Bicycle, Helpers, App, i18n) {
 
         var fields = {
             project: {
@@ -15,12 +15,7 @@ define(
             }
         };
 
-        var translations = {
-            notes: "Примечания",
-            involvement: "Занятость (в процентах)",
-            project: "Проект",
-            employee: "Сотрудник"
-        };
+        var translations = i18n.model;
 
         var model = {
 

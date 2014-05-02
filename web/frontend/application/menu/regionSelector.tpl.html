@@ -1,2 +1,9 @@
-<b>Регионы:</b> <%=_(app.user.availableRegions).chain().map(function(regionId){
-return app.collection('regions').get(regionId).get('title');}).value().join(', ')%>
+<span><b><%=i18n.regions%>:</b> <%=_(app.user.availableRegions).chain().map(function(regionId){
+return app.collection('regions').get(regionId).get('title');}).value().join(', ')%></span>
+<span style="margin-left: 15px;">
+<%if(model.opts.locale == "en"){%>
+<span>En</span> | <a href="<%=model.opts.switchLocaleUrl%>">Рус</a>
+<%}else{%>
+<a href="<%=model.opts.switchLocaleUrl%>">En</a> | <span>Рус</span>
+<%};%>
+</span

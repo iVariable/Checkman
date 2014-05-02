@@ -1,0 +1,54 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th rowspan="2" style="vertical-align: middle"><%=i18n.project%></th>
+        <th colspan="12" style="text-align: center"><%=i18n.months.title%></th>
+        <th rowspan="2" style="vertical-align: middle"><%=i18n.total%></th>
+    </tr>
+    <tr>
+        <th><%=i18n.months.jan%></th>
+        <th><%=i18n.months.feb%></th>
+        <th><%=i18n.months.mar%></th>
+        <th><%=i18n.months.apr%></th>
+        <th><%=i18n.months.may%></th>
+        <th><%=i18n.months.jun%></th>
+        <th><%=i18n.months.jul%></th>
+        <th><%=i18n.months.aug%></th>
+        <th><%=i18n.months.sep%></th>
+        <th><%=i18n.months.oct%></th>
+        <th><%=i18n.months.nov%></th>
+        <th><%=i18n.months.dec%></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th colspan="14"><%=i18n.sharedRegionalSpendings%></th>
+    </tr>
+    <%_(view.report.getProjects()).chain().filter(function(project){ return project.region(); }).each(function(project){%>
+    <tr>
+        <th><a href="<%=project.linkTo('finance_report_by_year', view.options.year)%>" class="j-nav"><%=project%></a></th>
+        <%for(var i=1;i< 13; i++){%>
+            <td>
+                <a href="<%=project.linkTo('finance_report_by_year_month', view.options.year, i)%>" class="j-nav"><%=_.currencyFormat(view.report.getProjectTotalByMonth(project, i), false)%></a>
+            </td>
+        <%};%>
+        <td><%=_.currencyFormat(view.report.getProjectTotal(project))%></td>
+    </tr>
+    <%});%>
+    <tr>
+        <th colspan="14"><%=i18n.perProject%></th>
+    </tr>
+    <%_(view.report.getProjects()).chain().filter(function(project){ return !project.region(); }).sortBy(function(project){ return project.toString();}).each(function(project){%>
+    <tr>
+        <th><a href="<%=project.linkTo('finance_report_by_year', view.options.year)%>" class="j-nav"><%=project%></a></th>
+        <%for(var i=1;i< 13; i++){%>
+        <td>
+            <a href="<%=project.linkTo('finance_report_by_year_month', view.options.year, i)%>" class="j-nav"><%=_.currencyFormat(view.report.getProjectTotalByMonth(project, i), false)%></a>
+        </td>
+        <%};%>
+        <td><%=_.currencyFormat(view.report.getProjectTotal(project))%></td>
+    </tr>
+    <%});%>
+    </tbody>
+</table>
+

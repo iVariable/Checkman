@@ -37,20 +37,21 @@ class LoadFullData extends ContainerAware implements FixtureInterface
     ];
 
     public static $occupationTitles = [
-        'Региональный руководитель',
-         'Офис-менеджер',
-         'PHP разработчик',
-         '.NET разработчик',
-         'JAVA разработчик',
-         'Системный аналитик',
-         'Тестировщик',
-         'Дизайнер',
-         'Менеджер проекта',
-         'Верстальщик',
-         'Системный администратор',
-         'iOS разработчик',
-         'Android разработчик',
-         'WinPhone разработчик'
+        "PHP developer",
+        "System analyst",
+        "Frontend developer",
+        "QA engineer",
+        "Designer",
+        "JS developer",
+        "iOS developer",
+        "Android developer",
+        "WinPhone developer",
+        ".NET developer",
+        "JAVA developer",
+        "Project manager",
+        "System administrator",
+        "Office manager",
+        "Head of dept.",
     ];
 
     protected $occupations;

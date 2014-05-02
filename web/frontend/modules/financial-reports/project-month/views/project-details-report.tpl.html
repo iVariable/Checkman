@@ -1,0 +1,79 @@
+<style>
+    .j-report-description {
+        display: none;
+    }
+
+    .b-spending-table {
+
+    }
+
+    .b-spending-table TR TD, .b-spending-table TR TH {
+        border: 0 none;
+        padding: 1px 5px;
+    }
+
+    .b-spending-table .b-header TD, .b-spending-table .b-header TH {
+        border-bottom: 1px solid #ccc;
+        padding-top: 15px;
+    }
+
+    .b-spending-table .b-total-header TD, .b-spending-table .b-total-header TH {
+        border-top: 1px solid #ccc;
+        margin-top: 15px;
+    }
+    .b-spending-table .b-report-description TD {
+        padding: 5px 15px;
+    }
+</style>
+<table class="table b-spending-table">
+    <thead>
+    <tr>
+        <td width="210"></td>
+        <td></td>
+        <td></td>
+        <td width="120"></td>
+        <td width="120"></td>
+    </tr>
+    </thead>
+    <tbody>
+    <%view.report.getTypes().each(function(type){%>
+        <tr class="b-header">
+            <th colspan="4"><%=type%></th>
+            <th><%=_.currencyFormat(view.report.getTotalByType(type))%></th>
+        </tr>
+        <%view.report.getByType(type).each(function(employeeReport){%>
+            <%if(employeeReport.employee()){%>
+                <tr class="j-report-row" data-type-id="<%=type.id%>" data-employee-id="<%=employeeReport.employee().id%>">
+                    <td><%=employeeReport.employee()%></td>
+                    <td><%=employeeReport.employee().occupations()%></td>
+                    <td><abbr title="Учтено дней"><%=employeeReport.get('rows')%></abbr></td>
+                    <td><%=_.currencyFormat(employeeReport.get('total'))%></td>
+                    <td><%if(type.id != 0){%>
+                        <a class="j-edit-spendings mini" data-type-id="<%=type.id%>" data-employee-id="<%=employeeReport.employee().id%>"><%=_i18n.actions.edit%></a>
+                        <%};%>
+                    </td>
+                </tr>
+            <%}else{%>
+                <tr class="j-report-row" data-type-id="<%=type.id%>" data-employee-id="">
+                    <td colspan="2"><%=i18n.sharedRegionalSpendings%></td>
+                    <td><abbr title="Учтено дней"><%=employeeReport.get('rows')%></abbr></td>
+                    <td><%=_.currencyFormat(employeeReport.get('total'))%></td>
+                    <td><%if(type.id != 0){%><a class="j-edit-spendings mini" data-type-id="<%=type.id%>" data-employee-id=""><%=_i18n.actions.edit%></a><%};%></td>
+                </tr>
+            <%};%>
+            <%if(employeeReport.description()){%>
+            <tr class="j-report-description b-report-description">
+                <td colspan="3"><div class="well"><i><%=employeeReport.description().join('<br />')%></i></div></td>
+                <td colspan="2"></td>
+            </tr>
+            <%};%>
+        <%});%>
+    <%});%>
+    </tbody>
+    <tfoot>
+    <tr class="b-header">
+        <th colspan="4"><%=i18n.total%>:</th>
+        <th><%=_.currencyFormat(view.report.getTotal())%></th>
+    </tr>
+    </tfoot>
+</table>

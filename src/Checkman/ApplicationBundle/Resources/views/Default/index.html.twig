@@ -6,8 +6,14 @@
     <script type="text/javascript">
         var require = {
             config: {
+                "i18n": {
+                    "locale": "{{ locale }}"
+                },
+
                 "application/main": {
                     container: "body",
+                    locale: "{{ locale }}",
+                    switchLocaleUrl: "{{ switchLocaleUrl }}",
                     user: {
                         id: "{{ app.user.id }}",
                         login: "{{ app.user.username }}",
@@ -43,19 +49,19 @@
                 "modules/employee/history-collection": {
                     url: "{{ path("api_v1_get_employee_projectshistory", {"id": ":id"}) }}"
                 },
-                "modules/reports/year/projects-collection": {
+                "modules/financial-reports/year/projects-collection": {
                     url: "{{ path("api_v1_reports_projects", {"year": ":year"}) }}"
                 },
-                "modules/reports/fot/fot-collection": {
+                "modules/financial-reports/fot/fot-collection": {
                     url: "{{ path("api_v1_reports_fot", {"year": ":year"}) }}"
                 },
-                "modules/reports/project-summary/project-summary-collection": {
+                "modules/financial-reports/project-summary/project-summary-collection": {
                     url: "{{ path("api_v1_reports_project", {"projectId": ":id", "year": ":year"}) }}"
                 },
-                "modules/reports/regional-year/regional-collection": {
+                "modules/financial-reports/regional-year/regional-collection": {
                     url: "{{ path("api_v1_reports_regional", {"id": ":id", "year": ":year"}) }}"
                 },
-                "modules/reports/project-month/project-month-details-collection": {
+                "modules/financial-reports/project-month/project-month-details-collection": {
                     url: "{{ path("api_v1_reports_project_month_detail", {"projectId": ":id", "year": ":year", "month": ":month"}) }}"
                 }
             }

@@ -1,12 +1,18 @@
 define(
     [
         'bicycle',
-        'tpl!./edit.tpl.html'
+        'tpl!./edit.tpl.html',
+        'i18n!nls/general',
+        'i18n!./../../nls/general'
     ],
-    function (Bicycle, TPL_Show) {
+    function (Bicycle, TPL_Show, _i18n, i18n) {
 
         return Bicycle.Core.View.extend({
             template: TPL_Show,
+            _serializeAdditionalData: {
+                i18n: i18n.involvement,
+                _i18n: _i18n
+            },
 
             onRender: function () {
                 this.modal().modal();
@@ -50,7 +56,7 @@ define(
             },
 
             event_remove: function (e) {
-                if (confirm("Вы уверены, что хотите удалить данную занятость по проекту?")) {
+                if (confirm(i18n.involvement.deleteConfirmation)) {
                     this.$(e.currentTarget).closest('.j-involvement').remove();
                 }
             },

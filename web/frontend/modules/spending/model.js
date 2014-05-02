@@ -1,6 +1,6 @@
 define(
-    ['bicycle', 'helpers', 'application'],
-    function (Bicycle, Helpers, App) {
+    ['bicycle', 'helpers', 'application', 'i18n!./nls/general', 'i18n!nls/general'],
+    function (Bicycle, Helpers, App, i18n, _i18n) {
 
         var fields = {
             date: {
@@ -30,14 +30,7 @@ define(
             }
         };
 
-        var translations = {
-            date: "Дата",
-            description: "Примечания",
-            value: "Сумма",
-            project: "Проект",
-            employee: "Сотрудник",
-            type: "Тип затрат"
-        };
+        var translations = i18n.model;
 
         var model = {
 
@@ -76,7 +69,7 @@ define(
 
                         callbacks: {
                             saving: function(xhr){
-                                App.loader('Сохраняем затраты...', xhr);
+                                App.loader(_i18n.actions.saving, xhr);
                             }
                         }
                     });
@@ -97,7 +90,7 @@ define(
                         fields: fields,
                         callbacks: {
                             saving: function(xhr){
-                                App.loader('Сохраняем затраты...', xhr);
+                                App.loader(_i18n.actions.saving, xhr);
                             }
                         }
                     });

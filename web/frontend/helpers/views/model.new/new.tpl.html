@@ -1,7 +1,7 @@
 <table class="table table-striped table-bordered box">
     <thead>
     <tr>
-        <th colspan="2">New <%=model%></th>
+        <th colspan="2"><%=model%></th>
     </tr>
     </thead>
     <tbody>
@@ -67,8 +67,8 @@
     <tfoot>
     <tr>
         <td colspan="2" class="j-buttons">
-            <a class="button j-cancel j-nav" href="<%=view.save2collection.linkTo('list')%>"><i class="icon-remove"></i> Отменить</a>
-            <button class="button j-save green"><i class="icon-ok"></i> Сохранить</button>
+            <a class="button j-cancel j-nav" href="<%=view.save2collection.linkTo('list')%>"><i class="icon-remove"></i> <%=i18n.actions.cancel%></a>
+            <button class="button j-save green"><i class="icon-ok"></i> <%=i18n.actions.save%></button>
         </td>
     </tr>
     </tfoot>

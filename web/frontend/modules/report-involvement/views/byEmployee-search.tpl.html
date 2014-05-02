@@ -2,9 +2,9 @@
     <table class="table">
         <thead>
         <tr>
-            <th width="200">ФИО</th>
-            <th width="100">Свободное время</th>
-            <th>Проекты</th>
+            <th width="200"><%=i18n.name%></th>
+            <th width="100"><%=i18n.freetime%></th>
+            <th><%=i18n.projects%></th>
         </tr>
         </thead>
         <tbody>
@@ -13,11 +13,11 @@
         var involvements = employee.involvements();
         %>
         <tr>
-            <td><%=employee%> <a class="j-nav" href="<%=employee.linkTo(" show")%>"><i class="icon-user"></i></a></td>
+            <td><%=employee%> <a class="j-nav" href="<%=employee.linkTo("show")%>"><i class="icon-user"></i></a></td>
             <td><%=employee.freetime()%></td>
             <td>
                 <button class="pull-right button rounded mini j-edit-involvement" data-employee-id="<%=employee.id%>"><i
-                        class="icon-pencil"></i> Занятость
+                        class="icon-pencil"></i> <%=i18n.involvement%>
                 </button>
                 <%if(involvements.length != 0){%>
                 <%involvements.each(function(involvement){%>

@@ -1,11 +1,8 @@
 define(
-    ['bicycle', 'helpers', 'application'],
-    function (Bicycle, Helpers, App) {
+    ['bicycle', 'helpers', 'application', 'i18n!nls/general', 'i18n!./nls/general'],
+    function (Bicycle, Helpers, App, _i18n, i18n) {
 
-        var translations = {
-            title: "Название",
-            description: "Описание"
-        };
+        var translations = i18n.model;
 
         var fields = {
             description: {
@@ -15,7 +12,7 @@ define(
 
         var callbacks = {
             saving: function(savingDeferred){
-                App.loader('Сохранение', savingDeferred);
+                App.loader(_i18n.actions.saving, savingDeferred);
             },
 
             saved: function(){
@@ -26,7 +23,7 @@ define(
         var model = {
 
             defaults: {
-                title: "Новый тип затрат"
+                title: i18n.newModel
                 ,description: ""
             },
 

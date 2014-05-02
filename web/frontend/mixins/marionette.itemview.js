@@ -7,11 +7,17 @@ define(
 
         _.extend(Marionette.ItemView.prototype, {
             serializeData: function(){
-                return {
+                var data = {
                     model: this.model,
                     view: this,
                     app: App
-                };
+                }
+
+                if (!_(this._serializeAdditionalData).isUndefined()){
+                    _.extend(data, this._serializeAdditionalData);
+                }
+
+                return data;
             }
         })
 

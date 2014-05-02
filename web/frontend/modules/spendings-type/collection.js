@@ -3,9 +3,10 @@ define(
         'bicycle',
         './model',
         'helpers',
-        'module'
+        'module',
+        'i18n!./nls/general'
     ],
-    function (Bicycle, model, Helpers, module) {
+    function (Bicycle, model, Helpers, module, i18n) {
 
         var collection = {
             model: model,
@@ -18,12 +19,9 @@ define(
                         model:_this,
 
                         exclude: ["id"],
-                        translations: {
-                            title: "Название",
-                            description: "Описание"
-                        },
+                        translations: i18n.model,
 
-                        title: "Тип затрат",
+                        title: i18n.title,
                         callbacks: {
                             removed: function(){
                                 _this.render();

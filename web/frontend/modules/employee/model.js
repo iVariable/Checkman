@@ -1,22 +1,14 @@
 define(
-    ['bicycle', 'helpers', 'application', './views/involvement/edit', './views/show/show', './views/edit/edit'],
-    function (Bicycle, Helpers, App, View_InvolvementEdit, View_Show, View_Edit) {
+    ['bicycle', 'helpers', 'application', './views/involvement/edit', './views/show/show', './views/edit/edit',
+    'i18n!./nls/model', "i18n!nls/general"],
+    function (Bicycle, Helpers, App, View_InvolvementEdit, View_Show, View_Edit, i18n, _i18n) {
 
-        var translations = {
-            secondName: "Фамилия",
-            firstName: "Имя",
-            status: "Статус",
-            occupations: "Специализация",
-            salary: "Зарплата (gross)",
-            notes: "Заметки",
-            projects: "Проекты",
-            region_id: "Регион"
-        }
+        var translations = i18n.model;
 
         var statuses = {
-            "0": "Удален",
-            "1": "Активен",
-            "2": "В отпуске/временно неактивен"
+            "0": i18n.statuses.fired,
+            "1": i18n.statuses.active,
+            "2": i18n.statuses.inactive
         };
 
         var fields = {
@@ -74,9 +66,9 @@ define(
 
                         htmlInclude: {
                             footer: function(model) {
-                                return '<tr><th>Зарплата (net)</th><td>'+_.currencyFormat(model.get('salary') * 0.87)+'</td></tr>' +
-                                    '<tr><th>Стоимость дня работы</th><td>'+_.currencyFormat(model.get('salary')/30)+'</td></tr>' +
-                                    '<tr><th>Стоимость часа работы</th><td>'+_.currencyFormat(model.get('salary')/30/8)+'</td></tr>'
+                                return '<tr><th>'+i18n.netSalary+'</th><td>'+_.currencyFormat(model.get('salary') * 0.87)+'</td></tr>' +
+                                    '<tr><th>'+i18n.dayCost+'</th><td>'+_.currencyFormat(model.get('salary')/30)+'</td></tr>' +
+                                    '<tr><th>'+i18n.hourCost+'</th><td>'+_.currencyFormat(model.get('salary')/30/8)+'</td></tr>'
                                 ;
                             }
                         }
@@ -95,7 +87,7 @@ define(
                             },
 
                             saving: function(xhr){
-                                App.loader('Сохраняем занятость сотрудника', xhr);
+                                App.loader(_i18n.actions.saving, xhr);
                             }
                         }
                     });

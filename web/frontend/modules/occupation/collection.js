@@ -3,9 +3,10 @@ define(
         'bicycle',
         './model',
         'helpers',
+        'i18n!./nls/general',
         'module'
     ],
-    function (Bicycle, model, Helpers, module) {
+    function (Bicycle, model, Helpers, i18n, module) {
 
         var collection = {
             model: model,
@@ -19,13 +20,13 @@ define(
 
                         exclude: ["id"],
                         translations: {
-                            title: "Название"
+                            title: i18n.title
                         },
 
-                        title: "Специализации",
+                        title: i18n.specializations,
                         callbacks: {
                             removed: function(){
-                                _this.render();
+                                _this.render('list');
                             }
                         }
                     });
