@@ -3,12 +3,18 @@ define(
         'bicycle',
         'tpl!./byEmployee.tpl.html',
         'tpl!./byEmployee-search.tpl.html',
-        'application'
+        'application',
+        'i18n!nls/general',
+        'i18n!./../nls/general'
     ],
-    function (Bicycle, TPL_List, TPL_Search, App) {
+    function (Bicycle, TPL_List, TPL_Search, App, _i18n, i18n) {
 
         return Bicycle.Core.View.extend({
             template: TPL_List,
+            _serializeAdditionalData: {
+                i18n: i18n,
+                _i18n: _i18n
+            },
 
             events: {
                 'click .j-edit-involvement': 'event_editInvolvement',
@@ -54,7 +60,7 @@ define(
                         return index.indexOf(searchString) !== -1;
                     });
                     this.$('.a-all').hide();
-                    this.$('.a-search-pane').html(TPL_Search({employees: employees}));
+                    this.$('.a-search-pane').html(TPL_Search({employees: employees, i18n: i18n, _i18n: _i18n}));
                     this.$('.a-search-pane').show();
                 }
             }

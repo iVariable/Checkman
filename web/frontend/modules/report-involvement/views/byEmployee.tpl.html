@@ -7,11 +7,11 @@ var occupations = app.collection('occupations');
 <div class="tabbable black-box" style="margin-bottom: 18px;">
 
     <div class="tab-header">
-        Персонал
+        <%=i18n.personel%>
         <div class="pull-right">
             <input class="search j-search"
                    style="width:230px; margin-top:3px; height: 23px; line-height: 12px; margin-right: 2px" type="text"
-                   placeholder="Фильтровать по ФИО или проекту..."/>
+                   placeholder="<%=i18n.filterPlaceholder%>"/>
         </div>
     </div>
     <div class="a-all">
@@ -28,9 +28,9 @@ var occupations = app.collection('occupations');
                 <table class="table">
                     <thead>
                     <tr>
-                        <th width="200">ФИО</th>
-                        <th width="100">Свободное время</th>
-                        <th>Проекты</th>
+                        <th width="200"><%=i18n.name%></th>
+                        <th width="100"><%=i18n.freetime%></th>
+                        <th><%=i18n.projects%></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -46,7 +46,7 @@ var occupations = app.collection('occupations');
                         <td><%=employee.freetime()%></td>
                         <td>
                             <button class="pull-right button rounded mini j-edit-involvement"
-                                    data-employee-id="<%=employee.id%>"><i class="icon-pencil"></i> Занятость
+                                    data-employee-id="<%=employee.id%>"><i class="icon-pencil"></i> <%=i18n.involvement%>
                             </button>
                             <%if(involvements.length != 0){%>
                             <%involvements.each(function(involvement){%>

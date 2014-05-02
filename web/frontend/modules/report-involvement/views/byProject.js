@@ -2,12 +2,16 @@ define(
     [
         'bicycle',
         'tpl!./byProject.tpl.html',
-        'application'
+        'application',
+        'i18n!./../nls/general'
     ],
-    function (Bicycle, TPL_List, App) {
+    function (Bicycle, TPL_List, App, i18n) {
 
         return Bicycle.Core.View.extend({
             template: TPL_List,
+            _serializeAdditionalData: {
+                i18n: i18n
+            },
 
             events: {
                 'keyup .j-filter-projects': 'event_filterProjects',
