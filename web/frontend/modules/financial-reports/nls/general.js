@@ -2,7 +2,18 @@ define({
     en: true,
     root: {
         loadingReport: 'Загрузка годового отчета...',
-        title: "Сводный годовой отчет",
+        loadingRegionalReport: 'Загрузка регионального годового отчета...',
+        loadingProjectReport: 'Загрузка отчета по проекту...',
+        loadingDetails: 'Загрузка детализации...',
+
+        yearlyTitle: "Сводный годовой отчет",
+        regionalTitle: "Годовой отчет по региону",
+        projectTitle: 'Сводный отчет по проекту',
+
+        detalization: 'Детализация',
+        addSpendings: "Добавить расходы",
+        details: "Подробности",
+
         months: {
             title: "Месяцы",
             jan: "Январь",

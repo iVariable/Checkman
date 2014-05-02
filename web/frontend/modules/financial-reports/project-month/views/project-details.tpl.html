@@ -1,24 +1,23 @@
 <div style="margin-bottom: 10px;">
-    <button class="button j-add-spendings pull-right"><i class="icon-plus"></i> Добавить расходы</button>
+    <button class="button j-add-spendings pull-right"><i class="icon-plus"></i> <%=i18n.addSpendings%></button>
 </div>
 <div class="j-spendings-add-container" style="margin-top: 10px; clear:both;">&nbsp;</div>
 
 <div class="box">
     <div class="tab-header">
-        Детализация: <%=view.options.project%> [<%=view.options.month%>/<%=view.options.year%>]
+        <%=i18n.detalization%>: <%=view.options.project%> [<%=view.options.month%>/<%=view.options.year%>]
         <div class="pull-right">
             <span class="options">
                 <div class="btn-group">
-                    <button class="button mini j-toggle-description">Подробности</button>
+                    <button class="button mini j-toggle-description"><%=i18n.details%></button>
                 </div>
             </span>
-
         </div>
     </div>
 
     <div class="padded">
 
-        <div class="j-report">Загрузка...</div>
+        <div class="j-report"><%=_i18n.actions.loading%>...</div>
     </div>
 
 </div>

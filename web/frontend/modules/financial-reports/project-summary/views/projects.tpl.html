@@ -1,6 +1,6 @@
 <div class="box">
     <div class="tab-header">
-        Сводный отчет по проекту
+        <%=i18n.projectTitle%>
         <%if(view.options.projectId){%>
         "<%=view.report.getProject()%>" <%=view.options.year%>
 
@@ -27,7 +27,7 @@
             </div>
             <div class="span3">
                 <div class="padded">
-                    <h5>Общие региональные расходы</h5>
+                    <h5><%=i18n.sharedRegionalSpendings%></h5>
                     <ul>
                         <%app.collection('projects').chain().filter(function(project){ return project.region(); }).each(function(project){%>
                         <li>
@@ -37,7 +37,7 @@
                         </li>
                         <%});%>
                     </ul>
-                    <h5>Проектные расходы</h5>
+                    <h5><%=i18n.perProject%></h5>
                     <ul>
                         <%app.collection('projects').chain().filter(function(project){ return !project.region(); }).each(function(project){%>
                         <li>
@@ -53,13 +53,13 @@
     </div>
     <%}else{%>
     <div class="padded">
-        <h5>Общие региональные расходы</h5>
+        <h5><%=i18n.sharedRegionalSpendings%></h5>
         <ul>
             <%app.collection('projects').chain().filter(function(project){ return project.region(); }).each(function(project){%>
             <li><a class="j-nav" href="<%=project.linkTo("finance_report_by_year", (new Date()).getFullYear())%>"><%=project%></a></li>
             <%});%>
         </ul>
-        <h5>Проектные расходы</h5>
+        <h5><%=i18n.perProject%></h5>
         <ul>
             <%app.collection('projects').chain().filter(function(project){ return !project.region(); }).each(function(project){%>
             <li><a class="j-nav" href="<%=project.linkTo("finance_report_by_year", (new Date()).getFullYear())%>"><%=project%></a></li>

@@ -5,7 +5,7 @@ define(
         'tpl!./year.tpl.html',
         'tpl!./year-report.tpl.html',
         'application',
-        'i18n!./../nls/general',
+        'i18n!./../../nls/general',
         'i18n!nls/general'
     ],
     function (Marionette, Collection, TPL_List, TPL_Report, App, i18n, _i18n) {

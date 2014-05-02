@@ -1,6 +1,17 @@
 define({
     loadingReport: 'Loading report...',
-    title: "Yearly overall report",
+    loadingRegionalReport: 'Loading regional report...',
+    loadingProjectReport: 'Loading project report...',
+    loadingDetails: "Loading detalization...",
+
+    yearlyTitle: "Yearly overall report",
+    regionalTitle: "Regional report",
+    projectTitle: 'Project report',
+
+    detalization: 'Detalization',
+    addSpendings: "Add spendings",
+    details: "Details",
+
     months: {
         title: "Months",
         jan: "January",

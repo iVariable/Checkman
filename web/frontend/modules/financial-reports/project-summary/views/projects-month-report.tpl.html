@@ -8,7 +8,7 @@ var types = _(view.getSpendingTypes());
         <%types.each(function(type){%>
         <th><%=type%></th>
         <%});%>
-        <th>Итого</th>
+        <th><%=i18n.total%></th>
     </tr>
     </thead>
     <tbody>

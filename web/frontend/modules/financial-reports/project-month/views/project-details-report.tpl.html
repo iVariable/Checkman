@@ -48,14 +48,17 @@
                     <td><%=employeeReport.employee().occupations()%></td>
                     <td><abbr title="Учтено дней"><%=employeeReport.get('rows')%></abbr></td>
                     <td><%=_.currencyFormat(employeeReport.get('total'))%></td>
-                    <td><a class="j-edit-spendings mini" data-type-id="<%=type.id%>" data-employee-id="<%=employeeReport.employee().id%>">Редактировать</a></td>
+                    <td><%if(type.id != 0){%>
+                        <a class="j-edit-spendings mini" data-type-id="<%=type.id%>" data-employee-id="<%=employeeReport.employee().id%>"><%=_i18n.actions.edit%></a>
+                        <%};%>
+                    </td>
                 </tr>
             <%}else{%>
                 <tr class="j-report-row" data-type-id="<%=type.id%>" data-employee-id="">
-                    <td colspan="2">Общие затраты</td>
+                    <td colspan="2"><%=i18n.sharedRegionalSpendings%></td>
                     <td><abbr title="Учтено дней"><%=employeeReport.get('rows')%></abbr></td>
                     <td><%=_.currencyFormat(employeeReport.get('total'))%></td>
-                    <td><a class="j-edit-spendings mini" data-type-id="<%=type.id%>" data-employee-id="">Редактировать</a></td>
+                    <td><%if(type.id != 0){%><a class="j-edit-spendings mini" data-type-id="<%=type.id%>" data-employee-id=""><%=_i18n.actions.edit%></a><%};%></td>
                 </tr>
             <%};%>
             <%if(employeeReport.description()){%>
@@ -69,7 +72,7 @@
     </tbody>
     <tfoot>
     <tr class="b-header">
-        <th colspan="4">Итого:</th>
+        <th colspan="4"><%=i18n.total%>:</th>
         <th><%=_.currencyFormat(view.report.getTotal())%></th>
     </tr>
     </tfoot>

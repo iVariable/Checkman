@@ -4,12 +4,18 @@ define(
         './../project-month-details-collection',
         'tpl!./project-details.tpl.html',
         'tpl!./project-details-report.tpl.html',
-        'application'
+        'application',
+        'i18n!nls/general',
+        'i18n!./../../nls/general'
     ],
-    function (Bicycle, Collection, TPL_List, TPL_Report, App) {
+    function (Bicycle, Collection, TPL_List, TPL_Report, App, _i18n, i18n) {
 
         return Bicycle.Core.View.extend({
             template: TPL_List,
+            _serializeAdditionalData: {
+                i18n: i18n,
+                _i18n: _i18n
+            },
 
             report: new Collection(),
 
@@ -44,14 +50,14 @@ define(
 
                 this.$('.j-detalization-container').remove();
 
-                var $container = $('<tr class="j-detalization-container"><td colspan="6">Загрузка...</td></tr>')
+                var $container = $('<tr class="j-detalization-container"><td colspan="6">'+_i18n.actions.loading+'...</td></tr>')
                     .insertAfter(this.$('.j-report-row[data-type-id='+typeId+'][data-employee-id='+employeeId+']'))
                     .find('td')
                 ;
 
                 collection.setUrlParams(filterParams);
 
-                App.loader('Загрузка детализации...', collection.fetch()).done(function(){
+                App.loader(i18n.loadingDetails, collection.fetch()).done(function(){
                     collection.view('edit-list').$el = $container;
                     collection.view('edit-list').render();
                 });
@@ -97,7 +103,7 @@ define(
 
                 if (!_(this.options.project).isUndefined()) {
                     this.report.setProjectAndYearAndMonth(this.options.project.id, this.options.year, this.options.month);
-                    App.loader('Загрузка отчета по проекту...', this.report.fetch()).done(function () {
+                    App.loader(i18n.loadingProjectReport, this.report.fetch()).done(function () {
                         _this.renderReport();
                     });
                 }
@@ -105,23 +111,23 @@ define(
             },
 
             renderReport: function () {
-                this.reportContainer.html(TPL_Report({view: this}));
+                this.reportContainer.html(TPL_Report({view: this, i18n: i18n, _i18n: _i18n}));
             },
 
             getMonths: function(){
                 var months = [
-                    'Январь',
-                    'Февраль',
-                    'Март',
-                    'Апрель',
-                    'Май',
-                    'Июнь',
-                    'Июль',
-                    'Август',
-                    'Сентябрь',
-                    'Октябрь',
-                    'Ноябрь',
-                    'Декабрь'
+                    i18n.months.jan,
+                    i18n.months.feb,
+                    i18n.months.mar,
+                    i18n.months.apr,
+                    i18n.months.may,
+                    i18n.months.jun,
+                    i18n.months.jul,
+                    i18n.months.aug,
+                    i18n.months.sep,
+                    i18n.months.oct,
+                    i18n.months.nov,
+                    i18n.months.dec
                 ];
 
                 return months;

@@ -4,15 +4,20 @@ define(
         './../project-summary-collection',
         'tpl!./projects.tpl.html',
         'tpl!./projects-month-report.tpl.html',
-        'application'
+        'application',
+        'i18n!./../../nls/general',
+        'i18n!nls/general'
     ],
-    function (Marionette, Collection, TPL_List, TPL_Report, App) {
+    function (Marionette, Collection, TPL_List, TPL_Report, App, i18n, _i18n) {
 
         return Marionette.ItemView.extend({
             template: TPL_List,
+            _serializeAdditionalData: {
+                i18n: i18n,
+                _i18n: _i18n
+            },
 
             report: new Collection(),
-
 
             onBeforeRender: function () {
                 var _this = this;
@@ -22,7 +27,7 @@ define(
 
                 if (!_(this.options.projectId).isUndefined()) {
                     this.report.setProjectAndYear(this.options.projectId, this.options.year);
-                    App.loader('Загрузка отчета по проекту...', this.report.fetch()).done(function () {
+                    App.loader(i18n.loadingProjectReport, this.report.fetch()).done(function () {
                         _this.renderReport();
                     });
                 }
@@ -46,26 +51,26 @@ define(
                     }
                 });
 
-                this.$('.j-report-container').html("Загрузил");
+                this.$('.j-report-container').html("Loaded");
 
-                this.$('.j-report-by-type').html(TPL_Report({view: this}));
+                this.$('.j-report-by-type').html(TPL_Report({view: this, i18n: i18n, _i18n: _i18n}));
 
             },
 
             getMonths: function(){
                 var months = [
-                    'Январь',
-                    'Февраль',
-                    'Март',
-                    'Апрель',
-                    'Май',
-                    'Июнь',
-                    'Июль',
-                    'Август',
-                    'Сентябрь',
-                    'Октябрь',
-                    'Ноябрь',
-                    'Декабрь'
+                    i18n.months.jan,
+                    i18n.months.feb,
+                    i18n.months.mar,
+                    i18n.months.apr,
+                    i18n.months.may,
+                    i18n.months.jun,
+                    i18n.months.jul,
+                    i18n.months.aug,
+                    i18n.months.sep,
+                    i18n.months.oct,
+                    i18n.months.nov,
+                    i18n.months.dec
                 ];
 
                 return months;
