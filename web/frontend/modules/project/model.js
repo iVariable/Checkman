@@ -1,19 +1,13 @@
 define(
-    ['bicycle', 'helpers', 'application'],
-    function (Bicycle, Helpers, App) {
+    ['bicycle', 'helpers', 'application', 'i18n!./nls/general'],
+    function (Bicycle, Helpers, App, i18n) {
 
-        var translations = {
-            title: "Название",
-            status: "Статус",
-            region_id: "Регион (общие расходы)",
-            description: "Описание"
-        };
-
+        var translations = i18n.model;
 
         var statuses = {
-            "0": "Удален",
-            "1": "Активен",
-            "2": "Завершен"
+            "0": i18n.statuses.deleted,
+            "1": i18n.statuses.active,
+            "2": i18n.statuses.finished
         };
 
         var fields = {
@@ -36,7 +30,7 @@ define(
         var model = {
 
             defaults: {
-                title: "Новый проект",
+                title: i18n.newModel,
                 status: 1,
                 region_id: null,
                 description: ""
