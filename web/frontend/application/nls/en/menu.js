@@ -3,7 +3,7 @@ define({
     involvement: {
         title: "Personal involement",
         perProject: "Per project",
-        perSpeciality: "Per speciality"
+        perSpeciality: "Per specialization"
     },
     reports: {
         title: "Financial reports",
@@ -17,7 +17,7 @@ define({
         title: "Admin",
         employee: "Employees",
         projects: "Projects",
-        occupation: "Speciality",
+        occupation: "Specialization",
         regions: "Regions",
         spendingTypes: "Spending types"
     }

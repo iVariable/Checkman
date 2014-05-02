@@ -1,11 +1,11 @@
 define(
-    ['bicycle', 'helpers', 'application'],
-    function (Bicycle, Helpers, App) {
+    ['bicycle', 'helpers', 'application', 'i18n!./nls/general'],
+    function (Bicycle, Helpers, App, i18n) {
 
         var model = {
 
             defaults: {
-                title: "Новая специализация"
+                title: i18n.newSpec
             },
 
             __init: function(){
@@ -15,9 +15,7 @@ define(
                         model:_this,
 
                         exclude: ["id"],
-                        translations: {
-                            title: "Название"
-                        }
+                        translations: i18n
                     });
                 });
 
@@ -26,9 +24,7 @@ define(
                         model:_this,
 
                         exclude: ["id"],
-                        translations: {
-                            title: "Название"
-                        },
+                        translations: i18n,
 
                         callbacks: {
                             saved: function(){
@@ -48,9 +44,7 @@ define(
                         model:_this,
 
                         exclude: ["id"],
-                        translations: {
-                            title: "Название"
-                        },
+                        translations: i18n,
 
                         callbacks: {
                             saved: function(){
@@ -71,37 +65,35 @@ define(
             },
 
             shortTitle: function(){
-                var titles = {
-                    "PHP разработчик": "PHP"
-                    ,"Системный аналитик": "А"
-                    ,"Верстальщик": "HTML"
-                    ,"Тестировщик": "QA"
-                    ,"Дизайнер": "PSD"
-                    ,"JS разработчик": "JS"
-                    ,"iOS разработчик": "iOS"
-                    ,"Android разработчик": "And"
-                    ,"WinPhone разработчик": "Win"
-                    ,".NET разработчик": ".NET"
-                    ,"JAVA разработчик": "JAVA"
-                    ,"Менеджер проекта": "PM"
-                    ,"Системный администратор": "ADMIN"
-                    ,"Офис-менеджер": "OFFICE"
-                    ,"Региональный руководитель": "BOSS"
-                };
+                var titles = {};
+                titles[i18n.specs.php] = "PHP";
+                titles[i18n.specs.analyst] = "А";
+                titles[i18n.specs.frontend] = "HTML";
+                titles[i18n.specs.qa] = "QA";
+                titles[i18n.specs.psd] = "PSD";
+                titles[i18n.specs.js] = "JS";
+                titles[i18n.specs.ios] = "iOS";
+                titles[i18n.specs.adnroid] = "And";
+                titles[i18n.specs.win] = "Win";
+                titles[i18n.specs.dotnet] = ".NET";
+                titles[i18n.specs.java] = "JAVA";
+                titles[i18n.specs.pm] = "PM";
+                titles[i18n.specs.admin] = "ADMIN";
+                titles[i18n.specs.officeManager] = "OFFICE";
+                titles[i18n.specs.boss] = "BOSS";
 
                 return titles[this.get('title')]?titles[this.get('title')]:this.get('title');
             },
 
             abbr: function(){
-                var titles = {
-                    "PHP разработчик": "php"
-                    ,"Аналитик": "analytics"
-                    ,"Верстальщик": "html"
-                    ,"Тестировщик": "qa"
-                    ,"Дизайнер": "psd"
-                    ,"Разработчик. JS": "js"
-                    ,".NET разработчик": "dotnet"
-                };
+                var titles = {};
+                titles[i18n.specs.php] = "php";
+                titles[i18n.specs.analyst] = "analytics";
+                titles[i18n.specs.frontend] = "html";
+                titles[i18n.specs.qa] = "qa";
+                titles[i18n.specs.psd] = "psd";
+                titles[i18n.specs.js] = "js";
+                titles[i18n.specs.dotnet] = "dotnet";
 
                 return titles[this.get('title')]?titles[this.get('title')]:'free';
             },
