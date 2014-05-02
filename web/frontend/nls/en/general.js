@@ -4,6 +4,7 @@ define({
         add: "Add",
         edit: "Edit",
         deleting: "Removing",
+        delete: "Delete",
         saving: "Saving",
         save: "Save",
         cancel: "Cancel",
