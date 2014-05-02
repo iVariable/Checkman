@@ -6,8 +6,14 @@
     <script type="text/javascript">
         var require = {
             config: {
+                "i18n": {
+                    "locale": "{{ locale }}"
+                },
+
                 "application/main": {
                     container: "body",
+                    locale: "{{ locale }}",
+                    switchLocaleUrl: "{{ switchLocaleUrl }}",
                     user: {
                         id: "{{ app.user.id }}",
                         login: "{{ app.user.username }}",

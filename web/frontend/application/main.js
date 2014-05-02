@@ -113,7 +113,7 @@ define(
             delete MenuData.admin.children.spendingstype;
         }
 
-        app.menu = new Menu(MenuData, {app: app});
+        app.menu = new Menu(MenuData, {app: app, locale: module.config().locale, switchLocaleUrl: module.config().switchLocaleUrl});
         app.menu.app = app;
 
         app.router = new Router();

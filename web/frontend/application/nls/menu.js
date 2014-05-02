@@ -21,7 +21,7 @@ define({
             projects: "Проекты",
             occupation: "Специализация",
             regions: "Регионы",
-            spendingsType: "Типы затрат"
+            spendingTypes: "Типы затрат"
         }
     }
 });
