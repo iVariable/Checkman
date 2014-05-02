@@ -15,7 +15,7 @@
             <th colspan="2">
                 <input class="pull-right search j-filter-by"
                        style="width:230px; margin: 0; background: none;" type="text"
-                       placeholder="Фильтр..."/>
+                       placeholder="<%=i18n.helpers.filterPlaceholder%>"/>
             </th>
             <%};%>
         </tr>
@@ -26,7 +26,7 @@
                 <%if(view.options.exclude && _(view.options.exclude).contains(key)) return;%>
                 <th><%if(view.options.translations && view.options.translations[key]){%><%=view.options.translations[key]%><%}else{%><%=key%><%}%></th>
             <%});%>
-            <th width="140">Действия</th>
+            <th width="140"><%=i18n.actions.actions%></th>
         </tr>
         <%model.each(function(elem){%>
         <tr class="j-filterable" <%if(view.options.filterBy){%>data-filter-by="<%=view.options.filterBy(elem)%>"<%};%>>
@@ -63,7 +63,7 @@
     <tfoot>
         <tr>
             <td colspan="<%=countFields%>">
-                <a href="<%=model.linkTo('new')%>" class="j-nav j-new-occupation button blue"><i class="icon-plus"></i> Добавить</a>
+                <a href="<%=model.linkTo('new')%>" class="j-nav j-new-occupation button blue"><i class="icon-plus"></i> <%=i18n.actions.add%></a>
             </td>
         </tr>
     </tfoot>

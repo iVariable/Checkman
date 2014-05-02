@@ -2,13 +2,17 @@ define(
     [
         'bicycle',
         'tpl!./list.tpl.html',
-        'application'
+        'application',
+        'i18n!nls/general'
     ],
-    function (Bicycle, TPL_List, App) {
+    function (Bicycle, TPL_List, App, i18n) {
 
 
         return Bicycle.Core.View.extend({
             template: TPL_List,
+            _serializeAdditionalData: {
+                i18n: i18n
+            },
 
             events: {
                 'click .j-new-occupation': "event_newModel",
@@ -32,7 +36,7 @@ define(
                 var id = $(e.currentTarget).data('id'),
                     model = this.model.get(id);
                 if( !model ) throw Error('Model not found');
-                if( confirm( 'Вы действительно хотите удалить "'+model+'"?' ) ){
+                if( confirm( i18n.helpers.deleteConfirmation + ' "'+model+'"?' ) ){
                     var removed = $.Deferred(),
                         _this = this;
                     removed.done(function(){
@@ -47,7 +51,7 @@ define(
                         removed.done(this.options.callbacks.removed);
                     }
 
-                    App.loader( 'Удаление сущности', removed.promise() );
+                    App.loader( i18n.actions.deleting, removed.promise() );
                     model.destroy({
                         success: function(){
                             removed.resolve();
