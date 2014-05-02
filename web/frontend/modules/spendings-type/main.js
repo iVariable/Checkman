@@ -3,10 +3,11 @@ define(
         'bicycle',
         'application',
         './router',
-        './collection'
+        './collection',
+        'i18n!./nls/general'
     ],
 
-    function (Bycycle, app, Router, Collection) {
+    function (Bycycle, app, Router, Collection, i18n) {
 
         var Module = app.module('spendingstype', function (module) {
 
@@ -15,7 +16,7 @@ define(
 
             app.collection('spendingstypes', new Collection());
             app.collection('spendingstypes').reloadCollection = function(){
-                return app.loader('Загрузка типов затрат', this.fetch());
+                return app.loader(i18n.loadingCollection, this.fetch());
             };
 
             app.addInitializer(function(){
