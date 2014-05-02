@@ -22,6 +22,7 @@ Installation
 - Install backend packages thru [composer](composer|https://getcomposer.org/): ``` cd checkman.local && composer install```
 - Install frontent packages with [bower](http://bower.io/): ``` cd web/frontend/ && bower install```
 - Fill parameters.yml with correct DSN: ``` cd ../../app/config && cp parameters.yml.dist parameters.yml && nano parameters.yml```
+- Install requirejs: ``` npm install -g requirejs ```
 - Run deploy script: ``` cd ../../ && ./redeploy.sh```
 
 Done! Now you have a fully functional copy of Checkman, populated with test data.
