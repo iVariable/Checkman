@@ -5,14 +5,17 @@ define({
         loadingRegionalReport: 'Загрузка регионального годового отчета...',
         loadingProjectReport: 'Загрузка отчета по проекту...',
         loadingDetails: 'Загрузка детализации...',
+        loadingWage: 'Загрузка ФОТ за год...',
 
         yearlyTitle: "Сводный годовой отчет",
         regionalTitle: "Годовой отчет по региону",
         projectTitle: 'Сводный отчет по проекту',
+        wageTitle: "ФОТ",
 
         detalization: 'Детализация',
         addSpendings: "Добавить расходы",
         details: "Подробности",
+        employee: "Сотрудник",
 
         months: {
             title: "Месяцы",

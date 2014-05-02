@@ -3,14 +3,17 @@ define({
     loadingRegionalReport: 'Loading regional report...',
     loadingProjectReport: 'Loading project report...',
     loadingDetails: "Loading detalization...",
+    loadingWage: "Loading wage fund report...",
 
     yearlyTitle: "Yearly overall report",
     regionalTitle: "Regional report",
     projectTitle: 'Project report',
+    wageTitle: "Wage fund report",
 
     detalization: 'Detalization',
     addSpendings: "Add spendings",
     details: "Details",
+    employee: "Employee",
 
     months: {
         title: "Months",
