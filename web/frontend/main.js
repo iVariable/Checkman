@@ -7,6 +7,7 @@ require.config({
         marionette: 'bower_components/backbone.marionette/lib/backbone.marionette',
         text: 'bower_components/requirejs-text/text',
         tpl: 'bower_components/requirejs-tpl/tpl',
+        i18n: 'bower_components/requirejs-i18n/i18n',
         backbone_routefilter: 'bower_components/backbone.routefilter/dist/backbone.routefilter.min',
         backbone_actas_paginatable: 'bower_components/backbone.actas.paginatable/src/Backbone.actAs.Paginatable',
         moment: 'bower_components/momentjs/moment'

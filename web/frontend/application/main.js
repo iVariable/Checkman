@@ -1,4 +1,3 @@
-
 define(
     [
         'bicycle', 'backbone',
@@ -7,14 +6,17 @@ define(
 
         './menu',
 
+        'i18n!./nls/general',
         "module"
     ],
-    function (Bicycle, Backbone, Router, Menu, Layouts, MenuData, module) {
+    function (Bicycle, Backbone, Router, Menu, Layouts, MenuData, i18n, module) {
+
+        //TODO: My eyes... rework this shit!
 
         var app = new Bicycle.Core.Application();
 
         app.user = module.config().user;
-        app.user.canEditRegion = function(regionId){
+        app.user.canEditRegion = function (regionId) {
             if (_.isObject(regionId)) regionId = regionId.id;
             regionId = parseInt(regionId);
             return this.isAdmin || _(this.availableRegions).contains(regionId);
@@ -63,7 +65,7 @@ define(
                 notification.notification.dismiss();
                 //@TODO: Картинку с ошибкой
                 Notifications.push({
-                    text: "ОШИБКА: <br />"+text
+                    text: i18n.error + ": <br />" + text
                 });
             })
 
@@ -94,7 +96,7 @@ define(
             });
         };
 
-        app.redraw = function(){
+        app.redraw = function () {
             this.layouts.main.regionManager.each(function (region) {
                 if (region.currentView)region.currentView.render();
             })
@@ -128,9 +130,7 @@ define(
             app.layouts.main.regionSelector.draw(app.menu.view('regionSelector'));
 
             if (Backbone.history) {
-
                 app.prepareNavigation();
-
                 Backbone.history.start();
             }
 

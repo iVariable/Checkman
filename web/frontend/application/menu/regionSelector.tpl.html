@@ -1,2 +1,2 @@
-<b>Регионы:</b> <%=_(app.user.availableRegions).chain().map(function(regionId){
+<b><%=i18n.regions%>:</b> <%=_(app.user.availableRegions).chain().map(function(regionId){
 return app.collection('regions').get(regionId).get('title');}).value().join(', ')%>
