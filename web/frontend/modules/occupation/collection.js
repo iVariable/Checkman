@@ -26,7 +26,7 @@ define(
                         title: i18n.specializations,
                         callbacks: {
                             removed: function(){
-                                _this.render();
+                                _this.render('list');
                             }
                         }
                     });
