@@ -3,10 +3,11 @@ define(
         'bicycle',
         'application',
         './router',
-        './collection'
+        './collection',
+        'i18n!./nls/general'
     ],
 
-    function (Bycycle, app, Router, Collection) {
+    function (Bycycle, app, Router, Collection, i18n) {
 
         var Module = app.module('employee', function (module) {
 
@@ -15,7 +16,7 @@ define(
 
             app.collection('employees', new Collection());
             app.collection('employees').reloadCollection = function(){
-                return app.loader('Загрузка сотрудников', this.fetch());
+                return app.loader(i18n.loadingCollection, this.fetch());
             };
 
             app.addInitializer(function(){

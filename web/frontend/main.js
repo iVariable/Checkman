@@ -10,7 +10,8 @@ require.config({
         i18n: 'bower_components/requirejs-i18n/i18n',
         backbone_routefilter: 'bower_components/backbone.routefilter/dist/backbone.routefilter.min',
         backbone_actas_paginatable: 'bower_components/backbone.actas.paginatable/src/Backbone.actAs.Paginatable',
-        moment: 'bower_components/momentjs/moment'
+        moment: 'bower_components/momentjs/moment',
+        nls: 'nls'
     },
     shim: {
         jquery: {
@@ -38,27 +39,27 @@ require.config({
 
     packages: [
         "application", "bicycle"
-        ,"modules/occupation", "modules/reports", "helpers", "modules/project", "modules/region", "modules/employee", "modules/spendings-type", "modules/spending"
+        , "modules/occupation", "modules/reports", "helpers", "modules/project", "modules/region", "modules/employee", "modules/spendings-type", "modules/spending"
         , "modules/report-involvement"
         , "modules/project-involvement"
     ]
 });
 
 require(
-[
-    'application',
-    'mixins/main',
-    //reports
-    'modules/reports',
-    //admin
-    'modules/region', 'modules/occupation', "modules/project", "modules/employee",
-    'modules/project-involvement', "modules/spendings-type", "modules/spending",
-    //involvements
-    "modules/report-involvement"
-],
-function(app){
+    [
+        'application',
+        'mixins/main',
+        //reports
+        'modules/reports',
+        //admin
+        'modules/region', 'modules/occupation', "modules/project", "modules/employee",
+        'modules/project-involvement', "modules/spendings-type", "modules/spending",
+        //involvements
+        "modules/report-involvement"
+    ],
+    function (app) {
 
-    window.CodeMonkeysBudget = app;
-    app.start();
+        window.CodeMonkeysBudget = app;
+        app.start();
 
-});
+    });

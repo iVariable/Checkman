@@ -1,7 +1,7 @@
 <table class="table table-striped table-bordered box">
     <thead>
         <tr>
-            <th colspan="2">Проекты</th>
+            <th colspan="2"><%=i18n.projects%></th>
         </tr>
     </thead>
     <tbody>
@@ -14,13 +14,13 @@
                 <%if(date.start){%>
                 <%=date.start%>
                 <%}else{%>
-                с начала времен
+                <%=i18n.fromTheVeryBeginning%>
                 <%}%>
                 -
                 <%if(date.end){%>
                     <%=date.end%>
                 <%}else{%>
-                    по настоящее время
+                    <%=i18n.byToday%>
                 <%}%>
             </p>
             <%});%>
