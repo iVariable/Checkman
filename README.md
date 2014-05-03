@@ -15,6 +15,26 @@ Demo password: Admin
 
 Demo app reinstalls every night, so feel free to play around as you wish :)
 
+Why?
+====
+
+**Objective:** to know a prime cost of a project.
+
+**Prerequisites:**
+
+* You are in charge of a business, which has lots of simultaneously running projects.
+* Each project has a team with different members: different specialities, different numer of team members in each team.
+* Each team member has it's own salary and he can be a part of a different teams on different projects (e.g. frontend developer, qa-engineer). Kinda "part-time" team member. 
+* Each project also has it's own expenses apart from employees salaries. E.g. business trips, team certification, new furniture/computers for the team, etc.
+* Employees are split into different regions/divisions with their own boss (head of division), who has knowledge of their salaries and project involvement.
+* Project can has a team members from different regions/divisions
+
+Prime cost = sum of team members' salaries + "not-salary" spendings + indirect shared (among all projects) expenses (payment for office rent, for lunches, etc) 
+
+**Question:** How to control all this chaos? ![cry baby](http://static-cdn.jtvnw.net/jtv_user_pictures/chansub-global-emoticon-f6c13c7fc0a5c93d-36x30.png)
+
+**Answer:** Checkman ![wuf wuf](http://static-cdn.jtvnw.net/jtv_user_pictures/chansub-global-emoticon-3b96527b46b1c941-40x30.png)
+
 Installation
 ====
 
