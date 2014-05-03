@@ -20,7 +20,7 @@ class EmployeeSerializationListener
 
     public function onPreSerialize(\JMS\Serializer\EventDispatcher\PreSerializeEvent $event)
     {
-        if (!in_array($event->getObject()->getRegion()->getId(), $this->allowedRegionsIds)) {
+        if ($event->getObject()->getRegion() && !in_array($event->getObject()->getRegion()->getId(), $this->allowedRegionsIds)) {
             $this->salaries[] = $event->getObject()->getSalary();
             $event->getObject()->setSalary(null);
         }
@@ -28,7 +28,7 @@ class EmployeeSerializationListener
 
     public function onPostSerialize(\JMS\Serializer\EventDispatcher\ObjectEvent $event)
     {
-        if (!in_array($event->getObject()->getRegion()->getId(), $this->allowedRegionsIds)) {
+        if ($event->getObject()->getRegion() && !in_array($event->getObject()->getRegion()->getId(), $this->allowedRegionsIds)) {
             $event->getObject()->setSalary(array_pop($this->salaries));
         }
     }

@@ -4,7 +4,7 @@ imports:
 framework:
     test: ~
     session:
-        storage_id: session.storage.mock_file
+        storage_id: session.storage.filesystem
     profiler:
         enabled: false
 
@@ -18,3 +18,9 @@ swiftmailer:
 doctrine:
     dbal:
         dbname:   %database_name_test%
+security:
+    firewalls:
+        main:
+            http_basic: ~
+
+liip_functional_test: ~

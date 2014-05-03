@@ -12,7 +12,10 @@ $kernel->boot();
 
 $application = new Application($kernel);
 $application->setAutoExit(false);
-//executeCommand($application, "doctrine:schema:create");
+
+executeCommand($application, "doctrine:database:drop", ['--force' => true]);
+executeCommand($application, "doctrine:database:create");
+executeCommand($application, "doctrine:migrations:migrate");
 executeCommand($application, "doctrine:fixtures:load", ["--fixtures" => "src/Checkman/CheckmanBundle/DataFixtures/Test"]);
 
 //Shiiiiit
@@ -28,6 +31,7 @@ executeCommand(
 function executeCommand($application, $command, Array $options = array())
 {
     $options["--env"] = "test";
+    //$options["--verbose"] = true;
     $options["--quiet"] = true;
     $options["--no-interaction"] = true;
     $options = array_merge(array('command' => $command), $options);

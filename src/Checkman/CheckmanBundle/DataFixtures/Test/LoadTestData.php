@@ -171,7 +171,7 @@ class LoadTestData extends \Checkman\CheckmanBundle\DataFixtures\ORM\LoadFullDat
                 $employee = call_user_func_array([$repo, "newEntity"], $data);
                 $employee->setStatus($employee::STATUS_ACTIVE);
 
-                $employee->addOccupation($occupations[array_rand($occupations)]);
+                $employee->addOccupation($occupations['PHP developer']);
                 $employee->setRegion($region);
 
                 foreach ($eInfo['projects'] as $projectName) {

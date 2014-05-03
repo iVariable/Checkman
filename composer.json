@@ -37,6 +37,10 @@
 
     },
 
+    "require-dev": {
+        "liip/functional-test-bundle": "dev-master"
+    },
+
     "repositories": [
         {
             "type": "package",

@@ -121,6 +121,6 @@ repository_alias:
 
 simple_things_entity_audit:
     audited_entities:
-        - Checkman\BudgetBundle\Entity\Project
-        - Checkman\BudgetBundle\Entity\Employee
-        - Checkman\BudgetBundle\Entity\ProjectInvolvement
+        - Checkman\CheckmanBundle\Entity\Project
+        - Checkman\CheckmanBundle\Entity\Employee
+        - Checkman\CheckmanBundle\Entity\ProjectInvolvement
