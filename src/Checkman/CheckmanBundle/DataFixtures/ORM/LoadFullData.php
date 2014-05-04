@@ -106,7 +106,7 @@ class LoadFullData extends ContainerAware implements FixtureInterface
 
         foreach (self::$users as $username => $regions) {
             /** @var $user \Checkman\ApplicationBundle\Entity\User */
-            $user = $manipulator->create($username, $username, $username . '@test.local', true, false);
+            $user = $manipulator->create($username, $username, $username . '@test.local', true, $username == "Admin");
             foreach ($regions as $regionName) {
                 $user->addRegion($this->regions[$regionName]);
             }
