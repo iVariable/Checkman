@@ -1,0 +1,25 @@
+<h4><%=i18n.overallReport.title%></h4>
+<div class="row-fluid">
+    <div class="span6">
+        <dl>
+            <dt><%=i18n.overallReport.dateStart%></dt>
+            <dd><%=view.overallReport.getDateStart()%></dd>
+            <dt><%=i18n.overallReport.totalEmployees%></dt>
+            <dd><%=view.overallReport.get('employeesInvolved').length%></dd>
+        </dl>
+    </div>
+    <div class="span6">
+        <dl>
+            <dt><%=i18n.overallReport.totalManDays%></dt>
+            <dd><%=view.overallReport.get('overallManDays')%></dd>
+
+            <dt><%=i18n.overallReport.totalSpendings%></dt>
+            <dd><%=_(view.overallReport.getOverallSpendings()).currencyFormat(true)%></dd>
+        </dl>
+    </div>
+</div>
+
+
+
+
+

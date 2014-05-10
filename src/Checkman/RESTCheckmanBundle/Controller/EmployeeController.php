@@ -41,7 +41,7 @@ class EmployeeController extends \Checkman\RESTCheckmanBundle\Controller\Helper\
      */
     public function getEmployeeProjectshistoryAction($id)
     {
-        $data = $this->get('checkman.history')->getEmployeeProjectsHistory($id);
+        $data = $this->get('checkman.reports.history')->getEmployeeProjectsHistory($id);
 
         return $data;
     }

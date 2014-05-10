@@ -28,7 +28,7 @@ class ReportsController extends FOSRestController
     public function getRegionSharedSpendingsAction($id, $year, $month, $format="json")
     {
         $date = \DateTime::createFromFormat('d-m-Y', '1-'.$month.'-'.$year);
-        $sharedSpengins = $this->get('checkman.reports')->getSharedSpendingsByRegionAndDate($id, $date);
+        $sharedSpengins = $this->get('checkman.reports.general')->getSharedSpendingsByRegionAndDate($id, $date);
 
         $view = $this->view($sharedSpengins, 200)
             ->setFormat($format);
@@ -44,7 +44,7 @@ class ReportsController extends FOSRestController
         if ($year === null) {
             $year = date('Y');
         }
-        $data = $this->get('checkman.reports')->getProjectsSummary($year);
+        $data = $this->get('checkman.reports.general')->getProjectsSummary($year);
 
         $view = $this->view($data, 200)
             ->setFormat($format);
@@ -59,7 +59,7 @@ class ReportsController extends FOSRestController
         if ($year === null) {
             $year = date('Y');
         }
-        $data = $this->get('checkman.reports')->getRegionalYearlyReport($id, $year);
+        $data = $this->get('checkman.reports.general')->getRegionalYearlyReport($id, $year);
 
         $view = $this->view($data, 200)
             ->setFormat($format);
@@ -75,44 +75,9 @@ class ReportsController extends FOSRestController
         if ($year === null) {
             $year = date('Y');
         }
-        $data = $this->get('checkman.reports')->getFOT($year);
+        $data = $this->get('checkman.reports.general')->getFOT($year);
 
         $view = $this->view(array_values($data), 200)
-            ->setFormat($format);
-
-        return $this->handleView($view);
-    }
-
-    /**
-     * @Route("/project/{projectId}/{year}.{_format}", defaults={"year": null, "_format": "json"}, name="api_v1_reports_project")
-     */
-    public function projectSummaryAction($projectId, $year = null, $format = 'json')
-    {
-        if ($year === null) {
-            $year = date('Y');
-        }
-        $data = $this->get('checkman.reports')->getProjectSummary($projectId, $year);
-
-        $view = $this->view($data, 200)
-            ->setFormat($format);
-
-        return $this->handleView($view);
-    }
-
-    /**
-     * @Route("/project/{projectId}/{year}/{month}.{_format}", defaults={"year": null, "month": null, "_format": "json"}, name="api_v1_reports_project_month_detail")
-     */
-    public function projectMonthDetailsAction($projectId, $year = null, $month = null, $format = 'json')
-    {
-        if ($year === null) {
-            $year = date('Y');
-        }
-        if ($month === null) {
-            $month = date('m');
-        }
-        $data = $this->get('checkman.reports')->getProjectMonthDetails($projectId, $year, $month);
-
-        $view = $this->view($data, 200)
             ->setFormat($format);
 
         return $this->handleView($view);

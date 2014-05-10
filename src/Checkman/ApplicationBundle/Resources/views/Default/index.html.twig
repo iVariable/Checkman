@@ -63,6 +63,9 @@
                 },
                 "modules/financial-reports/project-month/project-month-details-collection": {
                     url: "{{ path("api_v1_reports_project_month_detail", {"projectId": ":id", "year": ":year", "month": ":month"}) }}"
+                },
+                "modules/financial-reports/project-summary/project-overall.model": {
+                    url: "{{ path("api_v1_reports_project_overall", {"projectId": ":id"}) }}"
                 }
             }
         };

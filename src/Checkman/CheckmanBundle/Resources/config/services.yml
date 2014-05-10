@@ -3,15 +3,15 @@ parameters:
     checkman.history.class: Checkman\CheckmanBundle\Service\History
 
 services:
-    checkman.services.factory:
-        class: Checkman\CheckmanBundle\Service\Factory
-        arguments: [@service_container]
-
     checkman.reports:
+            class: Checkman\CheckmanBundle\Service\Factory
+            arguments: [@service_container]
+
+    checkman.reports.general:
         class: %checkman.reports.class%
-        factory_service: checkman.services.factory
+        factory_service: checkman.reports
         factory_method: getReportsForCurrentUser
 
-    checkman.history:
+    checkman.reports.history:
         class: %checkman.history.class%
         arguments: [@service_container]

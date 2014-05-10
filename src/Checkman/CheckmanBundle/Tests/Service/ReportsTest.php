@@ -49,7 +49,7 @@ class ReportsFunctionalTest extends WebTestCase
         $this->projects['office.nsk'] = $container->get('r.project')->findOneByTitle('Офис. Novosibirsk');
 
         /** @var  $servicesFactory \Checkman\CheckmanBundle\Service\Factory */
-        $servicesFactory = $container->get('checkman.services.factory');
+        $servicesFactory = $container->get('checkman.reports');
 
         /** @var  $reports \Checkman\CheckmanBundle\Service\Reports */
         $this->reports['Tgn'] = $servicesFactory->getReportsForUser($this->users['Tgn']);
@@ -59,6 +59,16 @@ class ReportsFunctionalTest extends WebTestCase
 
         /** @var  $reports \Checkman\CheckmanBundle\Service\Reports */
         $this->reports['Admin'] = $servicesFactory->getReportsForUser($this->users['Admin']);
+
+        foreach ($this->reports as $username => $report) {
+            $user = $this->users[$username];
+            $this->reports[$username . '.project'] = function (\Checkman\CheckmanBundle\Entity\Project $project) use (
+                $servicesFactory,
+                $user
+            ) {
+                return $servicesFactory->getProjectReportsForUser($project->getId(), $user);
+            };
+        }
 
         $this->testYear = explode('.', LoadTestData::$testDateStart)[2];
         $this->testMonth = (int)explode('.', LoadTestData::$testDateStart)[1];
@@ -124,8 +134,9 @@ class ReportsFunctionalTest extends WebTestCase
 
         foreach ($expectations as $expectation) {
             foreach ($expectation['results'] as $expectedUserResult) {
-                $spendings = $this->reports[$expectedUserResult['user']->getUsername()]->getProjectSummaryClear(
-                    $expectation['project']->getId(),
+                $spendings = $this->reports[$expectedUserResult['user']->getUsername() . '.project'](
+                    $expectation['project']
+                )->getAnnualSpendings_Clear(
                     $this->testYear
                 );
                 $checkSummary(
@@ -221,8 +232,9 @@ class ReportsFunctionalTest extends WebTestCase
 
         foreach ($expectations as $expectation) {
             foreach ($expectation['results'] as $expectedUserResult) {
-                $spendings = $this->reports[$expectedUserResult['user']->getUsername()]->getProjectSummary(
-                    $expectation['project']->getId(),
+                $spendings = $this->reports[$expectedUserResult['user']->getUsername() . '.project'](
+                    $expectation['project']
+                )->getAnnualSpendings(
                     $this->testYear
                 );
                 $checkSummary(

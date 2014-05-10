@@ -1,6 +1,6 @@
 define(
-    [],
-    function(){
+    ['i18n!./nls/currency'],
+    function(i18n){
         _.mixin({
 
             currencyFormat: function(value, showCurrency){
@@ -21,7 +21,7 @@ define(
                     formattedValue = intPart + DecimalSeparator + decPart;
                     showCurrency = _.isUndefined(showCurrency)?true:showCurrency;
                     if (showCurrency) {
-                        formattedValue += " руб.";
+                        formattedValue += " "+i18n.currency;
                     }
                 }
 
