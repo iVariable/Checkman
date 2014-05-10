@@ -4,6 +4,7 @@ define({
         loadingReport: 'Загрузка годового отчета...',
         loadingRegionalReport: 'Загрузка регионального годового отчета...',
         loadingProjectReport: 'Загрузка отчета по проекту...',
+        loadingProjectOverallReport: 'Загрузка общего отчета по проекту...',
         loadingDetails: 'Загрузка детализации...',
         loadingWage: 'Загрузка ФОТ за год...',
 
@@ -31,6 +32,14 @@ define({
             oct: "Октябрь",
             nov: "Ноябрь",
             dec: "Декабрь"
+        },
+
+        overallReport: {
+            title: 'Статистика за все время жизни проекта',
+            totalManDays: "Всего человекодней:",
+            totalSpendings: "Всего затрат:",
+            totalEmployees: "Сотрудников работало на проекте:",
+            dateStart: "Дата начала учета:"
         },
         project: "Проект",
         total: "Итого",

@@ -2,13 +2,15 @@ define(
     [
         'marionette',
         './../project-summary-collection',
+        './../project-overall.model',
+        'tpl!./project-overall.tpl.html',
         'tpl!./projects.tpl.html',
         'tpl!./projects-month-report.tpl.html',
         'application',
         'i18n!./../../nls/general',
         'i18n!nls/general'
     ],
-    function (Marionette, Collection, TPL_List, TPL_Report, App, i18n, _i18n) {
+    function (Marionette, Collection, OverallModel, TPL_OverallReport, TPL_List, TPL_Report, App, i18n, _i18n) {
 
         return Marionette.ItemView.extend({
             template: TPL_List,
@@ -18,6 +20,7 @@ define(
             },
 
             report: new Collection(),
+            overallReport: new OverallModel(),
 
             onBeforeRender: function () {
                 var _this = this;
@@ -29,6 +32,11 @@ define(
                     this.report.setProjectAndYear(this.options.projectId, this.options.year);
                     App.loader(i18n.loadingProjectReport, this.report.fetch()).done(function () {
                         _this.renderReport();
+                    });
+
+                    this.overallReport.setProjectId(this.options.projectId);
+                    App.loader(i18n.loadingProjectOverallReport, this.overallReport.fetch()).done(function () {
+                        _this.renderOverallReport();
                     });
                 }
             },
@@ -53,11 +61,15 @@ define(
 
                 this.$('.j-report-container').html("Loaded");
 
-                this.$('.j-report-by-type').html(TPL_Report({view: this, i18n: i18n, _i18n: _i18n}));
+                this.$('.a-report-by-type').html(TPL_Report({view: this, i18n: i18n, _i18n: _i18n}));
 
             },
 
-            getMonths: function(){
+            renderOverallReport: function () {
+                this.$('.a-report-overall-stats').html(TPL_OverallReport({view: this, i18n: i18n, _i18n: _i18n}));
+            },
+
+            getMonths: function () {
                 var months = [
                     i18n.months.jan,
                     i18n.months.feb,
@@ -76,7 +88,7 @@ define(
                 return months;
             },
 
-            getSpendingTypes: function() {
+            getSpendingTypes: function () {
                 var types = this.report.pluck('type');
                 return _.unique(types);
             },
@@ -84,7 +96,7 @@ define(
             _formDataByMonths: function (report) {
                 var data = [],
                     months = this.getMonths()
-                ;
+                    ;
 
                 for (var i = 1; i < 13; i++) {
                     var monthCost = this.report.getTotalByMonth(i);

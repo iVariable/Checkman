@@ -2,6 +2,7 @@ define({
     loadingReport: 'Loading report...',
     loadingRegionalReport: 'Loading regional report...',
     loadingProjectReport: 'Loading project report...',
+    loadingProjectOverallReport: 'Loading project overall report...',
     loadingDetails: "Loading detalization...",
     loadingWage: "Loading wage fund report...",
 
@@ -29,6 +30,14 @@ define({
         oct: "October",
         nov: "November",
         dec: "December"
+    },
+
+    overallReport: {
+        title: 'Project lifetime stats',
+        totalManDays: "Total man/days:",
+        totalSpendings: "Total spendings:",
+        totalEmployees: "Employees ever worked on project:",
+        dateStart: "Start recording date:"
     },
     project: "Project",
     total: "Total",

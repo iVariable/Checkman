@@ -14,11 +14,13 @@ class Reports
 {
 
     protected $container;
+    protected $user;
     protected $allowedRegionIds = [];
 
     function __construct($container, User $user)
     {
         $this->container = $container;
+        $this->user = $user;
         $this->allowedRegionIds = $user->getRegionIds();
     }
 
@@ -35,7 +37,7 @@ class Reports
      */
     public function getSharedSpendingsByRegionAndDate($regionId, \DateTime $date)
     {
-        //Подсчет количества сотрудников работавщих в регионе в выбранный месяц
+        //Подсчет количества сотрудников работавших в регионе в выбранный месяц
         $result = $this->getPreparedStatement(
             'SELECT COUNT(*) as cnt FROM (
                 SELECT
@@ -63,8 +65,9 @@ class Reports
         $totalSharedSum = array_reduce(
             $sharedProjects,
             function ($sum, $project) use ($that, $date) {
-                $details = $that->getProjectMonthClearDetails(
-                    $project->getId(),
+                //@TODO OMG
+                $report = $that->container->get('checkman.reports')->getProjectReportsForUser($project->getId(), $that->user);
+                $details = $report->getMonthSpendings_Clear(
                     $date->format('Y'),
                     $date->format('m')
                 );
@@ -98,8 +101,11 @@ class Reports
         $result = $this->getProjectsSummaryClear($year);
 
         foreach ($result as &$yearResult) {
-            $sharedSpendings = $this->getProjectMonthSharedSpendings(
-                $yearResult['project_id'],
+            //WHAT?
+            if (!$yearResult['project_id']) continue;
+            //@TODO OMG
+            $report = $this->container->get('checkman.reports')->getProjectReportsForUser($yearResult['project_id'], $this->user);
+            $sharedSpendings = $report->getMonthSharedSpendings(
                 $year,
                 $yearResult['month']
             );
@@ -135,173 +141,6 @@ class Reports
         $result->execute();
 
         return $result->fetchAll();
-    }
-
-    public function getProjectSummaryClear($projectId, $year)
-    {
-        $result = $this->getPreparedStatement(
-            'SELECT
-                s.type_id,
-                st.title AS type,
-                MONTH(s.date) AS month,
-                SUM(s.value) AS total
-            FROM Spendings s
-            LEFT JOIN SpendingsType st ON s.type_id=st.id
-            LEFT JOIN Employee e ON s.employee_id=e.id
-            WHERE
-                YEAR(s.date)="' . (int)$year . '"
-                AND s.project_id="' . (int)$projectId . '"
-                AND
-                ( e.id IS NULL OR e.region_id IN ('.implode(',', $this->allowedRegionIds).'))
-            GROUP BY
-                s.type_id, MONTH(s.date)'
-        );
-        $result->execute();
-
-        return $result->fetchAll();
-    }
-
-    /**
-     * Project summary for a year
-     *
-     * @param $projectId
-     * @param $year
-     * @return mixed
-     */
-    public function getProjectSummary($projectId, $year)
-    {
-        $result = $this->getProjectSummaryClear($projectId, $year);
-
-        for ($i = 1; $i < 13; $i++) {
-            $result[] = $this->getProjectMonthSharedSpendings($projectId, $year, $i);
-        }
-
-        return $result;
-    }
-
-    public function getProjectMonthSharedSpendings($projectId, $year, $month)
-    {
-        $project = $this->container->get('r.project')->findOneById($projectId);
-        $totalSum = 0;
-
-        if ($project && !$project->getRegion()) {
-
-            $salaryType = $this->container->get('r.spendings_type')->getSalaryType();
-
-            $reports = $this->getProjectMonthClearDetails($projectId, $year, $month);
-
-            $sharedSpendings = [];
-
-            $startDate = \DateTime::createFromFormat('d-m-Y', '1-' . $month . '-' . $year);
-            /**
-             * pzdc
-             */
-            $endDate = \DateTime::createFromFormat('U', strtotime('+1 month', $startDate->getTimestamp()));
-            foreach ($reports as &$report) {
-                if ($report['type_id'] != $salaryType->getId()) {
-                    continue;
-                }
-                if (!in_array($report['employee_region_id'], $this->allowedRegionIds)) continue;
-                if (!array_key_exists($report['employee_region_id'], $sharedSpendings)) {
-                    $sharedSpendings[$report['employee_region_id']] = $this->getSharedSpendingsByRegionAndDate(
-                        $report['employee_region_id'],
-                        $startDate
-                    );
-                }
-                $sharedSpending = $sharedSpendings[$report['employee_region_id']];
-
-                $spendings = $this->container->get('r.spendings')->getByDates(
-                    $startDate,
-                    $endDate,
-                    [
-                        'employee_id' => $report['employee_id'],
-                        'type_id' => $salaryType->getId(),
-                        'project_id' => $projectId
-                    ]
-                );
-                $totalSum += array_reduce(
-                    $spendings,
-                    function ($sum, $spending) use ($sharedSpending) {
-                        return $sum + ($sharedSpending['perEmployeeDay'] / 100 * $spending->getExtra());
-                    },
-                    0
-                );
-
-            }
-        }
-
-        return [
-            'type_id' => 0,
-            'type' => 'Затраты на содержание офиса',
-            'total' => $totalSum,
-            'rows' => 1,
-            'month' => $month,
-            'description' => ['Затраты на содержание офиса. Аггрегация.']
-        ];
-
-    }
-
-    /**
-     * Detailed monthly report WITH shared cost part (from shared project)
-     *
-     * @param $projectId
-     * @param $year
-     * @param $month
-     * @return array
-     */
-    public function getProjectMonthDetails($projectId, $year, $month)
-    {
-        $reports = $this->getProjectMonthClearDetails($projectId, $year, $month);
-
-        $reports[] = $this->getProjectMonthSharedSpendings($projectId, $year, $month);
-
-        return $reports;
-    }
-
-    /**
-     * Without shared part of cost (from shared projects)
-     *
-     * @param $projectId
-     * @param $year
-     * @param $month
-     * @return array
-     */
-    public function getProjectMonthClearDetails($projectId, $year, $month)
-    {
-        $result = $this->getPreparedStatement(
-            'SELECT
-                s.type_id,
-                st.title AS type,
-                e.region_id AS employee_region_id,
-                s.employee_id AS employee_id,
-                SUM(s.value) AS total,
-                COUNT(s.id) AS rows,
-                GROUP_CONCAT(s.description SEPARATOR " -|- ") AS description
-            FROM Spendings s
-            LEFT JOIN SpendingsType st ON s.type_id=st.id
-            LEFT JOIN Employee e ON s.employee_id=e.id
-            WHERE
-                YEAR(s.date)="' . (int)$year . '"
-                    AND MONTH(s.date)="' . (int)$month . '"
-                    AND s.project_id="' . (int)$projectId . '"
-                    AND ( e.id IS NULL OR e.region_id IN ('.implode(',', $this->allowedRegionIds).'))
-                GROUP BY
-                    s.type_id, s.employee_id'
-        );
-        $result->execute();
-
-        $data = $result->fetchAll();
-
-        $data = array_map(
-            function ($element) {
-                $element['description'] = explode('-|-', $element['description']);
-
-                return $element;
-            },
-            $data
-        );
-
-        return $data;
     }
 
     public function getRegionalYearlyReport($id, $year)
