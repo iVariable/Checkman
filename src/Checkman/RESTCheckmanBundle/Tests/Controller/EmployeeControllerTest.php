@@ -27,7 +27,7 @@ class EmployeeControllerTest extends AbstractWebTestCase
 
     public function testGetProjectHistoryAction()
     {
-        $answer = '[{"id":"1","title":"yandex.ru","dates":[{"start":"2014-05-03","end":false}]},{"id":"2","title":"google.com","dates":[{"start":"2014-05-03","end":false}]}]';
+        $answer = '[{"id":"1","title":"yandex.ru","dates":[{"start":"'.date('Y-m-d').'","end":false}]},{"id":"2","title":"google.com","dates":[{"start":"'.date('Y-m-d').'","end":false}]}]';
         $route = $this->getUrl('api_v1_get_employee_projectshistory', array('id' => 1, '_format' => 'json'));
         $this->simpleResponseTest($route, $answer, 'Got correct project history');
     }
