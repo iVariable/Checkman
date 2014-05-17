@@ -329,3 +329,15 @@ strike, s {
     position: absolute;
     right: 0px;
     top: 10px; }
+
+.b-table__cell_title, .b-table tr td:first-child, .b-table tr th:first-child {
+    width: 250px;
+}
+
+.b-table textarea {
+    width: 100%;
+}
+
+.b-table input {
+    width: 100%;
+}

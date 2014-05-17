@@ -12,7 +12,7 @@ fields.push(key);
     </div>
     <div class="modal-body separator">
 <%};%>
-<table class="table table-striped table-bordered box">
+<table class="table table-striped table-bordered box b-table">
     <%if(!view.options.drawAsWindow){%>
     <thead>
         <tr>
@@ -25,7 +25,7 @@ fields.push(key);
             <%if(view.options.exclude && _(view.options.exclude).contains(key)) return;%>
             <%var attr = model.get(key);%>
             <tr>
-                <th><%if(view.options.translations && view.options.translations[key]){%><%=view.options.translations[key]%><%}else{%><%=key%><%}%></th>
+                <th class="b-table__cell_title"><%if(view.options.translations && view.options.translations[key]){%><%=view.options.translations[key]%><%}else{%><%=key%><%}%></th>
                 <td>
                     <%if(view.options.fields && view.options.fields[key]){%>
                         <%if(view.options.fields[key].getter){
