@@ -21,7 +21,6 @@ define(
 
             event_toggleDetails: function (e) {
                 $(e.currentTarget).toggleClass('b-project__state_full');
-                window.v = $(e.currentTarget);
                 $(e.currentTarget).find('.j-folder-icon').toggleClass('icon-folder-close').toggleClass('icon-folder-open');
             },
 
